@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import HomeContainer from '../containers/GameContainer'
+import GameContainer from '../containers/GameContainer'
 import HighScoresContainer from '../containers/HighScoresContainer'
 import StatisticsContainer from '../containers/StatisticsContainer'
 
