@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
 
-class HighScoresContainer extends Component {
+class ProfileContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,10 +16,10 @@ class HighScoresContainer extends Component {
 
     return(
       <section className="main-section">
-        Hello From High Scores Container
+        Hello From Profile Container
       </section>
     )
   }
 }
 
-export default HighScoresContainer
+export default ProfileContainer

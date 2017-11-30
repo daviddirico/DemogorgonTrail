@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
 
-class StatisticsContainer extends Component {
+class InformationContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,11 +15,11 @@ class StatisticsContainer extends Component {
   render() {
 
     return(
-      <div>
-        Hello From Statistics Container
-      </div>
+      <section className="main-section">
+        Hello From Information Container
+      </section>
     )
   }
 }
 
-export default StatisticsContainer
+export default InformationContainer
