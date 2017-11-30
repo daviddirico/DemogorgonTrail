@@ -2,7 +2,8 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import GameContainer from '../containers/GameContainer'
 import HighScoresContainer from '../containers/HighScoresContainer'
-import StatisticsContainer from '../containers/StatisticsContainer'
+import InformationContainer from '../containers/InformationContainer'
+import ProfileContainer from '../containers/ProfileContainer'
 
 
 // The Main component renders one of the three provided
@@ -14,8 +15,9 @@ const Main = props => {
   return(
     <Switch>
       <Route exact path="/" component={GameContainer} />
+      <Route exact path="/information" component={InformationContainer} />
       <Route exact path="/highscores" component={HighScoresContainer} />
-      <Route exact path="/statistics" component={StatisticsContainer} />
+      <Route exact path="/profile" component={ProfileContainer} />
     </Switch>
   )
 }

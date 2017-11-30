@@ -15,9 +15,9 @@ class GameContainer extends Component {
   render() {
 
     return(
-      <div>
+      <section className="main-section">
         Hello From Game Container
-      </div>
+      </section>
     )
   }
 }
