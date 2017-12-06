@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import Main from './Main'
 
@@ -10,10 +11,10 @@ class App extends Component {
       icon: false,
       toggleClassName: "off-canvas-wrap docs-wrap main-nav"
     }
-    this.handleClick = this.handleClick.bind(this)
+    this.handleIconClick = this.handleIconClick.bind(this)
   }
 
-  handleClick() {
+  handleIconClick() {
     if (this.state.icon == false) {
       this.setState({
         icon: true,
@@ -34,11 +35,14 @@ class App extends Component {
         <div className="inner-wrap navigation-bar">
           <nav className="tab-bar">
             <section className="left-small">
-              <a onClick={this.handleClick} className="left-off-canvas-toggle menu-icon"><span></span></a>
+              <a onClick={this.handleIconClick} className="left-off-canvas-toggle menu-icon"><span></span></a>
             </section>
-            <section className="right tab-bar-section">
+            <section className="middle tab-bar-section">
               <h1 className="title">The Demogorgon Trail</h1>
             </section>
+            <ul className="right">
+              <Link to='/sign_up'>Sign Up</Link>
+            </ul>
           </nav>
           <Nav />
           <Main />
