@@ -15,8 +15,17 @@
 
  */
 
+html, body {
+  margin: 0px;
+  padding: 0px;
+}
+
 .react {
   height: 100%;
+}
+
+.tab-bar {
+  background-color: gray;
 }
 
 .main-nav {
@@ -25,4 +34,17 @@
 
 .navigation-bar {
   height: 100%;
+}
+
+.right {
+  color: white;
+  background-color: rgb(100, 30, 30);
+}
+
+.main-section {
+  margin: 0px;
+  padding: 30px;
+  height: 100%;
+  color: white;
+  background-color: rgb(100, 30, 30);
 }
