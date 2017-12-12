@@ -23,12 +23,17 @@ class SignUpContainer extends Component {
 
   handleFormSubmit(event) {
     event.preventDefault()
-    let formPayload = {
-      username: this.state.username,
-      email: this.state.email,
-      encrypted_password: this.state.password,
-      profile_photo: this.state.icon
-    }
+    let formPayload = new FormData()
+    formPayload.append('username', this.state.username)
+    formPayload.append('email', this.state.email)
+    formPayload.append('encypted_password', this.state.password)
+    formPayload.append('profile_photo', this.state.icon)
+    //   username: this.state.username,
+    //   email: this.state.email,
+    //   encrypted_password: this.state.password,
+    //   profile_photo: this.state.icon
+    // }
+    debugger;
     this.addUser(formPayload)
   }
 
