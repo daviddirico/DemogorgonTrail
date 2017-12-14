@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { Link } from 'react-router-dom';
-import TextField from "../components/TextField"
+import SignUpForm from "../components/SignUpForm";
+import PreviewForm from '../components/PreviewForm'
 
 
 class SignUpContainer extends Component {
@@ -11,39 +12,18 @@ class SignUpContainer extends Component {
       username: "",
       email: "",
       password: "",
-      icon: ""
+      image: "",
+      errors: [],
+      success: '',
+      previewVisible: false
     }
-    this.handleFormSubmit = this.handleFormSubmit.bind(this)
-    this.addUser = this.addUser.bind(this)
     this.handleUsernameChange = this.handleUsernameChange.bind(this)
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
-    this.handleIconChange = this.handleIconChange.bind(this)
-  }
-
-  handleFormSubmit(event) {
-    event.preventDefault()
-    let formPayload = new FormData()
-    formPayload.append('username', this.state.username)
-    formPayload.append('email', this.state.email)
-    formPayload.append('encypted_password', this.state.password)
-    formPayload.append('profile_photo', this.state.icon)
-    //   username: this.state.username,
-    //   email: this.state.email,
-    //   encrypted_password: this.state.password,
-    //   profile_photo: this.state.icon
-    // }
-    debugger;
-    this.addUser(formPayload)
-  }
-
-  addUser(formPayload) {
-    fetch("/api/v1/users", {
-      method: 'POST',
-      body: JSON.stringify(formPayload),
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'same-origin'
-    })
+    this.clearForm = this.clearForm.bind(this)
+    this.onDrop = this.onDrop.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.addUser = this.addUser.bind(this)
   }
 
   handleUsernameChange(event) {
@@ -61,56 +41,106 @@ class SignUpContainer extends Component {
     console.log(this.state.password)
   }
 
-  handleIconChange(event) {
-    this.setState({ icon: event.target.value })
-    console.log(this.state.icon)
+  clearForm(){
+    this.setState({
+      username: '',
+      email: '',
+      password: '',
+      image: '',
+      errors: [],
+      success: 'You have successfully signed up!',
+      previewVisible: false
+    })
   }
 
+  onDrop(event){
+    if(event.length == 1){
+      this.setState({ image: event[0], errors: [], previewVisible: true, success: '' })
+    } else {
+      this.setState({ errors: ['Please only upload one image.']})
+    }
+  }
+
+  handleFormSubmit(event) {
+    event.preventDefault()
+    let formPayload = new FormData()
+    formPayload.append('username', this.state.username)
+    formPayload.append('email', this.state.email)
+    formPayload.append('encrypted_password', this.state.password)
+    formPayload.append('profile_photo', this.state.image)
+    this.addUser(formPayload)
+    this.clearForm()
+  }
+
+  addUser(formPayload) {
+    fetch("/api/v1/users", {
+      method: 'POST',
+      body: formPayload,
+      credentials: 'same-origin'
+    })
+  }
 
   render() {
 
+    let errors;
+    if(this.state.errors.length > 0){
+      errors = this.state.errors.map( (error, index) => {
+        return(
+          <p key={index} >{error}</p>
+        )
+      })
+    }
 
+    // let dropzoneStyle = {
+    //   background: 'none',
+    //   border: '3px dotted grey',
+    //   height: '150px'
+    // }
+
+    let success;
+    if(this.state.success != '' && !this.props.loading ){
+      success = <h4>{this.state.success}</h4>
+    }
+
+    // let style = {
+    //   container: {
+    //     position: 'relative',
+    //   },
+    //   refresh: {
+    //     display: 'inline-block',
+    //     position: 'relative',
+    //   },
+    // };
+
+
+    let loading;
+    if(this.props.loading){
+      loading = <div><RefreshIndicator size={50} left={0} top={25} loadingColor="#FF9800" status="loading"/></div>
+    }
+
+    let preview;
+    if(this.state.previewVisible){
+      preview = <PreviewForm image={this.state.image.preview}/>
+    }
 
     return(
       <section className="main-section">
 
-        Please enter the following information
-
-        <form className="SignUpForm" onSubmit={this.handleFormSubmit}>
-          <TextField
-            content={this.state.username}
-            label='Desired Username'
-            type='text'
-            name='username'
-            handleChange={this.handleUsernameChange}
-          />
-
-          <TextField
-            content={this.state.email}
-            label='Email'
-            type='text'
-            name='email'
-            handleChange={this.handleEmailChange}
-          />
-
-          <TextField
-            content={this.state.password}
-            label='Password'
-            type='text'
-            name='password'
-            handleChange={this.handlePasswordChange}
-          />
-
-          <TextField
-            content={this.state.icon}
-            label='Upload Profile Image'
-            type='file'
-            name='icon'
-            handleChange={this.handleIconChange}
-          />
-
-          <input className="submit" type="submit" value="Submit" />
-        </form>
+        <SignUpForm
+          success={success}
+          preview={preview}
+          loading={loading}
+          errors={errors}
+          handleSubmit={this.handleFormSubmit}
+          usernameContent={this.state.username}
+          emailContent={this.state.email}
+          passwordContent={this.state.password}
+          handleUsernameChange={this.handleUsernameChange}
+          handleEmailChange={this.handleEmailChange}
+          handlePasswordChange={this.handlePasswordChange}
+          onDrop={this.onDrop}
+          imageValue={this.state.image.preview}
+        />
 
       </section>
     )

@@ -430,7 +430,6 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   fog
-  fog-aws
   foundation-rails
   launchy
   listen (~> 3.0.5)
