@@ -7,10 +7,17 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     binding.pry
-    attributes = JSON.parse(request.body.read)
-    matching_user = User.where(username: attributes["username"], email: attributes["email"])
+    @username = params["username"]
+    @email = params["email"]
+    @encrypted_password = params["encrypted_password"]
+    @profile_photo = params["profile_photo"]
+    matching_user = User.where(username: @username, email: @email)
     if matching_user == []
-      user = User.new(attributes)
+      user = User.new
+      user.username = @username
+      user.email = @email
+      user.encrypted_password = @encrypted_password
+      user.profile_photo = @profile_photo
       if user.save
         render json: user
       else
