@@ -9,10 +9,31 @@ class App extends Component {
     super(props);
     this.state = {
       icon: false,
-      toggleClassName: "off-canvas-wrap docs-wrap main-nav"
+      toggleClassName: "off-canvas-wrap docs-wrap main-nav",
+      user: {}
     }
     this.handleIconClick = this.handleIconClick.bind(this)
   }
+
+  // ComponentDidMount() {
+  //   fetch('api/v1/users', {
+  //     headers: { 'Content-Type': 'application/json' },
+  //     credentials: 'same-origin'
+  //   })
+  //   .then(response => {
+  //     if (response.ok) {
+  //       return response;
+  //     } else {
+  //       let errorMessage = `${response.status} (${response.statusText})`,
+  //       error = new Error(errorMessage);
+  //       throw(error);
+  //     }
+  //   })
+  //   .then(response => console.log(response))
+  //   .then(json => {
+  //     this.setState({ user: json });
+  //   });
+  // }
 
   handleIconClick() {
     if (this.state.icon == false) {

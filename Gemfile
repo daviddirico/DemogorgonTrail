@@ -1,5 +1,6 @@
 source 'https://rubygems.org/'
 
+gem 'bcrypt', '3.1.11'
 gem 'carrierwave', '~> 1.0'
 gem "fog"
 gem 'foundation-rails'

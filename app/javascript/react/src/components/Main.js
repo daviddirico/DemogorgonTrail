@@ -6,6 +6,7 @@ import InformationContainer from '../containers/InformationContainer'
 import ProfileContainer from '../containers/ProfileContainer'
 import SignUpContainer from '../containers/SignUpContainer'
 import SignInContainer from '../containers/SignInContainer'
+import HomeContainer from '../containers/HomeContainer'
 
 
 // The Main component renders one of the three provided
@@ -16,7 +17,8 @@ import SignInContainer from '../containers/SignInContainer'
 const Main = props => {
   return(
     <Switch>
-      <Route exact path="/" component={GameContainer} />
+      <Route exact path="/" component={HomeContainer} />
+      <Route exact path="/game" component={GameContainer} />
       <Route exact path="/information" component={InformationContainer} />
       <Route exact path="/highscores" component={HighScoresContainer} />
       <Route exact path="/profile" component={ProfileContainer} />

@@ -1,8 +1,9 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
+  serialization_scope :current_user
 
   def index
-    render json: {users: User.all }
+    render json: current_user, serializer: CurrentUserSerializer
   end
 
   def create

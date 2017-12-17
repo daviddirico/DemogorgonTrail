@@ -12,6 +12,7 @@ class SignUpContainer extends Component {
       username: "",
       email: "",
       password: "",
+      passwordConfirmation: "",
       image: "",
       errors: [],
       success: '',
@@ -20,6 +21,7 @@ class SignUpContainer extends Component {
     this.handleUsernameChange = this.handleUsernameChange.bind(this)
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
+    this.handlePasswordConfirmationChange = this.handlePasswordConfirmationChange.bind(this)
     this.clearForm = this.clearForm.bind(this)
     this.onDrop = this.onDrop.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -41,11 +43,18 @@ class SignUpContainer extends Component {
     console.log(this.state.password)
   }
 
+  handlePasswordConfirmationChange(event) {
+    this.setState({ passwordConfirmation: event.target.value })
+    console.log(this.state.passwordConfirmation)
+  }
+
+
   clearForm(){
     this.setState({
       username: '',
       email: '',
       password: '',
+      passwordConfirmation: '',
       image: '',
       errors: [],
       success: 'You have successfully signed up!',
@@ -66,7 +75,8 @@ class SignUpContainer extends Component {
     let formPayload = new FormData()
     formPayload.append('username', this.state.username)
     formPayload.append('email', this.state.email)
-    formPayload.append('encrypted_password', this.state.password)
+    formPayload.append('password', this.state.password)
+    formPayload.append('password_confirmation', this.state.passwordConfirmation)
     formPayload.append('profile_photo', this.state.image)
     this.addUser(formPayload)
     this.clearForm()
@@ -126,6 +136,8 @@ class SignUpContainer extends Component {
     return(
       <section className="main-section">
 
+        <Link to='/'>Return Home</Link>
+
         <SignUpForm
           success={success}
           preview={preview}
@@ -135,9 +147,11 @@ class SignUpContainer extends Component {
           usernameContent={this.state.username}
           emailContent={this.state.email}
           passwordContent={this.state.password}
+          passwordConfirmationContent={this.state.passwordConfirmation}
           handleUsernameChange={this.handleUsernameChange}
           handleEmailChange={this.handleEmailChange}
           handlePasswordChange={this.handlePasswordChange}
+          handlePasswordConfirmationChange={this.handlePasswordConfirmationChange}
           onDrop={this.onDrop}
           imageValue={this.state.image.preview}
         />
