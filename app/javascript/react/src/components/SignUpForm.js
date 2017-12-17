@@ -25,6 +25,9 @@ const TextField = props => {
             <input type='text' onChange={props.handlePasswordChange} value={props.passwordContent} placeholder={'Password'}/>
           </label>
           <label>
+            <input type='text' onChange={props.handlePasswordConfirmationChange} value={props.passwordConfirmationContent} placeholder={'Password Confirmation'}/>
+          </label>
+          <label>
             <Dropzone onDrop={props.onDrop} value={props.imageValue}>
               Drag Image Here <br />
               {props.preview}
