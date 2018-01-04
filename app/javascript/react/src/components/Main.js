@@ -24,6 +24,7 @@ const Main = props => {
       <Route exact path="/profile" component={ProfileContainer} />
       <Route exact path="/sign_up" component={SignUpContainer} />
       <Route exact path="/sign_in" component={SignInContainer} />
+      <Route exact path="/sign_out" component={HomeContainer} />
     </Switch>
   )
 }

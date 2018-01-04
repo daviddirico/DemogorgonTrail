@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom'
-import Nav from './Nav'
-import Main from './Main'
+import Nav from '../components/Nav'
+import Main from '../components/Main'
+import SignedOutNavBar from '../components/SignedOutNavBar'
+import SignedInNavBar from '../components/SignedInNavBar'
+import AdminNavBar from '../components/AdminNavBar'
 
 class App extends Component {
   constructor(props) {
@@ -10,30 +13,33 @@ class App extends Component {
     this.state = {
       icon: false,
       toggleClassName: "off-canvas-wrap docs-wrap main-nav",
-      user: {}
+      signedIn: false,
+      currentUser: {}
     }
     this.handleIconClick = this.handleIconClick.bind(this)
   }
 
-  // ComponentDidMount() {
-  //   fetch('api/v1/users', {
-  //     headers: { 'Content-Type': 'application/json' },
-  //     credentials: 'same-origin'
-  //   })
-  //   .then(response => {
-  //     if (response.ok) {
-  //       return response;
-  //     } else {
-  //       let errorMessage = `${response.status} (${response.statusText})`,
-  //       error = new Error(errorMessage);
-  //       throw(error);
-  //     }
-  //   })
-  //   .then(response => console.log(response))
-  //   .then(json => {
-  //     this.setState({ user: json });
-  //   });
-  // }
+  componentDidMount(){
+  fetch('/api/v1/users', {
+    credentials: 'same-origin',
+    method: 'GET',
+    headers: { 'Content-Type':'application/json'}
+  })
+  .then(response => {
+    if (response.ok) {
+      return response;
+    } else {
+      let errorMessage = `${response.status} (${response.statusText})`,
+      error = new Error(errorMessage);
+      throw(error);
+    }
+  })
+  .then(response => response.json())
+  .then(body => {
+    debugger;
+    this.setState({ signedIn: body.signed_in, currentUser: body.current_user})
+  })
+}
 
   handleIconClick() {
     if (this.state.icon == false) {
@@ -51,6 +57,17 @@ class App extends Component {
 
   render() {
 
+    let user_signed_in;
+    if(!this.state.signed_in){
+        user_signed_in = <SignedOutNavBar/>
+    } else {
+      if(this.state.current_user.admin){
+        user_signed_in = <AdminNavBar/>
+      } else {
+        user_signed_in = <SignedInNavBar/>
+      }
+    }
+
     return(
       <div className={this.state.toggleClassName} data-offcanvas>
         <div className="inner-wrap navigation-bar">
@@ -61,9 +78,7 @@ class App extends Component {
             <section className="middle tab-bar-section">
               <h1 className="title">The Demogorgon Trail</h1>
             </section>
-            <ul className="right">
-              <Link to='/sign_up'>Sign Up</Link>
-            </ul>
+            {user_signed_in}
           </nav>
           <Nav />
           <Main />
