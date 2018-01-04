@@ -66,7 +66,7 @@ class SignUpContainer extends Component {
     if(event.length == 1){
       this.setState({ image: event[0], errors: [], previewVisible: true, success: '' })
     } else {
-      this.setState({ errors: ['Please only upload one image.']})
+      this.setState({ errors: "Please only upload one image."})
     }
   }
 
@@ -79,7 +79,6 @@ class SignUpContainer extends Component {
     formPayload.append('password_confirmation', this.state.passwordConfirmation)
     formPayload.append('profile_photo', this.state.image)
     this.addUser(formPayload)
-    this.clearForm()
   }
 
   addUser(formPayload) {
@@ -87,6 +86,14 @@ class SignUpContainer extends Component {
       method: 'POST',
       body: formPayload,
       credentials: 'same-origin'
+    })
+    .then(response => {
+      debugger;
+      if (response.status === 200) {
+        this.clearForm()
+      } else {
+        this.setState({ errors: ["Sign up failed!"] })
+      }
     })
   }
 
