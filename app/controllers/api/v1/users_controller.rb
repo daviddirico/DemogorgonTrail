@@ -5,18 +5,26 @@ class Api::V1::UsersController < ApplicationController
   # serialization_scope :current_user
 
   def index
-    render json: User.all
+    current_user = User.find_by(id: session[:user_id])
+    signed_in = false
+    if current_user
+      signed_in = true
+    else
+      signed_in = false
+    end
+    render json: { current_user: current_user, all_users: User.all, signed_in: signed_in }
+  end
+
+  def show
   end
 
   def create
-    binding.pry
     user = User.new
     user.username = params["username"]
     user.email = params["email"]
     user.password = params["password"]
     user.password_confirmation = params["password_confirmation"]
     user.profile_photo = params["profile_photo"]
-    # binding.pry
     if user.save
       render json: user
     end

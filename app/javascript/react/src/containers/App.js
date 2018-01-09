@@ -17,29 +17,50 @@ class App extends Component {
       currentUser: {}
     }
     this.handleIconClick = this.handleIconClick.bind(this)
+    // this.displayUser = this.displayUser.bind(this)
   }
 
   componentDidMount(){
-  fetch('/api/v1/users', {
-    credentials: 'same-origin',
-    method: 'GET',
-    headers: { 'Content-Type':'application/json'}
-  })
-  .then(response => {
-    if (response.ok) {
-      return response;
-    } else {
-      let errorMessage = `${response.status} (${response.statusText})`,
-      error = new Error(errorMessage);
-      throw(error);
-    }
-  })
-  .then(response => response.json())
-  .then(body => {
-    debugger;
-    this.setState({ signedIn: body.signed_in, currentUser: body.current_user})
-  })
-}
+    fetch('/api/v1/users', {
+      credentials: 'same-origin',
+      method: 'GET',
+      headers: { 'Content-Type':'application/json'}
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ signedIn: body.signed_in, currentUser: body.current_user})
+    })
+  }
+
+  // displayUser(){
+  //   fetch('/api/v1/users', {
+  //     credentials: 'same-origin',
+  //     method: 'GET',
+  //     headers: { 'Content-Type':'application/json'}
+  //   })
+  //   .then(response => {
+  //     if (response.ok) {
+  //       return response;
+  //     } else {
+  //       let errorMessage = `${response.status} (${response.statusText})`,
+  //       error = new Error(errorMessage);
+  //       throw(error);
+  //     }
+  //   })
+  //   .then(response => response.json())
+  //   .then(body => {
+  //     this.setState({ signedIn: body.signed_in, currentUser: body.current_user})
+  //   })
+  // }
 
   handleIconClick() {
     if (this.state.icon == false) {
@@ -58,13 +79,13 @@ class App extends Component {
   render() {
 
     let user_signed_in;
-    if(!this.state.signed_in){
-        user_signed_in = <SignedOutNavBar/>
+    if(!this.state.signedIn){
+        user_signed_in = <SignedOutNavBar />
     } else {
-      if(this.state.current_user.admin){
-        user_signed_in = <AdminNavBar/>
+      if(this.state.currentUser.role === "admin"){
+        user_signed_in = <AdminNavBar />
       } else {
-        user_signed_in = <SignedInNavBar/>
+        user_signed_in = <SignedInNavBar currentUser={this.state.currentUser} />
       }
     }
 
@@ -72,13 +93,15 @@ class App extends Component {
       <div className={this.state.toggleClassName} data-offcanvas>
         <div className="inner-wrap navigation-bar">
           <nav className="tab-bar">
-            <section className="left-small">
+            <section className="menuIcon small-3 columns">
               <a onClick={this.handleIconClick} className="left-off-canvas-toggle menu-icon"><span></span></a>
             </section>
-            <section className="middle tab-bar-section">
+            <section className="title small-6 columns">
               <h1 className="title">The Demogorgon Trail</h1>
             </section>
-            {user_signed_in}
+            <section className="userLogin small-3 columns">
+              {user_signed_in}
+            </section>
           </nav>
           <Nav />
           <Main />

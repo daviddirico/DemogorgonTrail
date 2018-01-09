@@ -2,11 +2,11 @@ import React from 'react'
 import Dropzone from 'react-dropzone'
 
 
-const TextField = props => {
+const SignUpForm = props => {
 
   return(
     <div>
-      <div>
+      <div className="formBackDrop">
         <div>
           {props.success}
           {props.loading}
@@ -15,25 +15,29 @@ const TextField = props => {
             <ul>
               {props.errors}
             </ul>
-          <label>
-            <input type='text' onChange={props.handleUsernameChange} value={props.usernameContent} placeholder={'Desired Username'}/>
+          <label className="inputField">
+            <input className="field" type='text' onChange={props.handleUsernameChange} value={props.usernameContent} placeholder={'Desired Username'}/>
           </label>
-          <label>
-            <input type='text' onChange={props.handleEmailChange} value={props.emailContent} placeholder={'Email Address'}/>
+
+          <label className="inputField">
+            <input className="field" type='text' onChange={props.handleEmailChange} value={props.emailContent} placeholder={'Email Address'}/>
           </label>
-          <label>
-            <input type='text' onChange={props.handlePasswordChange} value={props.passwordContent} placeholder={'Password'}/>
+
+          <label className="inputField">
+            <input className="field" type='text' onChange={props.handlePasswordChange} value={props.passwordContent} placeholder={'Password'}/>
           </label>
-          <label>
-            <input type='text' onChange={props.handlePasswordConfirmationChange} value={props.passwordConfirmationContent} placeholder={'Password Confirmation'}/>
+
+          <label className="inputField">
+            <input className="field" type='text' onChange={props.handlePasswordConfirmationChange} value={props.passwordConfirmationContent} placeholder={'Password Confirmation'}/>
           </label>
-          <label>
-            <Dropzone onDrop={props.onDrop} value={props.imageValue}>
-              Drag Image Here <br />
+
+          <label className="photoDrop">
+            <Dropzone className="dropzoneStyle" onDrop={props.onDrop} value={props.imageValue}>
+              Drag Profile Image Here<br />
               {props.preview}
             </Dropzone>
           </label>
-          <button type='submit' onClick={props.handleSubmit} value='Submit'>SUBMIT</button>
+          <button className="field" type='submit' onClick={props.handleSubmit} value='Submit'>Submit</button>
         </form>
       </div>
     </div>
@@ -41,4 +45,4 @@ const TextField = props => {
   )
 }
 
-export default TextField
+export default SignUpForm

@@ -15,7 +15,7 @@ class SignUpContainer extends Component {
       passwordConfirmation: "",
       image: "",
       errors: [],
-      success: '',
+      success: "",
       previewVisible: false
     }
     this.handleUsernameChange = this.handleUsernameChange.bind(this)
@@ -51,11 +51,11 @@ class SignUpContainer extends Component {
 
   clearForm(){
     this.setState({
-      username: '',
-      email: '',
-      password: '',
-      passwordConfirmation: '',
-      image: '',
+      username: "",
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+      image: "",
       errors: [],
       success: 'You have successfully signed up!',
       previewVisible: false
@@ -64,7 +64,7 @@ class SignUpContainer extends Component {
 
   onDrop(event){
     if(event.length == 1){
-      this.setState({ image: event[0], errors: [], previewVisible: true, success: '' })
+      this.setState({ image: event[0], errors: [], previewVisible: true, success: "" })
     } else {
       this.setState({ errors: "Please only upload one image."})
     }
@@ -88,11 +88,10 @@ class SignUpContainer extends Component {
       credentials: 'same-origin'
     })
     .then(response => {
-      debugger;
       if (response.status === 200) {
         this.clearForm()
       } else {
-        this.setState({ errors: ["Sign up failed!"] })
+        this.setState({ errors: ["Sign up failed!"], success: "" })
       }
     })
   }
@@ -115,7 +114,7 @@ class SignUpContainer extends Component {
     // }
 
     let success;
-    if(this.state.success != '' && !this.props.loading ){
+    if(this.state.success != "" && !this.props.loading ){
       success = <h4>{this.state.success}</h4>
     }
 
@@ -143,7 +142,7 @@ class SignUpContainer extends Component {
     return(
       <section className="main-section">
 
-        <Link to='/'>Return Home</Link>
+        <h3 className="signHeader">Sign Up</h3>
 
         <SignUpForm
           success={success}

@@ -25,6 +25,55 @@ a {
   text-decoration: underline;
 }
 
+.formBackDrop {
+  background-color: #333333;
+  margin: 0 auto;
+  padding: 1px 20px 1px 20px;
+  max-width: 400px;
+  border: 0px solid black;
+  border-radius: 6px;
+  box-shadow: 0px 0px 2px 0px black
+}
+
+label {
+  max-width: 400px;
+}
+
+input.field {
+  border-radius: 3px;
+  margin-bottom: 5
+}
+
+button.field {
+  border-radius: 3px;
+  margin: 1rem 0rem 1rem 0rem;
+}
+
+label.photoDrop {
+  margin: 0 auto;
+}
+
+.dropzoneStyle {
+  margin: 0 auto;
+  padding: 82px 0px 0px 0px;
+  height: 200px;
+  width: 200px;
+  color: white;
+  background-color: rgb(100, 30, 30);
+  border-width: 2px;
+  border-color: rgb(102, 102, 102);
+  border-style: dashed;
+  border-radius: 5px;
+}
+
+.listItem a {
+  height: 45px;
+}
+
+.inputField {
+  margin: 0 auto;
+}
+
 .react {
   height: 100%;
 }
@@ -36,6 +85,30 @@ a {
   border-right: 0px;
 }
 
+section.menuIcon.small-3.columns {
+  padding-left: 0px;
+}
+
+section.title.small-6.columns {
+  text-align: center;
+}
+
+section.userLogin.small-3.columns {
+  padding-right: 0px;
+}
+
+a.signLink {
+  padding: 0px;
+  text-align: center;
+  text-decoration: none;
+}
+
+div.signLink {
+  padding: 0px;
+  text-align: center;
+  text-decoration: none;
+}
+
 .main-nav {
   height: 100%;
 }
@@ -45,9 +118,19 @@ a {
 }
 
 .main-section {
+  text-align: center;
   margin: 0px;
   padding: 30px;
+  padding-top: 10px;
   height: 100%;
   color: white;
   background-color: rgb(100, 30, 30);
+}
+
+/* .photoDrop {
+  text-align: center;
+} */
+
+.signHeader {
+  color: white;
 }
