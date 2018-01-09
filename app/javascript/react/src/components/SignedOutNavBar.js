@@ -4,10 +4,8 @@ import { Link } from 'react-router-dom'
 const SignedOutNavBar = props => {
   return(
     <div>
-      <ul className="right">
-        <Link to='/sign_in'>Sign In</Link>
-        <Link to='/sign_up'>Sign Up</Link>
-      </ul>
+      <Link className="signLink small-6 columns" to='/sign_in'>Sign In</Link>
+      <Link className="signLink small-6 columns" to='/sign_up'>Sign Up</Link>
     </div>
   )
 }
