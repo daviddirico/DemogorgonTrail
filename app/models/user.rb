@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :campaigns
-  has_many :characters
+  has_one :campaign
+  has_one :character
 
   # before_save { self.email = email.downcase }
 
