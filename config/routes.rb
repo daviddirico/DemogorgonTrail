@@ -6,10 +6,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users
+      resources :campaigns
     end
   end
 
-  # resources :sessions, only: [:index, :create, :destroy]
   get    '/log_in',   to: 'sessions#new'
   post   '/log_in',   to: 'sessions#create'
   delete '/log_out',  to: 'sessions#destroy'
