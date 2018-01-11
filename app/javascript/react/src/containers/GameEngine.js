@@ -7,35 +7,37 @@ class GameEngine extends Component {
     this.state = {
       currentUser: this.props.currentUser,
       campaignInfo: {},
-      visible: false
+      visible: false,
+      character: {}
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleCampaignSubmit = this.handleCampaignSubmit.bind(this)
     this.createCampaign = this.createCampaign.bind(this)
   }
 
-  // componentDidMount(){
-  //   fetch('/api/v1/users', {
-  //     credentials: 'same-origin',
-  //     method: 'GET',
-  //     headers: { 'Content-Type':'application/json'}
-  //   })
-  //   .then(response => {
-  //     if (response.ok) {
-  //       return response;
-  //     } else {
-  //       let errorMessage = `${response.status} (${response.statusText})`,
-  //       error = new Error(errorMessage);
-  //       throw(error);
-  //     }
-  //   })
-  //   .then(response => response.json())
-  //   .then(body => {
-  //     this.setState({ signedIn: body.signed_in, currentUser: body.current_user})
-  //   })
-  // }
+  componentDidMount(){
+    fetch('/api/v1/campaigns', {
+      credentials: 'same-origin',
+      method: 'GET',
+      headers: { 'Content-Type':'application/json'}
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      if (body.campaign != {}) {
+        this.setState({ campaignInfo: body.campaign, visible: true })
+      }
+    })
+  }
 
-  handleSubmit(event) {
-    debugger;
+  handleCampaignSubmit(event) {
     event.preventDefault()
     this.createCampaign()
   }
@@ -52,13 +54,30 @@ class GameEngine extends Component {
     })
   }
 
+  handleCharacterSubmit(formPayload) {
+    event.preventDefault()
+    this.createCharacter(formPayload)
+  }
+
+  createCharacter(formPayload) {
+    fetch("/api/v1/characters", {
+      method: 'POST',
+      body: formPayload,
+      credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ character: {} })
+    })
+  }
+
   render() {
 
     let characterForm
     if (this.state.visible) {
-      characterForm = <CharacterForm />
+      characterForm = <CharacterForm handleCharacterSubmit={this.handleCharacterSubmit} />
     } else {
-      characterForm = <button onClick={this.handleSubmit}>Start your Campaign!</button>
+      characterForm = <button onClick={this.handleCampaignSubmit}>Start your Campaign!</button>
     }
 
     return(

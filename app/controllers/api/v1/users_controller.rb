@@ -9,10 +9,9 @@ class Api::V1::UsersController < ApplicationController
     signed_in = false
     if current_user
       signed_in = true
-    else
-      signed_in = false
     end
-    render json: { current_user: current_user, all_users: User.all, signed_in: signed_in }
+    render json: { current_user: current_user, signed_in: signed_in }
+    # render json: all_users: User.all
   end
 
   def show

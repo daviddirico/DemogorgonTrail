@@ -1,6 +1,6 @@
 class Campaign < ApplicationRecord
   belongs_to :user
-  has_many :characters
+  has_one :character
   has_many :events
 
   validates :completion, presence: true
