@@ -1,5 +1,4 @@
 class Character < ApplicationRecord
-  belongs_to :user
   belongs_to :campaign
   has_one :inventory
 
@@ -10,5 +9,5 @@ class Character < ApplicationRecord
   validates :strength, presence: true
   validates :defense, presence: true
   validates :hitpoints, presence: true
-  
+
 end

@@ -2,6 +2,6 @@ class UserSerializer < ActiveModel::Serializer
 
   attributes :id, :username, :profile_photo
 
-  has_many :campaigns
-  has_many :characters
+  has_one :campaign
+  has_one :character
 end
