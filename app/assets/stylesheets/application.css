@@ -165,7 +165,8 @@ label.inputField {
 }
 
 .raceClassSelect:hover {
-  background-color: #158CB8;
+  /* background-color: #158CB8; */
+  background-color: #4C4644;
 }
 
 .raceClassSelect.selected {
@@ -173,5 +174,6 @@ label.inputField {
 }
 
 .raceClassSelect.selected:hover {
-  background-color: #6A9872;
+  /* background-color: #6A9872; */
+  background-color: #366D69;
 }

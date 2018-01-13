@@ -2,12 +2,11 @@ class Api::V1::CharactersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    # current_user = User.find_by(id: session[:user_id])
-    # campaign = {}
-    # if current_user
-    #   campaign = Campaign.where(user: current_user)
-    # end
-    # render json: { current_user: current_user, campaign: campaign }
+    campaign = Campaign.find_by(user_id: session[:user_id])
+    character = Character.find_by(campaign_id: campaign.id)
+    if character
+      render json: { character: character }
+    end
   end
 
   def show
@@ -15,17 +14,17 @@ class Api::V1::CharactersController < ApplicationController
 
   def create
     binding.pry
-
-    campaign_id
+    campaign = Campaign.find_by(user_id: session[:user_id])
     character = Character.new
+    character.campaign_id = campaign.id
     character.name = params["name"]
     character.hero = true
     character.race = params["race"]
-    character.class = params["class"]
+    character.classification = params["classification"]
     character.level = 1
-    strength
-    defense
-    hitpoints
+    character.strength = 5
+    character.defense = 8
+    character.hitpoints = 10
 # the logic begind strength defense and hp: (leveling up will affect these characteristics)
 #   humans have even strength, defense and HP
 #   dwarves have high strength, high HP, very low defense
@@ -38,7 +37,7 @@ class Api::V1::CharactersController < ApplicationController
 
     binding.pry
     if character.save
-      render json: character
+      render json: { character: character }
     end
   end
 
