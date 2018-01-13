@@ -4,6 +4,7 @@ class Api::V1::CharactersController < ApplicationController
   def index
     campaign = Campaign.find_by(user_id: session[:user_id])
     character = Character.find_by(campaign_id: campaign.id)
+    # character = User.find_by(id: session[:user_id]).campaign.character
     if character
       render json: { character: character }
     end
@@ -13,7 +14,6 @@ class Api::V1::CharactersController < ApplicationController
   end
 
   def create
-    binding.pry
     campaign = Campaign.find_by(user_id: session[:user_id])
     character = Character.new
     character.campaign_id = campaign.id
@@ -35,7 +35,6 @@ class Api::V1::CharactersController < ApplicationController
 #   rangers have high defense, even HP, and low strength
 #   wizards have high strength, even defense, and low HP
 
-    binding.pry
     if character.save
       render json: { character: character }
     end

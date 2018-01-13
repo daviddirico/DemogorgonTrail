@@ -44,7 +44,10 @@ class SignedInNavBar extends Component {
 
 
     return(
-      <Link onClick={this.handleSubmit} className="signLink large-12 columns" to="/">Sign Out</Link>
+      <div>
+        <div className="signLink small-6 columns"></div>
+        <Link onClick={this.handleSubmit} className="signLink small-6 columns" to="/">Sign Out</Link>
+      </div>
     )
   }
 

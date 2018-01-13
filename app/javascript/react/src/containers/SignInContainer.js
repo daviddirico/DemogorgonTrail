@@ -22,12 +22,10 @@ class SignInContainer extends Component {
 
   handleEmailChange(event) {
     this.setState({ email: event.target.value })
-    console.log(this.state.email)
   }
 
   handlePasswordChange(event) {
     this.setState({ password: event.target.value })
-    console.log(this.state.password)
   }
 
   clearForm(){
