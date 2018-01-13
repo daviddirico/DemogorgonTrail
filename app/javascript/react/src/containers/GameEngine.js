@@ -6,12 +6,16 @@ class GameEngine extends Component {
     super(props);
     this.state = {
       currentUser: this.props.currentUser,
-      campaignInfo: {},
+      campaign: {},
       visible: false,
-      character: {}
+      character: {},
+      inventory: {}
     }
     this.handleCampaignSubmit = this.handleCampaignSubmit.bind(this)
     this.createCampaign = this.createCampaign.bind(this)
+    this.handleCharacterSubmit = this.handleCharacterSubmit.bind(this)
+    this.createCharacter = this.createCharacter.bind(this)
+    this.createInventory = this.createInventory.bind(this)
   }
 
   componentDidMount(){
@@ -31,8 +35,53 @@ class GameEngine extends Component {
     })
     .then(response => response.json())
     .then(body => {
+      console.log(body.campaign)
       if (body.campaign != {}) {
-        this.setState({ campaignInfo: body.campaign, visible: true })
+        this.setState({ campaign: body.campaign, visible: true })
+      }
+    })
+
+    fetch('/api/v1/characters', {
+      credentials: 'same-origin',
+      method: 'GET',
+      headers: { 'Content-Type':'application/json'}
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      console.log(body.character)
+      if (body.character != {}) {
+        this.setState({ character: body.character })
+      }
+    })
+
+    fetch('/api/v1/inventories', {
+      credentials: 'same-origin',
+      method: 'GET',
+      headers: { 'Content-Type':'application/json'}
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      console.log(body.inventory)
+      if (body.inventory != {}) {
+        this.setState({ inventory: body.inventory })
       }
     })
   }
@@ -45,12 +94,11 @@ class GameEngine extends Component {
   createCampaign() {
     fetch("/api/v1/campaigns", {
       method: 'POST',
-      body: JSON.stringify(this.state.currentUser),
       credentials: 'same-origin'
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ campaignInfo: body.campaign, visible: true })
+      this.setState({ campaign: body.campaign, visible: true })
     })
   }
 
@@ -67,7 +115,19 @@ class GameEngine extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ character: {} })
+      this.setState({ character: body.character })
+    })
+    this.createInventory()
+  }
+
+  createInventory() {
+    fetch("/api/v1/inventories", {
+      method: 'POST',
+      credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ inventory: body.inventory })
     })
   }
 

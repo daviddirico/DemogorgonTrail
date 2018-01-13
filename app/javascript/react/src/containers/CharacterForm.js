@@ -6,7 +6,7 @@ class CharacterForm extends Component {
     this.state = {
       name: "",
       race: "",
-      class: "",
+      classification: "",
       classNameHuman: "raceClassSelect",
       classNameElf: "raceClassSelect",
       classNameDwarf: "raceClassSelect",
@@ -69,10 +69,10 @@ class CharacterForm extends Component {
       this.setState({ classNameWarrior: "raceClassSelect selected" })
       this.setState({ classNameRanger: "raceClassSelect" })
       this.setState({ classNameWizard: "raceClassSelect" })
-      this.setState({ class: "warrior" })
+      this.setState({ classification: "warrior" })
     } else {
       this.setState({ classNameWarrior: "raceClassSelect" })
-      this.setState({ class: "" })
+      this.setState({ classification: "" })
     }
   }
 
@@ -81,10 +81,10 @@ class CharacterForm extends Component {
       this.setState({ classNameWarrior: "raceClassSelect" })
       this.setState({ classNameRanger: "raceClassSelect selected" })
       this.setState({ classNameWizard: "raceClassSelect" })
-      this.setState({ class: "ranger" })
+      this.setState({ classification: "ranger" })
     } else {
       this.setState({ classNameRanger: "raceClassSelect" })
-      this.setState({ class: "" })
+      this.setState({ classification: "" })
     }
   }
 
@@ -93,10 +93,10 @@ class CharacterForm extends Component {
       this.setState({ classNameWarrior: "raceClassSelect" })
       this.setState({ classNameRanger: "raceClassSelect" })
       this.setState({ classNameWizard: "raceClassSelect selected" })
-      this.setState({ class: "wizard" })
+      this.setState({ classification: "wizard" })
     } else {
       this.setState({ classNameWizard: "raceClassSelect" })
-      this.setState({ class: "" })
+      this.setState({ classification: "" })
     }
   }
 
@@ -105,7 +105,7 @@ class CharacterForm extends Component {
     let formPayload = new FormData()
     formPayload.append('name', this.state.name)
     formPayload.append('race', this.state.race)
-    formPayload.append('class', this.state.class)
+    formPayload.append('classification', this.state.classification)
     this.props.handleCharacterSubmit(formPayload)
   }
 

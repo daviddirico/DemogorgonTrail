@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :users
       resources :campaigns
       resources :characters
+      resources :inventories
     end
   end
 
