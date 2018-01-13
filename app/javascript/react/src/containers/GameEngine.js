@@ -8,8 +8,11 @@ class GameEngine extends Component {
       currentUser: this.props.currentUser,
       campaign: {},
       visible: false,
+      characterMade: false,
       character: {},
-      inventory: {}
+      inventory: {},
+      errors: [],
+      success: ""
     }
     this.handleCampaignSubmit = this.handleCampaignSubmit.bind(this)
     this.createCampaign = this.createCampaign.bind(this)
@@ -81,7 +84,7 @@ class GameEngine extends Component {
     .then(body => {
       console.log(body.inventory)
       if (body.inventory != {}) {
-        this.setState({ inventory: body.inventory })
+        this.setState({ inventory: body.inventory, characterMade: true })
       }
     })
   }
@@ -96,7 +99,13 @@ class GameEngine extends Component {
       method: 'POST',
       credentials: 'same-origin'
     })
-    .then(response => response.json())
+    .then(response => {
+      if (response.status === 200) {
+        this.setState({ success: "", errors: [] })
+      } else {
+        this.setState({ errors: ["Campaign creation failed!"], success: "" })
+      }
+    })
     .then(body => {
       this.setState({ campaign: body.campaign, visible: true })
     })
@@ -127,7 +136,7 @@ class GameEngine extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ inventory: body.inventory })
+      this.setState({ inventory: body.inventory, characterMade: true })
     })
   }
 
@@ -140,9 +149,18 @@ class GameEngine extends Component {
       characterForm = <button onClick={this.handleCampaignSubmit}>Start your Campaign!</button>
     }
 
+    let openingHub
+    if (this.state.characterMade) {
+      characterForm = <div></div>
+      openingHub = <div>This is the reserve screen for character hub. You can view inventory, quest log, and more from this screen!</div>
+    }
+
     return(
       <div>
+        {this.state.errors}
+        {this.state.success}
         {characterForm}
+        {openingHub}
       </div>
     )
   }

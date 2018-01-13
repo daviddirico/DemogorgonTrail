@@ -26,6 +26,7 @@ class SignUpContainer extends Component {
     this.onDrop = this.onDrop.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.addUser = this.addUser.bind(this)
+    this.startSession = this.startSession.bind(this)
   }
 
   handleUsernameChange(event) {
@@ -57,7 +58,7 @@ class SignUpContainer extends Component {
       passwordConfirmation: "",
       image: "",
       errors: [],
-      success: 'You have successfully signed up!',
+      success: 'You have successfully signed up and are now signed in!',
       previewVisible: false
     })
   }
@@ -83,6 +84,21 @@ class SignUpContainer extends Component {
 
   addUser(formPayload) {
     fetch("/api/v1/users", {
+      method: 'POST',
+      body: formPayload,
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if (response.status === 200) {
+        this.startSession(formPayload)
+      } else {
+        this.setState({ errors: ["Sign up failed!"], success: "" })
+      }
+    })
+  }
+
+  startSession(formPayload) {
+    fetch("/log_in", {
       method: 'POST',
       body: formPayload,
       credentials: 'same-origin'

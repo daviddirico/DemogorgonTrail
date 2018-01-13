@@ -12,7 +12,9 @@ class CharacterForm extends Component {
       classNameDwarf: "raceClassSelect",
       classNameWarrior: "raceClassSelect",
       classNameRanger: "raceClassSelect",
-      classNameWizard: "raceClassSelect"
+      classNameWizard: "raceClassSelect",
+      errors: [],
+      success: ""
     }
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleHumanClick = this.handleHumanClick.bind(this)
@@ -22,6 +24,7 @@ class CharacterForm extends Component {
     this.handleRangerClick = this.handleRangerClick.bind(this)
     this.handleWizardClick = this.handleWizardClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.clearForm = this.clearForm.bind(this)
   }
 
   handleNameChange(event) {
@@ -107,7 +110,26 @@ class CharacterForm extends Component {
     formPayload.append('race', this.state.race)
     formPayload.append('classification', this.state.classification)
     this.props.handleCharacterSubmit(formPayload)
+    this.clearForm()
   }
+
+  clearForm() {
+    this.setState({
+      name: "",
+      race: "",
+      classification: "",
+      classNameHuman: "raceClassSelect",
+      classNameElf: "raceClassSelect",
+      classNameDwarf: "raceClassSelect",
+      classNameWarrior: "raceClassSelect",
+      classNameRanger: "raceClassSelect",
+      classNameWizard: "raceClassSelect",
+      errors: [],
+      success: 'You have successfully created your character!'
+    })
+
+  }
+
 
   render() {
 
@@ -115,6 +137,8 @@ class CharacterForm extends Component {
       <div>
         <p>Create your character</p>
         <div className="formBackDrop">
+          {this.state.errors}
+          {this.state.success}
           <form>
             <label className="inputField">
               <input className="field" type='text' onChange={this.handleNameChange} placeholder={'Character Name'}/>
