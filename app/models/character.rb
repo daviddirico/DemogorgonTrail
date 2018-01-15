@@ -1,5 +1,5 @@
 class Character < ApplicationRecord
-  belongs_to :campaign
+  belongs_to :user
   has_one :inventory
 
   validates :name, presence: true
