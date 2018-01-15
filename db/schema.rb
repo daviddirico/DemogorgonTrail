@@ -39,14 +39,6 @@ ActiveRecord::Schema.define(version: 20180112233601) do
     t.index ["campaign_id"], name: "index_characters_on_campaign_id"
   end
 
-  create_table "events", force: :cascade do |t|
-    t.bigint "campaign_id", null: false
-    t.string "type", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["campaign_id"], name: "index_events_on_campaign_id"
-  end
-
   create_table "inventories", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.string "slot_1"
