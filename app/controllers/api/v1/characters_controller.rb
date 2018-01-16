@@ -2,11 +2,12 @@ class Api::V1::CharactersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    campaign = Campaign.find_by(user_id: session[:user_id])
-    character = Character.find_by(campaign_id: campaign.id)
-    # character = User.find_by(id: session[:user_id]).campaign.character
-    if character
+    # character = Character.find_by(user_id: session[:user_id])
+    character = Character.where(user_id: session[:user_id]).first
+    if character != nil
       render json: { character: character }
+    else
+      render json: { character: nil }
     end
   end
 
@@ -14,9 +15,8 @@ class Api::V1::CharactersController < ApplicationController
   end
 
   def create
-    campaign = Campaign.find_by(user_id: session[:user_id])
     character = Character.new
-    character.campaign_id = campaign.id
+    character.user_id = User.find_by(id: session[:user_id]).id
     character.name = params["name"]
     character.hero = true
     character.race = params["race"]
@@ -34,9 +34,10 @@ class Api::V1::CharactersController < ApplicationController
 #   warriors have high HP, even strength, and low defense
 #   rangers have high defense, even HP, and low strength
 #   wizards have high strength, even defense, and low HP
-
     if character.save
       render json: { character: character }
+    else
+      render json: { character: nil }
     end
   end
 

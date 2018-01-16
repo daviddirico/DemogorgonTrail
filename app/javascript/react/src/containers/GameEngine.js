@@ -7,10 +7,9 @@ class GameEngine extends Component {
     this.state = {
       currentUser: this.props.currentUser,
       campaign: {},
-      visible: false,
+      campaignMade: false,
       characterMade: false,
       character: {},
-      inventory: {},
       errors: [],
       success: ""
     }
@@ -18,7 +17,6 @@ class GameEngine extends Component {
     this.createCampaign = this.createCampaign.bind(this)
     this.handleCharacterSubmit = this.handleCharacterSubmit.bind(this)
     this.createCharacter = this.createCharacter.bind(this)
-    this.createInventory = this.createInventory.bind(this)
   }
 
   componentDidMount(){
@@ -27,20 +25,10 @@ class GameEngine extends Component {
       method: 'GET',
       headers: { 'Content-Type':'application/json'}
     })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-        error = new Error(errorMessage);
-        throw(error);
-      }
-    })
     .then(response => response.json())
     .then(body => {
-      console.log(body.campaign)
-      if (body.campaign != {}) {
-        this.setState({ campaign: body.campaign, visible: true })
+      if (body.campaign !== null) {
+        this.setState({ campaign: body.campaign, campaignMade: true })
       }
     })
 
@@ -49,42 +37,10 @@ class GameEngine extends Component {
       method: 'GET',
       headers: { 'Content-Type':'application/json'}
     })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-        error = new Error(errorMessage);
-        throw(error);
-      }
-    })
     .then(response => response.json())
     .then(body => {
-      console.log(body.character)
-      if (body.character != {}) {
-        this.setState({ character: body.character })
-      }
-    })
-
-    fetch('/api/v1/inventories', {
-      credentials: 'same-origin',
-      method: 'GET',
-      headers: { 'Content-Type':'application/json'}
-    })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-        error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => response.json())
-    .then(body => {
-      console.log(body.inventory)
-      if (body.inventory != {}) {
-        this.setState({ inventory: body.inventory, characterMade: true })
+      if (body.character !== null) {
+        this.setState({ character: body.character, characterMade: true })
       }
     })
   }
@@ -99,15 +55,11 @@ class GameEngine extends Component {
       method: 'POST',
       credentials: 'same-origin'
     })
-    .then(response => {
-      if (response.status === 200) {
-        this.setState({ success: "", errors: [] })
-      } else {
-        this.setState({ errors: ["Campaign creation failed!"], success: "" })
-      }
-    })
+    .then(response => response.json())
     .then(body => {
-      this.setState({ campaign: body.campaign, visible: true })
+      if (body.campaign !== null) {
+        this.setState({ campaign: body.campaign, campaignMade: true })
+      }
     })
   }
 
@@ -124,43 +76,26 @@ class GameEngine extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ character: body.character })
-    })
-    this.createInventory()
-  }
-
-  createInventory() {
-    fetch("/api/v1/inventories", {
-      method: 'POST',
-      credentials: 'same-origin'
-    })
-    .then(response => response.json())
-    .then(body => {
-      this.setState({ inventory: body.inventory, characterMade: true })
+      if (body.character !== null) {
+        this.setState({ character: body.character, characterMade: true })
+      }
     })
   }
 
   render() {
-
-    let characterForm
-    if (this.state.visible) {
-      characterForm = <CharacterForm handleCharacterSubmit={this.handleCharacterSubmit} />
+    let pageRender
+    if (this.state.campaignMade && this.state.characterMade) {
+      pageRender = <div>This is the reserve screen for character hub. You can view inventory, quest log, and more from this screen!</div>
+    } else if (this.state.campaignMade) {
+      pageRender = <CharacterForm handleCharacterSubmit={this.handleCharacterSubmit} />
     } else {
-      characterForm = <button onClick={this.handleCampaignSubmit}>Start your Campaign!</button>
+      pageRender = <button onClick={this.handleCampaignSubmit}>Start your Campaign!</button>
     }
-
-    let openingHub
-    if (this.state.characterMade) {
-      characterForm = <div></div>
-      openingHub = <div>This is the reserve screen for character hub. You can view inventory, quest log, and more from this screen!</div>
-    }
-
     return(
       <div>
         {this.state.errors}
         {this.state.success}
-        {characterForm}
-        {openingHub}
+        {pageRender}
       </div>
     )
   }

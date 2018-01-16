@@ -3,8 +3,10 @@ class Api::V1::CampaignsController < ApplicationController
 
   def index
     campaign = Campaign.find_by(user_id: session[:user_id])
-    if campaign
+    if campaign != nil
       render json: { campaign: campaign }
+    else
+      render json: { campaign: nil }
     end
   end
 
@@ -18,7 +20,9 @@ class Api::V1::CampaignsController < ApplicationController
     campaign.difficulty = "easy"
     campaign.completion = 0
     if campaign.save
-      render json: campaign
+      render json: { campaign: campaign }
+    else
+      render json: { campaign: nil }
     end
   end
 
