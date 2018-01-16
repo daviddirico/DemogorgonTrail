@@ -2,12 +2,13 @@ class Api::V1::InventoriesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    campaign = Campaign.find_by(user_id: session[:user_id])
-    character = Character.find_by(campaign_id: campaign.id)
+    # character = Character.find_by(user_id: session[:user_id])
+    character = Character.where(user_id: session[:user_id]).first
     inventory = Inventory.find_by(character_id: character.id)
-    # inventory = User.find_by(id: session[:user_id]).campaign.character.inventory
-    if inventory
+    if inventory != nil
       render json: { inventory: inventory }
+    else
+      render json: { inventory: {} }
     end
   end
 
@@ -15,10 +16,12 @@ class Api::V1::InventoriesController < ApplicationController
   end
 
   def create
-    character = User.find_by(id: session[:user_id]).campaign.character
+    character = User.find_by(id: session[:user_id]).character
     inventory = Inventory.new(character_id: character.id)
     if inventory.save
-      render json: inventory
+      render json: { inventory: inventory }
+    else
+      render json: { inventory: {} }
     end
   end
 

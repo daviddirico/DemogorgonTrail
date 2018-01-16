@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180112233601) do
+ActiveRecord::Schema.define(version: 20180115172001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20180112233601) do
   end
 
   create_table "characters", force: :cascade do |t|
-    t.bigint "campaign_id", null: false
     t.string "name", null: false
     t.boolean "hero", null: false
     t.string "race", null: false
@@ -36,7 +35,8 @@ ActiveRecord::Schema.define(version: 20180112233601) do
     t.integer "hitpoints", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["campaign_id"], name: "index_characters_on_campaign_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
   create_table "inventories", force: :cascade do |t|
