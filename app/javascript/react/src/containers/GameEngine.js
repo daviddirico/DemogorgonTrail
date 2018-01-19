@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CharacterForm from "./CharacterForm"
+import HubScreen from "./HubScreen"
 
 class GameEngine extends Component {
   constructor(props) {
@@ -9,9 +10,7 @@ class GameEngine extends Component {
       campaign: {},
       campaignMade: false,
       characterMade: false,
-      character: {},
-      errors: [],
-      success: ""
+      character: {}
     }
     this.handleCampaignSubmit = this.handleCampaignSubmit.bind(this)
     this.createCampaign = this.createCampaign.bind(this)
@@ -85,16 +84,15 @@ class GameEngine extends Component {
   render() {
     let pageRender
     if (this.state.campaignMade && this.state.characterMade) {
-      pageRender = <div>This is the reserve screen for character hub. You can view inventory, quest log, and more from this screen!</div>
+      pageRender = <HubScreen character={this.state.character} campaign={this.state.campaign} />
     } else if (this.state.campaignMade) {
       pageRender = <CharacterForm handleCharacterSubmit={this.handleCharacterSubmit} />
     } else {
       pageRender = <button onClick={this.handleCampaignSubmit}>Start your Campaign!</button>
     }
+
     return(
       <div>
-        {this.state.errors}
-        {this.state.success}
         {pageRender}
       </div>
     )

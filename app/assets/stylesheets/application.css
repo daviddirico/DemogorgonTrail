@@ -126,8 +126,8 @@ div.signLink {
 .main-section {
   text-align: center;
   margin: 0px;
-  padding: 30px;
-  padding-top: 10px;
+  padding: 20px;
+  padding-top: 15px;
   height: 100%;
   color: white;
   background-color: rgb(100, 30, 30);
@@ -182,4 +182,45 @@ label.inputField {
 .raceClassSelect.selected:hover {
   /* background-color: #6A9872; */
   background-color: #366D69;
+}
+
+
+
+
+
+/* Hub section */
+.hubTop {
+  min-height: 350px;
+  margin-bottom: 10px;
+}
+
+.hubBottom {
+  min-height: 180px;
+}
+
+div.columns.hubWrapper {
+  padding: 0px 5px 0px 5px;
+}
+
+.hubFieldTop {
+  min-height: 350px;
+  background-color: rgb(70, 20, 20)
+}
+
+.hubFieldBottom {
+  min-height: 180px;
+  background-color: rgb(70, 20, 20)
+}
+
+button.continueQuestButton {
+  margin: 20px 20px 0px 20px;
+  height: 140px;
+  width: -webkit-fill-available;
+  max-width: 363.33px;
+  font-size: x-large;
+  background-color: #606060;
+}
+
+button.continueQuestButton:hover {
+  background-color: #505050;
 }

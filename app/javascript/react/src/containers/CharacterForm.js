@@ -12,9 +12,7 @@ class CharacterForm extends Component {
       classNameDwarf: "raceClassSelect",
       classNameWarrior: "raceClassSelect",
       classNameRanger: "raceClassSelect",
-      classNameWizard: "raceClassSelect",
-      errors: [],
-      success: ""
+      classNameWizard: "raceClassSelect"
     }
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleHumanClick = this.handleHumanClick.bind(this)
@@ -123,9 +121,7 @@ class CharacterForm extends Component {
       classNameDwarf: "raceClassSelect",
       classNameWarrior: "raceClassSelect",
       classNameRanger: "raceClassSelect",
-      classNameWizard: "raceClassSelect",
-      errors: [],
-      success: 'You have successfully created your character!'
+      classNameWizard: "raceClassSelect"
     })
 
   }
@@ -137,8 +133,6 @@ class CharacterForm extends Component {
       <div>
         <p>Create your character</p>
         <div className="formBackDrop">
-          {this.state.errors}
-          {this.state.success}
           <form>
             <label className="inputField">
               <input className="field" type='text' onChange={this.handleNameChange} placeholder={'Character Name'}/>
