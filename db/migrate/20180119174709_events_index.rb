@@ -5,5 +5,6 @@ class EventsIndex < ActiveRecord::Migration[5.1]
       t.boolean :invoked, default: false
 
       t.timestamps null: false
+    end
   end
 end
