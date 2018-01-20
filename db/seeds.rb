@@ -7,21 +7,27 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-Character.create([
-    {name: "Skeleton Warrior", hero: false, race: "skeleton", classification: "warrior", level: 1, strength: 3, defense: 3, hitpoints: 3},
-    {name: "Skeleton Ranger", hero: false, race: "skeleton", classification: "ranger", level: 1, strength: 4, defense: 2, hitpoints: 2},
-    {name: "Zombie", hero: false, race: "zombie", classification: "warrior", level: 1, strength: 2, defense: 4, hitpoints: 5},
-    {name: "Dark Wizard", hero: false, race: "human", classification: "wizard", level: 2, strength: 5, defense: 3, hitpoints: 4}
-  ])
 
-Event.create([
-    {name: "basic_enemy"},
-    {name: "rare_enemy"},
-    {name: "basic_town"},
-    {name: "rare_town"},
-    {name: "basic_loot"},
-    {name: "bad_luck"},
-    {name: "good_luck"},
-    {name: "boss"},
-    {name: "last_boss"}
-  ])
+# already seeded
+
+# Character.create([
+#     {user_id: 1, name: "Skeleton Warrior", hero: false, race: "skeleton", classification: "warrior", level: 1, strength: 3, defense: 3, hitpoints: 3},
+#     {user_id: 1, name: "Skeleton Ranger", hero: false, race: "skeleton", classification: "ranger", level: 1, strength: 4, defense: 2, hitpoints: 2},
+#     {user_id: 1, name: "Zombie", hero: false, race: "zombie", classification: "warrior", level: 1, strength: 2, defense: 4, hitpoints: 5},
+#     {user_id: 1, name: "Dark Wizard", hero: false, race: "human", classification: "wizard", level: 2, strength: 5, defense: 3, hitpoints: 4}
+#   ])
+
+# Event.create([
+#     {name: "enemy"},
+#     {name: "enemy", rare: true},
+#     {name: "town"},
+#     {name: "town", rare: true},
+#     {name: "loot"},
+#     {name: "loot", rare: true},
+#     {name: "bad_luck", rare: true},
+#     {name: "good_luck", rare: true},
+#     {name: "boss"},
+#     {name: "last_boss"}
+#   ])
+
+# not yet seeded

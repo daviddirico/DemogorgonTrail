@@ -1,9 +1,7 @@
 class Event < ApplicationRecord
+  belongs_to :campaign
+  has_many :npcs
+  has_many :characters, :through => :npcs
 
-  def invoke_event
-  end
-
-  def resolve_event
-  end
-
+  serialize :info
 end
