@@ -72,7 +72,7 @@ class Api::V1::CharactersController < ApplicationController
     if character.save
       render json: { character: character }
     else
-      render json: { character: {} }
+      render json: { character: nil }
     end
   end
 

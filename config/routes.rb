@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :campaigns
       resources :characters
       resources :inventories
+      resources :events
     end
   end
 

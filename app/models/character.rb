@@ -1,5 +1,7 @@
 class Character < ApplicationRecord
   belongs_to :user
+  has_many :npcs
+  has_many :events, :through => :npcs
   has_one :inventory
 
   validates :name, presence: true

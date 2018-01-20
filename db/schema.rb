@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119181818) do
+ActiveRecord::Schema.define(version: 20180120001353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,10 @@ ActiveRecord::Schema.define(version: 20180119181818) do
     t.boolean "invoked", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "rare"
+    t.text "info"
+    t.bigint "campaign_id"
+    t.index ["campaign_id"], name: "index_events_on_campaign_id"
   end
 
   create_table "inventories", force: :cascade do |t|
@@ -59,6 +63,15 @@ ActiveRecord::Schema.define(version: 20180119181818) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_inventories_on_character_id"
+  end
+
+  create_table "npcs", force: :cascade do |t|
+    t.bigint "characters_id"
+    t.bigint "events_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["characters_id"], name: "index_npcs_on_characters_id"
+    t.index ["events_id"], name: "index_npcs_on_events_id"
   end
 
   create_table "users", force: :cascade do |t|
