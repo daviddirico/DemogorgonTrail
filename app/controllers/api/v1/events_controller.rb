@@ -66,7 +66,6 @@ class Api::V1::EventsController < ApplicationController
         end
         event.info = enemies
 
-        binding.pry
         if event.save
           render json: { event: event }
         end
