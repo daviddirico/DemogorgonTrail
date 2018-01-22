@@ -31,7 +31,7 @@ class HubScreen extends Component {
     if (this.state.campaign.completion === 0) {
       buttonText = <div>Begin Quest</div>
     } else {
-      buttonText = <div>Continue Quest</div>
+      buttonText = <div>Resume Quest</div>
     }
 
     return(
