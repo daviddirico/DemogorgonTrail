@@ -42,37 +42,62 @@ class Api::V1::CharactersController < ApplicationController
   end
 
   def update
-    attributes = JSON.parse(request.body.read)
+    user = User.find_by(id: session[:user_id])
+    character = Character.find_by(user_id: user.id)
+    event = user.campaign.event
+    enemies = event.info
 
-    character_id = attributes["id"]
-    character = Character.find_by(id: character_id)
+    result = params["battle_choice"]
 
-    current_experience = attributes["experience"]
-    current_level = attributes["level"]
-    experience_gained = attributes["experience_gained"]
+    if result === "fight"
+      attributes = JSON.parse(request.body.read)
+
+      character_id = attributes["id"]
+
+      current_experience = attributes["experience"]
+      current_level = attributes["level"]
+      experience_gained = attributes["experience_gained"]
 
 
-    if current_experience < 10000
-      current_experience += experience_gained
-      if current_experience > 10000
-        current_experience = 10000
+      if current_experience < 10000
+        current_experience += experience_gained
+        if current_experience > 10000
+          current_experience = 10000
+        end
       end
-    end
 
-    experience_needed = (5 * (current_level + 1) ** 3) / 4
-    while current_experience >= experience_needed && current_level < 20 do
-      current_level += 1
-      experience_needed = (5 * current_level ** 3) / 4
-    end
+      experience_needed = (5 * (current_level + 1) ** 3) / 4
+      while current_experience >= experience_needed && current_level < 20 do
+        current_level += 1
+        experience_needed = (5 * current_level ** 3) / 4
+      end
 
-    # this is the section where my stat-gaining algorithm comes in depending on what level the character is
+      # this is the section where my stat-gaining algorithm comes in depending on what level the character is
 
-    character.experience = current_experience
-    character.level = current_level
-    if character.save
-      render json: { character: character }
-    else
-      render json: { character: nil }
+      character.experience = current_experience
+      character.level = current_level
+      if character.save
+        render json: { character: character }
+      else
+        render json: { character: nil }
+      end
+
+    elsif result === "run"
+      number = enemies.length
+      e_strength = 0
+      enemies.each do |enemy|
+        e_strength += enemy.strength
+      end
+      randomDamage = rand(0 .. 99)
+      if randomDamage > 70
+        character.hitpoints -= (e_strength/number).round(0)
+      end
+
+      if character.save
+        render json: { character: character }
+      else
+        render json: { character: nil }
+      end
     end
   end
 

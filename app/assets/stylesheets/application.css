@@ -224,3 +224,10 @@ button.continueQuestButton {
 button.continueQuestButton:hover {
   background-color: #505050;
 }
+
+
+
+/* encounters */
+.enemyImage {
+  max-width: 200px;
+}

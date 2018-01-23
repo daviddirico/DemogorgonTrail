@@ -75,4 +75,13 @@ class Api::V1::EventsController < ApplicationController
     end
   end
 
+  def destroy
+    user = User.find_by(id: session[:user_id])
+    event = user.campaign.event
+
+    event.delete
+    render json: { event: false }
+
+  end
+
 end
