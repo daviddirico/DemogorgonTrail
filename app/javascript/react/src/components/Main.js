@@ -7,7 +7,6 @@ import ProfileContainer from '../containers/ProfileContainer'
 import SignUpContainer from '../containers/SignUpContainer'
 import SignInContainer from '../containers/SignInContainer'
 import HomeContainer from '../containers/HomeContainer'
-import EventContainer from '../containers/EventContainer'
 
 
 // The Main component renders one of the three provided
@@ -26,7 +25,6 @@ const Main = props => {
       <Route exact path="/sign_up" component={SignUpContainer} />
       <Route exact path="/sign_in" component={SignInContainer} />
       <Route exact path="/sign_out" component={HomeContainer} />
-      <Route exact path="/game/event" component={EventContainer} />
     </Switch>
   )
 }
