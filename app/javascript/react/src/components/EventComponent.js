@@ -2,31 +2,37 @@ import React from 'react';
 
 const EventComponent = props => {
 
-
   let encounter;
-  if (props.event.info.length > 1) {
+  let enemiesDisplay;
+  let enemyInfo;
+  let mapKey;
+  if (props.currentEvent.info.length > 1) {
     encounter = <div>A group of enemies have appeared!</div>
+    enemiesDisplay = props.currentEvent.info.map((enemy, index) => {
+      mapKey += 1
+      return <img className="enemyImage" key={index} src={ require(`../../../../assets/images/enemies/${enemy.race}-${enemy.classification}`) }/>
+    })
   } else {
-    encounter = <div>A {props.event.info[0].name} has appeared!</div>
+    encounter = <div>A {props.currentEvent.info[0].name} has appeared!</div>
+    enemyInfo = props.currentEvent.info[0]
+    enemiesDisplay = <img className="enemyImage" src={ require(`../../../../assets/images/enemies/${enemyInfo.race}-${enemyInfo.classification}`) }/>
   }
-
-  // let number = props.event.info.length
-  // if (props.event.info.length > 1) {
-  //   encounter = props.event.info.map( enemy => {
-  //     return enemy.name
-  //   })
-  // } else {
-  //   encounter = props.event.info[0].name
-  // }
 
   return(
     <div>
-      {encounter} <br/>
-      What do you wish to do? <br/>
       <div>
-        <button>Fight</button>
+        {encounter} <br/>
+      </div>
+      <div>
+        {enemiesDisplay} <br/>
+      </div>
+      <div>
+        What do you wish to do? <br/>
+      </div>
+      <div>
+        <button onClick={props.handleFightClick}>Fight</button>
         or
-        <button>Run</button>
+        <button onClick={props.handleRunClick}>Run</button>
       </div>
     </div>
   )
