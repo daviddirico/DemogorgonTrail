@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Switch, Route } from 'react-router-dom'
+// import { Switch, Route } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import EventOptions from '../components/EventOptions';
 import EventComponent from '../components/EventComponent';
@@ -132,7 +132,7 @@ class EventContainer extends Component {
       <section className="main-section">
         {simplePopUp}
         {theCrossRoads}
-        <Link to="/game">Return to Inventory</Link>
+        <button onClick={this.props.handleButtonClick}>Return to Inventory</button>
       </section>
     )
   }

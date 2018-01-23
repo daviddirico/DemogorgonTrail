@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-
+import HubInventory from '../components/HubInventory'
+import EventContainer from './EventContainer'
 
 class HubScreen extends Component {
   constructor(props) {
@@ -8,72 +9,39 @@ class HubScreen extends Component {
     this.state = {
       campaign: this.props.campaign,
       character: this.props.character,
-      inventory: null
+      inventory: null,
+      paused: true
     }
     this.handleButtonClick = this.handleButtonClick.bind(this)
   }
 
-  handleButtonClick() {
-
+  handleButtonClick(event) {
+    event.preventDefault()
+    if (this.state.paused === true) {
+      this.setState({ paused: false })
+    } else {
+      this.setState({ paused: true })
+    }
   }
 
 
   render() {
 
-    let itemsOwned
-    if (this.state.inventory === null) {
-      itemsOwned = <div>You do not own a single item to display!</div>
+    let gameplayScreen
+    if (this.state.paused === true) {
+      gameplayScreen =  <HubInventory
+                          handleButtonClick={this.handleButtonClick}
+                          campaign={this.state.campaign}
+                          character={this.state.character}
+                          inventory={this.state.inventory}
+                        />
     } else {
-      itemsOwned = <InventoryTile />
-    }
-
-    let buttonText
-    if (this.state.campaign.completion === 0) {
-      buttonText = <div>Begin Quest</div>
-    } else {
-      buttonText = <div>Resume Quest</div>
+      gameplayScreen =  <EventContainer handleButtonClick={this.handleButtonClick} />
     }
 
     return(
       <div>
-
-        <div className="hubTop">
-          <div className="small-6 columns hubWrapper">
-            <div className="hubFieldTop">
-              Map of progress
-            </div>
-          </div>
-          <div className="small-6 columns hubWrapper">
-            <div className="hubFieldTop">
-              <div className="small-6 columns hubCharacter">
-                Character stats: <br/>
-                {this.state.character.name} - Level {this.state.character.level} <br/>
-                {this.state.character.race} {this.state.character.classification} <br/>
-                {this.state.character.hitpoints} HP <br/>
-                {this.state.character.strength} Strength <br/>
-                {this.state.character.defense} Defense <br/>
-              </div>
-              <div className="small-6 columns hubInventory">
-                Inventory: <br/>
-                {itemsOwned}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="hubBottom">
-          <div className="small-8 columns hubWrapper">
-            <div className="hubFieldBottom">
-              Quest Log
-            </div>
-          </div>
-          <div className="small-4 columns hubWrapper">
-            <div className="hubFieldBottom">
-              <Link to="/game/event" onClick={this.handleButtonClick}>
-                <button className="continueQuestButton">{buttonText}</button>
-              </Link>
-            </div>
-          </div>
-        </div>
+        {gameplayScreen}
       </div>
     )
   }
