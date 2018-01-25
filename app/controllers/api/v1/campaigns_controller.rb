@@ -26,4 +26,19 @@ class Api::V1::CampaignsController < ApplicationController
     end
   end
 
+  def update
+    user = User.find_by(id: session[:user_id])
+    campaign = user.campaign
+
+    result = params["completion"]
+
+    if result === "initial"
+      campaign.completion = 1
+    end
+
+    if campaign.save
+      render json: { campaign: campaign }
+    end
+  end
+
 end

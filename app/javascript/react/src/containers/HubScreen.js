@@ -13,6 +13,8 @@ class HubScreen extends Component {
       paused: true
     }
     this.handleButtonClick = this.handleButtonClick.bind(this)
+    this.fetchCharacter = this.fetchCharacter.bind(this)
+    this.fetchCampaign = this.fetchCampaign.bind(this)
   }
 
   handleButtonClick(event) {
@@ -22,6 +24,45 @@ class HubScreen extends Component {
     } else {
       this.setState({ paused: true })
     }
+    if (this.state.campaign.completion === 0) {
+      let formPayload = new FormData()
+      formPayload.append('completion', 'initial')
+      fetch(`/api/v1/campaigns/${this.state.campaign.id}`, {
+        credentials: 'same-origin',
+        method: 'PATCH',
+        body: formPayload
+      })
+      .then(response => response.json())
+      .then(body => {
+        this.setState({ campaign: body.campaign })
+      })
+    }
+    this.fetchCampaign()
+    this.fetchCharacter()
+  }
+
+  fetchCharacter() {
+    fetch('/api/v1/characters', {
+      credentials: 'same-origin',
+      method: 'GET',
+      headers: { 'Content-Type':'application/json'}
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ character: body.character })
+    })
+  }
+
+  fetchCampaign() {
+    fetch('/api/v1/campaigns', {
+      credentials: 'same-origin',
+      method: 'GET',
+      headers: { 'Content-Type':'application/json'}
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ campaign: body.campaign })
+    })
   }
 
 

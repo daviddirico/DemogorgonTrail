@@ -11,7 +11,12 @@ class EventContainer extends Component {
     super(props);
     this.state = {
       currentEvent: false,
-      character: false
+      character: false,
+      popUp: false,
+      changedHitpoints: false,
+      changedExperience: false,
+      changedlevel: false,
+      hasDied: false
     }
     this.handleCaveSubmit = this.handleCaveSubmit.bind(this)
     this.fetchEncounter = this.fetchEncounter.bind(this)
@@ -80,7 +85,9 @@ class EventContainer extends Component {
   }
 
   evaluateBattleChoice(formPayload) {
-    let currentHitpoints = this.state.character.hitpoints
+    let currentHitpoints = this.state.character.current_hitpoints
+    let currentExperience = this.state.character.experience
+    let currentLevel = this.state.character.level
     fetch(`/api/v1/characters/${this.state.character.id}`, {
       credentials: 'same-origin',
       method: 'PATCH',
@@ -89,8 +96,17 @@ class EventContainer extends Component {
     .then(response => response.json())
     .then(body => {
       this.setState({ character: body.character })
-      if (this.state.character.hitpoints !== currentHitpoints) {
-        this.setState({ popUp: true })
+      if (this.state.character.current_hitpoints < currentHitpoints) {
+        this.setState({ popUp: true, changedHitpoints: true })
+      }
+      if (this.state.character.experience > currentExperience) {
+        this.setState({ popUp: true, changedExperience: true })
+      }
+      if (this.state.character.level > currentLevel) {
+        this.setState({ popUp: true, changedlevel: true })
+      }
+      if (this.state.character.gameover === true) {
+        this.setState({ popUp: true, hasDied: true })
       }
     })
     this.clearEvent()
@@ -109,14 +125,26 @@ class EventContainer extends Component {
 
   simpleClick(event) {
     event.preventDefault()
-    this.setState({ popUp: false })
+    this.setState({
+      popUp: false,
+      changedHitpoints: false,
+      changedExperience: false,
+      changedlevel: false,
+      hasDied: false
+    })
   }
 
   render() {
 
     let simplePopUp
     if (this.state.popUp === true) {
-      simplePopUp = <SimplePopUp simpleClick={this.simpleClick} />
+      simplePopUp = <SimplePopUp
+                      simpleClick={this.simpleClick}
+                      changedHitpoints={this.state.changedHitpoints}
+                      changedExperience={this.state.changedExperience}
+                      changedlevel={this.state.changedLevel}
+                      hasDied={this.state.hasDied}
+                    />
     } else {
       simplePopUp = <div></div>
     }

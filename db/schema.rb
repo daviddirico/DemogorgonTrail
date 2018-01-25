@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180120001353) do
+ActiveRecord::Schema.define(version: 20180124194236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,13 +30,17 @@ ActiveRecord::Schema.define(version: 20180120001353) do
     t.string "race", null: false
     t.string "classification", null: false
     t.integer "level", null: false
-    t.integer "strength", null: false
-    t.integer "defense", null: false
-    t.integer "hitpoints", null: false
+    t.integer "current_strength", null: false
+    t.integer "current_defense", null: false
+    t.integer "current_hitpoints", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.integer "experience", default: 0
+    t.integer "max_strength"
+    t.integer "max_defense"
+    t.integer "max_hitpoints"
+    t.boolean "gameover", default: false
     t.index ["user_id"], name: "index_characters_on_user_id"
   end
 

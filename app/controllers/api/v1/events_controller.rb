@@ -44,8 +44,9 @@ class Api::V1::EventsController < ApplicationController
       end
 
       if event.name == "enemy"
-        hero = Character.find_by(user_id: user.id, hero: true)
-        characters = Character.where(hero: false)
+        heroes = Character.where(user_id: user.id, hero: true)
+        hero = heroes.find_by(gameover: false)
+        npcs = Character.where(hero: false)
 
 
         evaluator = 0
@@ -62,7 +63,7 @@ class Api::V1::EventsController < ApplicationController
         level = hero.level
         enemies = []
         evaluator.times do
-          enemies << characters.where("level <= ?", level).sample
+          enemies << npcs.where("level <= ?", level).sample
         end
         event.info = enemies
 
