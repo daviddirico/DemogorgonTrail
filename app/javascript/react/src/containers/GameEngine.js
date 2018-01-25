@@ -83,13 +83,14 @@ class GameEngine extends Component {
 
   render() {
     let pageRender
-    if (this.state.campaignMade && this.state.characterMade) {
+    if (this.state.campaignMade && this.state.characterMade && this.state.character.gameover === false) {
       pageRender = <HubScreen character={this.state.character} campaign={this.state.campaign} />
     } else if (this.state.campaignMade) {
       pageRender = <CharacterForm handleCharacterSubmit={this.handleCharacterSubmit} />
     } else {
       pageRender = <button onClick={this.handleCampaignSubmit}>Start your Campaign!</button>
     }
+
 
     return(
       <div>

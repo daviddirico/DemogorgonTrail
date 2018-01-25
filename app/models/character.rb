@@ -8,9 +8,12 @@ class Character < ApplicationRecord
   validates :race, presence: true
   validates :class, presence: true
   validates :level, presence: true
-  validates :strength, presence: true
-  validates :defense, presence: true
-  validates :hitpoints, presence: true
+  validates :current_strength, presence: true
+  validates :current_defense, presence: true
+  validates :current_hitpoints, presence: true
+  validates :max_strength, presence: true
+  validates :max_defense, presence: true
+  validates :max_hitpoints, presence: true
 
   # def self.run_evaluation(enemies)
   #   binding.pry

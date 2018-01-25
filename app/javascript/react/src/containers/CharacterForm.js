@@ -135,7 +135,7 @@ class CharacterForm extends Component {
         <div className="formBackDrop">
           <form>
             <label className="inputField">
-              <input className="field" type='text' onChange={this.handleNameChange} placeholder={'Character Name'}/>
+              <input className="character-name-field" type='text' onChange={this.handleNameChange} placeholder={'Character Name'}/>
             </label>
 
             <p className="raceClassTitle">Select Race</p>
