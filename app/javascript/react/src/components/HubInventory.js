@@ -28,12 +28,13 @@ const HubInventory = props => {
         <div className="small-6 columns hubWrapper">
           <div className="hubFieldTop">
             <div className="small-6 columns hubCharacter">
-              Character stats: <br/>
               {props.character.name} - Level {props.character.level} <br/>
               {props.character.race} {props.character.classification} <br/>
               {props.character.current_hitpoints}/{props.character.max_hitpoints} HP <br/>
               {props.character.current_strength}/{props.character.max_strength} Strength <br/>
               {props.character.current_defense}/{props.character.max_defense} Defense <br/>
+              {props.character.current_speed}/{props.character.max_speed} Speed <br/>
+              {props.character.experience} experience
             </div>
             <div className="small-6 columns hubInventory">
               Inventory: <br/>

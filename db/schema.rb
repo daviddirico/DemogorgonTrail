@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180124194236) do
+ActiveRecord::Schema.define(version: 20180130034114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,9 @@ ActiveRecord::Schema.define(version: 20180124194236) do
     t.integer "max_defense"
     t.integer "max_hitpoints"
     t.boolean "gameover", default: false
+    t.integer "current_speed"
+    t.integer "max_speed"
+    t.text "recent_changes"
     t.index ["user_id"], name: "index_characters_on_user_id"
   end
 

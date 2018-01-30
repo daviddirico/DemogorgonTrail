@@ -10,12 +10,14 @@ class GameEngine extends Component {
       campaign: {},
       campaignMade: false,
       characterMade: false,
-      character: {}
+      character: {},
+      heroDead: false
     }
     this.handleCampaignSubmit = this.handleCampaignSubmit.bind(this)
     this.createCampaign = this.createCampaign.bind(this)
     this.handleCharacterSubmit = this.handleCharacterSubmit.bind(this)
     this.createCharacter = this.createCharacter.bind(this)
+    this.handleDeath = this.handleDeath.bind(this)
   }
 
   componentDidMount(){
@@ -39,7 +41,7 @@ class GameEngine extends Component {
     .then(response => response.json())
     .then(body => {
       if (body.character !== null) {
-        this.setState({ character: body.character, characterMade: true })
+        this.setState({ character: body.character, characterMade: true, heroDead: false })
       }
     })
   }
@@ -76,15 +78,19 @@ class GameEngine extends Component {
     .then(response => response.json())
     .then(body => {
       if (body.character !== null) {
-        this.setState({ character: body.character, characterMade: true })
+        this.setState({ character: body.character, characterMade: true, heroDead: false })
       }
     })
   }
 
+  handleDeath() {
+    this.setState({ heroDead: true })
+  }
+
   render() {
     let pageRender
-    if (this.state.campaignMade && this.state.characterMade && this.state.character.gameover === false) {
-      pageRender = <HubScreen character={this.state.character} campaign={this.state.campaign} />
+    if (this.state.campaignMade && this.state.characterMade && this.state.heroDead === false) {
+      pageRender = <HubScreen handleDeath={this.handleDeath} character={this.state.character} campaign={this.state.campaign} />
     } else if (this.state.campaignMade) {
       pageRender = <CharacterForm handleCharacterSubmit={this.handleCharacterSubmit} />
     } else {

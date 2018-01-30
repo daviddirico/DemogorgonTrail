@@ -4,15 +4,19 @@ class Character < ApplicationRecord
   has_many :events, :through => :npcs
   has_one :inventory
 
+  serialize :recent_changes
+
   validates :name, presence: true
   validates :race, presence: true
   validates :class, presence: true
   validates :level, presence: true
   validates :current_strength, presence: true
   validates :current_defense, presence: true
+  validates :current_speed, presence: true
   validates :current_hitpoints, presence: true
   validates :max_strength, presence: true
   validates :max_defense, presence: true
+  validates :max_speed, presence: true
   validates :max_hitpoints, presence: true
 
   # def self.run_evaluation(enemies)
