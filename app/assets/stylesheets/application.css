@@ -231,3 +231,12 @@ button.continueQuestButton:hover {
 .enemyImage {
   max-width: 140px;
 }
+
+
+
+/* simple pop up */
+
+.simplePopUp {
+  background-color: #333333;
+  border: 1px solid black;
+}

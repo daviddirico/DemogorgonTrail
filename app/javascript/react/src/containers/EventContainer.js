@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import { Switch, Route } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import EventOptions from '../components/EventOptions';
 import EventComponent from '../components/EventComponent';
@@ -12,11 +11,7 @@ class EventContainer extends Component {
     this.state = {
       currentEvent: false,
       character: false,
-      popUp: false,
-      changedHitpoints: false,
-      changedExperience: false,
-      changedlevel: false,
-      hasDied: false
+      popUp: false
     }
     this.handleCaveSubmit = this.handleCaveSubmit.bind(this)
     this.fetchEncounter = this.fetchEncounter.bind(this)
@@ -68,8 +63,6 @@ class EventContainer extends Component {
     })
   }
 
-
-
   runFromBattle(event) {
     event.preventDefault()
     let formPayload = new FormData()
@@ -85,9 +78,6 @@ class EventContainer extends Component {
   }
 
   evaluateBattleChoice(formPayload) {
-    let currentHitpoints = this.state.character.current_hitpoints
-    let currentExperience = this.state.character.experience
-    let currentLevel = this.state.character.level
     fetch(`/api/v1/characters/${this.state.character.id}`, {
       credentials: 'same-origin',
       method: 'PATCH',
@@ -96,20 +86,11 @@ class EventContainer extends Component {
     .then(response => response.json())
     .then(body => {
       this.setState({ character: body.character })
-      if (this.state.character.current_hitpoints < currentHitpoints) {
-        this.setState({ popUp: true, changedHitpoints: true })
+      if (this.state.character.recent_changes) {
+        this.setState({ popUp: true })
       }
-      if (this.state.character.experience > currentExperience) {
-        this.setState({ popUp: true, changedExperience: true })
-      }
-      if (this.state.character.level > currentLevel) {
-        this.setState({ popUp: true, changedlevel: true })
-      }
-      if (this.state.character.gameover === true) {
-        this.setState({ popUp: true, hasDied: true })
-      }
+      return this.clearEvent()
     })
-    this.clearEvent()
   }
 
   clearEvent() {
@@ -120,47 +101,45 @@ class EventContainer extends Component {
     .then(response => response.json())
     .then(body => {
       this.setState({ currentEvent: body.event })
+
     })
   }
 
   simpleClick(event) {
     event.preventDefault()
     this.setState({
-      popUp: false,
-      changedHitpoints: false,
-      changedExperience: false,
-      changedlevel: false,
-      hasDied: false
+      popUp: false
     })
+    if (this.state.character.gameover) {
+      this.props.handleDeath()
+    }
   }
 
   render() {
 
-    let simplePopUp
-    if (this.state.popUp === true) {
-      simplePopUp = <SimplePopUp
-                      simpleClick={this.simpleClick}
-                      changedHitpoints={this.state.changedHitpoints}
-                      changedExperience={this.state.changedExperience}
-                      changedlevel={this.state.changedLevel}
-                      hasDied={this.state.hasDied}
-                    />
-    } else {
-      simplePopUp = <div></div>
-    }
-
     let theCrossRoads
-    if (this.state.currentEvent) {
-      theCrossRoads = <EventComponent handleFightClick={this.fightWithEnemies} handleRunClick={this.runFromBattle} currentEvent={this.state.currentEvent} />
+    if (this.state.popUp) {
+      theCrossRoads = <SimplePopUp
+                        simpleClick={this.simpleClick}
+                        character={this.state.character}
+                      />
+    } else if (this.state.currentEvent) {
+      theCrossRoads = <EventComponent
+                        handleInventoryClick={this.props.handleButtonClick}
+                        handleFightClick={this.fightWithEnemies}
+                        handleRunClick={this.runFromBattle}
+                        currentEvent={this.state.currentEvent}
+                      />
     } else {
-      theCrossRoads = <EventOptions handleSubmit={this.handleCaveSubmit} />
+      theCrossRoads = <EventOptions
+                        handleInventoryClick={this.props.handleButtonClick}
+                        handleSubmit={this.handleCaveSubmit}
+                      />
     }
 
     return(
       <section className="main-section">
-        {simplePopUp}
         {theCrossRoads}
-        <button onClick={this.props.handleButtonClick}>Return to Inventory</button>
       </section>
     )
   }

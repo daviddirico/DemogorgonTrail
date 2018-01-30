@@ -31,9 +31,10 @@ const EventComponent = props => {
       </div>
       <div>
         <button onClick={props.handleFightClick}>Fight</button>
-        or
+        -or-
         <button onClick={props.handleRunClick}>Run</button>
       </div>
+      <button onClick={props.handleInventoryClick}>Return to Inventory</button>
     </div>
   )
 }

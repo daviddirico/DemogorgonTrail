@@ -65,7 +65,6 @@ class HubScreen extends Component {
     })
   }
 
-
   render() {
 
     let gameplayScreen
@@ -77,7 +76,7 @@ class HubScreen extends Component {
                           inventory={this.state.inventory}
                         />
     } else {
-      gameplayScreen =  <EventContainer handleButtonClick={this.handleButtonClick} />
+      gameplayScreen =  <EventContainer handleDeath={this.props.handleDeath} handleButtonClick={this.handleButtonClick} />
     }
 
     return(

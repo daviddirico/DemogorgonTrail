@@ -6,6 +6,9 @@ const EventOptions = props => {
       <button>Search nearby town</button>
       <button>Wander the fields</button>
       <button onClick={props.handleSubmit}>Attempt nearby cave</button>
+      <div>
+        <button onClick={props.handleInventoryClick}>Return to Inventory</button>
+      </div>
     </div>
   )
 }
