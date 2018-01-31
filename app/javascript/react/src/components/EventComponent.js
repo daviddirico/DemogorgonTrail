@@ -23,7 +23,7 @@ const EventComponent = props => {
       <div>
         {encounter} <br/>
       </div>
-      <div>
+      <div className="dungeonEvent">
         {enemiesDisplay} <br/>
       </div>
       <div>

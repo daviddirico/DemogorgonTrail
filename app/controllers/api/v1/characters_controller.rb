@@ -93,10 +93,10 @@ class Api::V1::CharactersController < ApplicationController
 
     if result === "fight"
       while e_hp > 0 || current_hp > 0
-        break if e_hp <= 0
+        break if e_hp <= 0 || current_hp <=0
         remaining_speed = current_speed
         enemies.each do |enemy|
-          break if e_hp <= 0
+          break if e_hp <= 0 || current_hp <=0
           if remaining_speed <= 0
             remaining_speed = current_speed
           end
