@@ -33,7 +33,7 @@ a {
   max-width: 400px;
   border: 0px solid black;
   border-radius: 6px;
-  box-shadow: 0px 0px 2px 0px black
+  box-shadow: 0px 0px 2px 0px black;
 }
 
 label {
@@ -143,9 +143,23 @@ div.signLink {
 
 
 
+ /* Character form */
+.characterFormBackDrop {
+  background-color: #333333;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 400px;
+  height: 500px;
+  border: 0px solid black;
+  border-radius: 6px;
+  box-shadow: 0px 0px 2px 0px black;
+  overflow: hidden;
+}
+
+
 
 input.character-name-field {
-  margin-top: 20px;
+  margin-bottom: 30px;
 }
 
 .raceClassTitle {
@@ -155,16 +169,17 @@ input.character-name-field {
 .raceClassList {
   display: table;
   border-spacing: 5px;
-  margin: 10px 0px;
+  margin: 0px 0px 40px 0px;
 }
 
 .raceClassSelect {
   background-color: rgb(100, 30, 30);
   display: table-cell;
-  padding-top: 8px;
+  padding-top: 18px;
   width: 120px;
-  height: 40px;
+  height: 60px;
   margin: 1px;
+  margin-top: 40px;
   border: 0px solid black;
   border-radius: 3px;
   box-shadow: 0px 0px 2px 0px black
@@ -184,8 +199,34 @@ input.character-name-field {
   background-color: #366D69;
 }
 
+button.characterButton {
+  border-radius: 3px;
+  height: 100px;
+  margin: 1rem 0rem 1rem 0rem;
+}
 
+.heroImage {
+  object-fit: contain;
+  border-radius: 3px;
+}
 
+.heroImage img {
+  height: 460px;
+}
+
+.human {
+  background-color: blue;
+}
+.elf {
+  background-color: green;
+}
+.dwarf {
+  background-color: red;
+}
+
+.heroImageNotRendered {
+  margin-top: 200px;
+}
 
 
 /* Hub section */
@@ -231,11 +272,6 @@ button.continueQuestButton:hover {
 .enemyImage {
   max-height: 180px;
 }
-
-/* .dungeonEvent {
-  background-image: '../images/backgrounds/dungeonBackground2.jpg';
-} */
-
 .dungeonEvent {
   background-image: url("<%= image_path("backgrounds/dungeonBackground2.jpg") %>");
   min-height: 300px;
@@ -245,7 +281,6 @@ button.continueQuestButton:hover {
 
 
 /* simple pop up */
-
 .simplePopUp {
   background-color: #333333;
   border: 1px solid black;

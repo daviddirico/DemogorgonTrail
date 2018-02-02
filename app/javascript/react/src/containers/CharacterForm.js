@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import HeroImage from "../components/HeroImage"
 
 class CharacterForm extends Component {
   constructor(props) {
@@ -129,31 +130,44 @@ class CharacterForm extends Component {
 
   render() {
 
+    let heroImage
+    heroImage = <HeroImage
+                  race={this.state.race}
+                  classification={this.state.classification}
+                />
+
     return(
       <div>
         <p>Create your character</p>
-        <div className="formBackDrop">
-          <form>
-            <label className="inputField">
-              <input className="character-name-field" type='text' onChange={this.handleNameChange} placeholder={'Character Name'}/>
-            </label>
+        <div className="small-12 medium-6 large-6 columns">
+          <div className="characterFormBackDrop">
+            <form>
+              <label className="inputField">
+                <input className="character-name-field" type='text' onChange={this.handleNameChange} placeholder={'Character Name'}/>
+              </label>
 
-            <p className="raceClassTitle">Select Race</p>
-            <ul className="raceClassList">
-              <div className={this.state.classNameHuman} onClick={this.handleHumanClick}>Human</div>
-              <div className={this.state.classNameElf} onClick={this.handleElfClick}>Elf</div>
-              <div className={this.state.classNameDwarf} onClick={this.handleDwarfClick}>Dwarf</div>
-            </ul>
+              <p className="raceClassTitle">Select Race</p>
+              <ul className="raceClassList">
+                <div className={this.state.classNameHuman} onClick={this.handleHumanClick}>Human</div>
+                <div className={this.state.classNameElf} onClick={this.handleElfClick}>Elf</div>
+                <div className={this.state.classNameDwarf} onClick={this.handleDwarfClick}>Dwarf</div>
+              </ul>
 
-            <p className="raceClassTitle">Select Class</p>
-            <ul className="raceClassList">
-              <div className={this.state.classNameWarrior} onClick={this.handleWarriorClick}>Warrior</div>
-              <div className={this.state.classNameRanger} onClick={this.handleRangerClick}>Ranger</div>
-              <div className={this.state.classNameWizard} onClick={this.handleWizardClick}>Wizard</div>
-            </ul>
+              <p className="raceClassTitle">Select Class</p>
+              <ul className="raceClassList">
+                <div className={this.state.classNameWarrior} onClick={this.handleWarriorClick}>Warrior</div>
+                <div className={this.state.classNameRanger} onClick={this.handleRangerClick}>Ranger</div>
+                <div className={this.state.classNameWizard} onClick={this.handleWizardClick}>Wizard</div>
+              </ul>
 
-            <button className="field" type='submit' onClick={this.handleSubmit} value='Submit'>Submit Character</button>
-          </form>
+              <button className="characterButton" type='submit' onClick={this.handleSubmit} value='Submit'>Submit Character</button>
+            </form>
+          </div>
+        </div>
+        <div className="small-12 medium-6 large-6 columns">
+          <div className="characterFormBackDrop">
+            {heroImage}
+          </div>
         </div>
       </div>
     )

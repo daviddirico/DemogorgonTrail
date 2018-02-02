@@ -7,10 +7,10 @@ class GameEngine extends Component {
     super(props);
     this.state = {
       currentUser: this.props.currentUser,
-      campaign: {},
+      campaign: false,
       campaignMade: false,
       characterMade: false,
-      character: {},
+      character: false,
       heroDead: false
     }
     this.handleCampaignSubmit = this.handleCampaignSubmit.bind(this)
@@ -28,7 +28,7 @@ class GameEngine extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      if (body.campaign !== null) {
+      if (body.campaign) {
         this.setState({ campaign: body.campaign, campaignMade: true })
       }
     })
@@ -40,7 +40,7 @@ class GameEngine extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      if (body.character !== null) {
+      if (body.character) {
         this.setState({ character: body.character, characterMade: true, heroDead: false })
       }
     })
@@ -58,7 +58,7 @@ class GameEngine extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      if (body.campaign !== null) {
+      if (body.campaign) {
         this.setState({ campaign: body.campaign, campaignMade: true })
       }
     })
@@ -77,24 +77,40 @@ class GameEngine extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      if (body.character !== null) {
+      if (body.character) {
         this.setState({ character: body.character, characterMade: true, heroDead: false })
       }
     })
   }
 
   handleDeath() {
-    this.setState({ heroDead: true })
+    fetch(`/api/v1/campaigns/${this.state.campaign.id}`, {
+      method: 'DELETE',
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if (response.status === 200) {
+        this.setState({ heroDead: true, campaignMade: false })
+      } else {
+        console.log("something went wrong in your handleDeath function")
+      }
+    })
   }
 
   render() {
     let pageRender
     if (this.state.campaignMade && this.state.characterMade && this.state.heroDead === false) {
-      pageRender = <HubScreen handleDeath={this.handleDeath} character={this.state.character} campaign={this.state.campaign} />
+      pageRender =  <HubScreen
+                      handleDeath={this.handleDeath}
+                      character={this.state.character}
+                      campaign={this.state.campaign}
+                    />
     } else if (this.state.campaignMade) {
-      pageRender = <CharacterForm handleCharacterSubmit={this.handleCharacterSubmit} />
+      pageRender =  <CharacterForm
+                      handleCharacterSubmit={this.handleCharacterSubmit}
+                    />
     } else {
-      pageRender = <button onClick={this.handleCampaignSubmit}>Start your Campaign!</button>
+      pageRender =  <button onClick={this.handleCampaignSubmit}>Start your Campaign!</button>
     }
 
 

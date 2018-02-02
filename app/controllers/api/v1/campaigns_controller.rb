@@ -41,4 +41,12 @@ class Api::V1::CampaignsController < ApplicationController
     end
   end
 
+  def destroy
+    user = User.find_by(id: session[:user_id])
+    campaign = user.campaign
+
+    campaign.delete
+    render json: { campaign: nil }
+  end
+
 end

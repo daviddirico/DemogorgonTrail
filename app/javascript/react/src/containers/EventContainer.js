@@ -11,6 +11,7 @@ class EventContainer extends Component {
     this.state = {
       currentEvent: false,
       character: false,
+      campaign: this.props.campaign,
       popUp: false
     }
     this.handleCaveSubmit = this.handleCaveSubmit.bind(this)
@@ -134,6 +135,7 @@ class EventContainer extends Component {
       theCrossRoads = <EventOptions
                         handleInventoryClick={this.props.handleButtonClick}
                         handleSubmit={this.handleCaveSubmit}
+                        campaign={this.state.campaign}
                       />
     }
 
