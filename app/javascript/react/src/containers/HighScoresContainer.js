@@ -16,7 +16,7 @@ class HighScoresContainer extends Component {
 
     return(
       <section className="main-section">
-        Hello From High Scores Container
+        Coming soon!
       </section>
     )
   }

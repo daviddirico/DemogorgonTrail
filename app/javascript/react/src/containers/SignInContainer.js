@@ -54,6 +54,7 @@ class SignInContainer extends Component {
     .then(response => {
       if (response.status === 200) {
         this.clearForm()
+        this.props.displayUser()
       } else {
         this.setState({ errors: ["Sign in failed!"] })
       }

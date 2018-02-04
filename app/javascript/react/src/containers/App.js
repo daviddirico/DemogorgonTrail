@@ -17,7 +17,6 @@ class App extends Component {
       currentUser: {}
     }
     this.handleIconClick = this.handleIconClick.bind(this)
-    // this.displayUser = this.displayUser.bind(this)
   }
 
   componentDidMount(){
@@ -40,27 +39,6 @@ class App extends Component {
       this.setState({ signedIn: body.signed_in, currentUser: body.current_user})
     })
   }
-
-  // displayUser(){
-  //   fetch('/api/v1/users', {
-  //     credentials: 'same-origin',
-  //     method: 'GET',
-  //     headers: { 'Content-Type':'application/json'}
-  //   })
-  //   .then(response => {
-  //     if (response.ok) {
-  //       return response;
-  //     } else {
-  //       let errorMessage = `${response.status} (${response.statusText})`,
-  //       error = new Error(errorMessage);
-  //       throw(error);
-  //     }
-  //   })
-  //   .then(response => response.json())
-  //   .then(body => {
-  //     this.setState({ signedIn: body.signed_in, currentUser: body.current_user})
-  //   })
-  // }
 
   handleIconClick() {
     if (this.state.icon == false) {
@@ -96,8 +74,8 @@ class App extends Component {
             <section className="menuIcon small-3 columns">
               <a onClick={this.handleIconClick} className="left-off-canvas-toggle menu-icon"><span></span></a>
             </section>
-            <section className="title small-6 columns">
-              <h1 className="title">The Demogorgon Trail</h1>
+            <section className="headerTitle small-6 columns">
+              <h1 className="headerTitle">The Demogorgon Trail</h1>
             </section>
             <section className="userLogin small-3 columns">
               {user_signed_in}

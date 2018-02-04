@@ -2,6 +2,8 @@ import React from 'react';
 
 const HubInventory = props => {
 
+  let character = props.character
+
   let itemsOwned
   if (props.inventory === null) {
     itemsOwned = <div>You do not own a single item to display!</div>
@@ -16,9 +18,16 @@ const HubInventory = props => {
     buttonText = <div>Continue Quest</div>
   }
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  let race = capitalizeFirstLetter(character.race)
+  let classification = capitalizeFirstLetter(character.classification)
+
+
   return(
     <div>
-
       <div className="hubTop">
         <div className="small-6 columns hubWrapper">
           <div className="hubFieldTop">
@@ -28,17 +37,72 @@ const HubInventory = props => {
         <div className="small-6 columns hubWrapper">
           <div className="hubFieldTop">
             <div className="small-6 columns hubCharacter">
-              {props.character.name} - Level {props.character.level} <br/>
-              {props.character.race} {props.character.classification} <br/>
-              {props.character.current_hitpoints}/{props.character.max_hitpoints} HP <br/>
-              {props.character.current_strength}/{props.character.max_strength} Strength <br/>
-              {props.character.current_defense}/{props.character.max_defense} Defense <br/>
-              {props.character.current_speed}/{props.character.max_speed} Speed <br/>
-              {props.character.experience} experience
+              <div className="small-12 columns inventoryTextWrapper">
+                <div className="small-6 columns inventoryText">
+                  {character.name}
+                </div>
+                <div className="small-6 columns inventoryText">
+                  Level {character.level}
+                </div>
+              </div>
+              <div className="small-12 columns inventoryTextWrapper">
+                <div className="small-6 columns inventoryText">
+                  {race}
+                </div>
+                <div className=" small-6 columns inventoryText">
+                  {classification}
+                </div>
+              </div>
+              <div className="small-12 columns inventoryTextWrapper">
+                <div className="small-6 columns inventoryText">
+                  Hitpoints
+                </div>
+                <div className="small-6 columns inventoryText">
+                  {character.current_hitpoints}/{character.max_hitpoints}
+                </div>
+              </div>
+              <div className="small-12 columns inventoryTextWrapper">
+                <div className="small-6 columns inventoryText">
+                  Strength
+                </div>
+                <div className="small-6 columns inventoryText">
+                  {character.current_strength}/{character.max_strength}
+                </div>
+              </div>
+              <div className="small-12 columns inventoryTextWrapper">
+                <div className="small-6 columns inventoryText">
+                  Defense
+                </div>
+                <div className="small-6 columns inventoryText">
+                  {character.current_defense}/{character.max_defense}
+                </div>
+              </div>
+              <div className="small-12 columns inventoryTextWrapper">
+                <div className="small-6 columns inventoryText">
+                  Speed
+                </div>
+                <div className="small-6 columns inventoryText">
+                  {character.current_speed}/{character.max_speed}
+                </div>
+              </div>
+              <div className="small-12 columns inventoryTextWrapper">
+                <div className="small-6 columns inventoryText">
+                  Exp/Next
+                </div>
+                <div className="small-6 columns inventoryText">
+                  {character.experience}/{character.next_exp}
+                </div>
+              </div>
             </div>
             <div className="small-6 columns hubInventory">
-              Inventory: <br/>
-              {itemsOwned}
+              <div className="small-12 columns inventoryTextWrapper">
+                <div className="inventoryText">
+                  Inventory
+                </div>
+                <div className="inventoryText">
+                  {itemsOwned}
+                </div>
+              </div>
             </div>
           </div>
         </div>

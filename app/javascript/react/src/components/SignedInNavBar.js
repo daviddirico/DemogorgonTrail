@@ -17,10 +17,6 @@ class SignedInNavBar extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    // let formPayload = new FormData()
-    // formPayload.append('email', this.state.email)
-    // formPayload.append('password', this.state.password)
-    // this.startSession(formPayload)
     this.endSession();
   }
 
@@ -38,6 +34,7 @@ class SignedInNavBar extends Component {
         console.log("failure!")
       }
     })
+
   }
 
   render() {

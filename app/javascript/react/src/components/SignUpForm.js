@@ -4,8 +4,19 @@ import Dropzone from 'react-dropzone'
 
 const SignUpForm = props => {
 
+  let placeholder
+  let classNamePlaceholder
+  if (props.preview) {
+    placeholder = props.preview
+    classNamePlaceholder = "dropzoneStyleAlt"
+  } else {
+    placeholder = <div>Drag Profile Image Here</div>
+    classNamePlaceholder = "dropzoneStyle"
+  }
+
+
   return(
-    <div>
+    <div className="formWrapper">
       <div className="formBackDrop">
         <div>
           {props.success}
@@ -32,9 +43,8 @@ const SignUpForm = props => {
           </label>
 
           <label className="photoDrop">
-            <Dropzone className="dropzoneStyle" onDrop={props.onDrop} value={props.imageValue}>
-              Drag Profile Image Here<br />
-              {props.preview}
+            <Dropzone className={classNamePlaceholder} onDrop={props.onDrop} value={props.imageValue}>
+              {placeholder}
             </Dropzone>
           </label>
           <button className="field" type='submit' onClick={props.handleSubmit} value='Submit'>Submit</button>
