@@ -173,6 +173,7 @@ class Api::V1::CharactersController < ApplicationController
         end
 
         character.experience = current_experience
+        character.next_exp = experience_needed
         character.level = current_level
         character.max_strength = max_str
         character.max_defense = max_def

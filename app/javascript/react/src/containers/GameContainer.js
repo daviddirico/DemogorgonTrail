@@ -38,7 +38,7 @@ class GameContainer extends Component {
 
     let user_signed_in;
     if(!this.state.signedIn){
-        user_signed_in = <p>"Users must be logged in to play the Demogorgon Trail"</p>
+        user_signed_in = <p>You must be logged in to play the Demogorgon Trail</p>
     } else {
       user_signed_in = <GameEngine currentUser={this.state.currentUser} />
     }

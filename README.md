@@ -36,5 +36,5 @@ Users can...
 * Navigate to the project's root directory with `cd DemogorgonTrail`
 * Run `bundle install && npm install && rake db:setup`
 * In terminal, run `rails s`
-* In another terminal tab, run `./bin/webpacker-dev-server`
+* In another terminal tab, run `./bin/webpack-dev-server`
 * Visit `http://localhost:3000/` in your browser.

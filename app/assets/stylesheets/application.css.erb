@@ -19,6 +19,7 @@ html, body {
   margin: 0px;
   padding: 0px;
   background-color: #262626;
+  font-family: 'Germania One', cursive;
 }
 
 a {
@@ -26,8 +27,18 @@ a {
   text-decoration: underline;
 }
 
+button {
+  font-family: 'Germania One', cursive;
+  background-color: #505050;
+}
+
+button:hover {
+  background-color: #202020;
+}
+
+
 .formBackDrop {
-  background-color: #333333;
+  background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
   margin: 0 auto;
   padding: 1px 20px 1px 20px;
   max-width: 400px;
@@ -68,6 +79,19 @@ label.photoDrop {
   border-radius: 5px;
 }
 
+.dropzoneStyleAlt {
+  margin: 0 auto;
+  padding: 0px;
+  height: 200px;
+  width: 200px;
+  color: white;
+  background-color: rgb(100, 30, 30);
+  border-width: 2px;
+  border-color: rgb(102, 102, 102);
+  border-style: dashed;
+  border-radius: 5px;
+}
+
 .listItem a {
   height: 45px;
 }
@@ -91,8 +115,12 @@ section.menuIcon.small-3.columns {
   padding-left: 0px;
 }
 
-section.title.small-6.columns {
+section.headerTitle.small-6.columns {
   text-align: center;
+}
+
+.headerTitle {
+  font-family: 'Germania One', cursive;
 }
 
 section.userLogin.small-3.columns {
@@ -130,7 +158,9 @@ div.signLink {
   padding-top: 15px;
   height: 100%;
   color: white;
-  background-color: rgb(100, 30, 30);
+  background-image: url("<%= image_path("backgrounds/fiery-background2") %>");
+  background-size: cover;
+  overflow: scroll;
 }
 
 /* .photoDrop {
@@ -139,6 +169,7 @@ div.signLink {
 
 .signHeader {
   color: white;
+  font-family: 'Germania One', cursive;
 }
 
 
@@ -245,12 +276,40 @@ div.columns.hubWrapper {
 
 .hubFieldTop {
   min-height: 350px;
-  background-color: rgb(70, 20, 20)
+  background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
+}
+
+div.small-6.columns.hubCharacter {
+  margin-top: 10px;
+}
+
+div.small-6.columns.hubInventory {
+  margin-top: 10px;
+}
+
+
+div.small-12.columns.inventoryTextWrapper {
+  padding: 0px;
+  margin-top: 8px;
+}
+
+.inventoryText {
+  text-align: left;
+  color: seashell;
+  padding: 5px;
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
+  background-image: url("<%= image_path("backgrounds/stone-background3.jpg") %>");
 }
 
 .hubFieldBottom {
   min-height: 180px;
-  background-color: rgb(70, 20, 20)
+  background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
+
 }
 
 button.continueQuestButton {
@@ -259,11 +318,14 @@ button.continueQuestButton {
   width: -webkit-fill-available;
   max-width: 363.33px;
   font-size: x-large;
-  background-color: #606060;
+  background-color: #303030;
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
 }
 
 button.continueQuestButton:hover {
-  background-color: #505050;
+  color: red;
+  background-color: #202020;
 }
 
 
@@ -284,4 +346,25 @@ button.continueQuestButton:hover {
 .simplePopUp {
   background-color: #333333;
   border: 1px solid black;
+}
+
+
+
+
+/* home container */
+.introductoryText {
+  color: seashell;
+  padding: 10px;
+  font-family: 'Germania One', cursive;
+  font-size: 25px;
+}
+
+.stoneTab {
+  background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
+}
+
+.title {
+  font-size: 50px;
 }

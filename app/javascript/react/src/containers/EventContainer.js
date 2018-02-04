@@ -140,7 +140,7 @@ class EventContainer extends Component {
     }
 
     return(
-      <section className="main-section">
+      <section>
         {theCrossRoads}
       </section>
     )
