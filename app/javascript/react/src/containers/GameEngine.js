@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CharacterForm from "./CharacterForm"
 import HubScreen from "./HubScreen"
+import StartCampaign from "../components/StartCampaign"
 
 class GameEngine extends Component {
   constructor(props) {
@@ -110,7 +111,9 @@ class GameEngine extends Component {
                       handleCharacterSubmit={this.handleCharacterSubmit}
                     />
     } else {
-      pageRender =  <button onClick={this.handleCampaignSubmit}>Start your Campaign!</button>
+      pageRender =  <StartCampaign
+                      handleCampaignSubmit={this.handleCampaignSubmit}
+                    />
     }
 
 

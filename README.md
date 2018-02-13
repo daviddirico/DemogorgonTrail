@@ -25,7 +25,7 @@ Users can...
 * Backend: Rails 5.1.4
 * Frontend: React.js
 * Drag and drop: react-dropzone
-* Image Hosting: Amazon Web Services
+* Image Hosting: AWS S3
 * Styling: Foundation
 * Database: PostgreSQL
 

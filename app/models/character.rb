@@ -19,31 +19,152 @@ class Character < ApplicationRecord
   validates :max_speed, presence: true
   validates :max_hitpoints, presence: true
 
-  # def self.run_evaluation(enemies)
-  #   binding.pry
-  #   user = User.find_by(id: session[:user_id])
-  #   hero = Character.find_by(user_id: user.id)
-  #   number = enemies.length
-  #   e_strength = 0
-  #   enemies.each do |enemy|
-  #     e_strength += enemy.strength
-  #   end
-  #   randomDamage = rand(0 .. 99)
-  #   if randomDamage > 70
-  #     hero.hitpoints -= (e_strength/number).round(0)
-  #   end
-  #   binding.pry
-  # end
-  #
-  # def self.battle_evaluation(enemies)
-  #   number = enemies.length
-  #   e_level = 0
-  #   e_strength = 0
-  #   e_defense = 0
-  #   e_hitpoints = 0
-  #   enemies.each do |enemy|
-  #
-  #   end
-  # end
+  def battle(character, enemies, beginning_hp)
+    current_hp = character.current_hitpoints
+    current_strength = character.current_strength
+    current_defense = character.current_defense
+    current_speed = character.current_speed
+    e_hp = 0
+    enemies.each do |enemy|
+      e_hp += enemy.current_hitpoints
+    end
 
+    while e_hp > 0 && current_hp > 0
+      break if e_hp <= 0 || current_hp <=0
+      remaining_speed = current_speed
+      enemies.each do |enemy|
+        break if e_hp <= 0 || current_hp <=0
+        enemy_hp = enemy.current_hitpoints
+
+        if current_strength - enemy.current_defense > 0
+          enemy_damage = current_strength - enemy.current_defense
+        else
+          enemy_damage = 1
+        end
+
+        if enemy.current_strength - current_defense > 0
+          hero_damage = enemy.current_strength - current_defense
+        else
+          hero_damage = 1
+        end
+
+        while enemy_hp > 0
+          break if e_hp <= 0 || current_hp <=0 || enemy_hp <= 0
+
+          if remaining_speed <= 0
+            remaining_speed = current_speed
+          end
+
+          if remaining_speed >= enemy.current_speed
+            remaining_speed -= enemy.current_speed
+            if enemy_damage > enemy_hp
+              enemy_damage = enemy_hp
+            end
+            enemy_hp -= enemy_damage
+            e_hp -= enemy_damage
+          else
+            remaining_speed = 0
+            current_hp -= hero_damage
+          end
+        end
+      end
+    end
+
+    if beginning_hp != current_hp
+      character.current_hitpoints = current_hp
+      character.recent_changes << "hp"
+    end
+  end
+
+
+  def experience_gain(character, enemies, beginning_experience)
+    current_experience = character.experience
+    experience_gained = 0
+    enemies.each do |exp|
+      experience_gained += exp.experience
+    end
+    if current_experience < 10000
+      current_experience += experience_gained
+      if current_experience > 10000
+        current_experience = 10000
+      end
+    end
+
+    if beginning_experience != current_experience
+      character.experience = current_experience
+      character.recent_changes << "experience"
+    end
+  end
+
+
+  def level_gain(character, beginning_level)
+    current_level = character.level
+    experience_needed = (5 * (current_level + 1) ** 3)/4
+    while character.experience >= experience_needed && current_level < 20 do
+      character.level += 1
+
+      random_hp_increaser = rand(3 .. 7)
+      character.max_hitpoints += random_hp_increaser
+      character.current_hitpoints += random_hp_increaser
+
+      high_roll = rand(3 .. 4)
+      mid_roll = rand(2 .. 4)
+      low_roll = rand(2 .. 3)
+      if character.classification === "warrior"
+        character.max_strength += mid_roll
+        character.max_defense += high_roll
+        character.max_speed += low_roll
+        character.current_strength += mid_roll
+        character.current_defense += high_roll
+        character.current_speed += low_roll
+      elsif character.classification === "ranger"
+        character.max_strength += low_roll
+        character.max_defense += mid_roll
+        character.max_speed += high_roll
+        character.current_strength += low_roll
+        character.current_defense += mid_roll
+        character.current_speed += high_roll
+      else
+        character.max_strength += high_roll
+        character.max_defense += low_roll
+        character.max_speed += mid_roll
+        character.current_strength += high_roll
+        character.current_defense += low_roll
+        character.current_speed += mid_roll
+      end
+      experience_needed = (5 * (character.level + 1) ** 3)/4
+    end
+
+    if beginning_level != character.level
+      character.next_exp = experience_needed
+      character.recent_changes << "level"
+    end
+  end
+
+  def run(character, enemies, beginning_hp)
+    current_speed = character.current_speed
+    enemies.each do |enemy|
+      break if character.current_hitpoints <= 0
+      escape_chance = rand(0 .. 99)
+      good_luck = rand(0 .. 99)
+      run_damage = enemy.level
+      if current_speed >= enemy.current_speed && good_luck <= 80
+        run_damage = 0
+      elsif enemy.current_speed > current_speed && escape_chance > 90
+        run_damage = 0
+      end
+      if run_damage > 0
+        character.current_hitpoints -= run_damage
+      end
+    end
+    if character.current_hitpoints <= 0
+      character.gameover = true
+      character.recent_changes = ["gameover"]
+    elsif beginning_hp != character.current_hitpoints
+      character.recent_changes << "hp"
+      character.recent_changes << "run"
+    else
+      character.recent_changes << "run"
+    end
+  end
 end
