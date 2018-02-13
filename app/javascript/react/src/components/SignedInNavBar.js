@@ -38,11 +38,13 @@ class SignedInNavBar extends Component {
   }
 
   render() {
-
+    let photo = this.props.currentUser.profile_photo.url
 
     return(
       <div>
-        <div className="signLink small-6 columns"></div>
+        <div className="signLink small-6 columns">
+          <img className="signImg" src={photo} />
+        </div>
         <Link onClick={this.handleSubmit} className="signLink small-6 columns" to="/">Sign Out</Link>
       </div>
     )

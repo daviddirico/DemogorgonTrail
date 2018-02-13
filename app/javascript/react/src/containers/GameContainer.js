@@ -45,7 +45,9 @@ class GameContainer extends Component {
 
     return(
       <section className="main-section">
-        {user_signed_in}
+        <div className="gameWrapper">
+          {user_signed_in}
+        </div>
       </section>
     )
   }
