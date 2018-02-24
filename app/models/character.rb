@@ -24,18 +24,22 @@ class Character < ApplicationRecord
     current_strength = character.current_strength
     current_defense = character.current_defense
     current_speed = character.current_speed
+
+    # This determines the max health of the enemies of this fight without affecting the character records of these enemies.
     e_hp = 0
     enemies.each do |enemy|
       e_hp += enemy.current_hitpoints
     end
 
+    # As long as both sides are still alive, do this:
     while e_hp > 0 && current_hp > 0
       break if e_hp <= 0 || current_hp <=0
       remaining_speed = current_speed
+      # fighting one enemy at a time
       enemies.each do |enemy|
         break if e_hp <= 0 || current_hp <=0
         enemy_hp = enemy.current_hitpoints
-
+        # evaluating the damage output for you and the enemy
         if current_strength - enemy.current_defense > 0
           enemy_damage = current_strength - enemy.current_defense
         else
@@ -48,12 +52,9 @@ class Character < ApplicationRecord
           hero_damage = 1
         end
 
+        # applying the damage in order of speed
         while enemy_hp > 0
           break if e_hp <= 0 || current_hp <=0 || enemy_hp <= 0
-
-          if remaining_speed <= 0
-            remaining_speed = current_speed
-          end
 
           if remaining_speed >= enemy.current_speed
             remaining_speed -= enemy.current_speed
@@ -63,8 +64,8 @@ class Character < ApplicationRecord
             enemy_hp -= enemy_damage
             e_hp -= enemy_damage
           else
-            remaining_speed = 0
             current_hp -= hero_damage
+            remaining_speed = current_speed
           end
         end
       end
@@ -79,10 +80,14 @@ class Character < ApplicationRecord
 
   def experience_gain(character, enemies, beginning_experience)
     current_experience = character.experience
+
+    # This determines the total amount of exp you gain from your latest battle based on each enemy's exp value
     experience_gained = 0
     enemies.each do |exp|
       experience_gained += exp.experience
     end
+
+    # Experience cap
     if current_experience < 10000
       current_experience += experience_gained
       if current_experience > 10000
@@ -90,6 +95,7 @@ class Character < ApplicationRecord
       end
     end
 
+    # winning a battle will grant experience, this logic track info so that you can know what happened in the battle.
     if beginning_experience != current_experience
       character.experience = current_experience
       character.recent_changes << "experience"

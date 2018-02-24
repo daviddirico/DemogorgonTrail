@@ -158,7 +158,7 @@ class SignUpContainer extends Component {
     return(
       <section className="main-section">
 
-        <h3 className="signHeader">Sign Up</h3>
+        <div className="signHeader">Sign Up</div>
 
         <SignUpForm
           success={success}

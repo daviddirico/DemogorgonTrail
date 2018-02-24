@@ -120,19 +120,27 @@ div.columns.hubWrapper {
 }
 
 .hubFieldTop {
- min-height: 350px;
- background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
- border: 2px solid transparent;
- border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
+  padding-top: 10px;
+  min-height: 350px;
+  background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
 }
 
-div.small-6.columns.hubCharacter {
- margin-top: 10px;
+.hubMapText {
+  font-size: 26px;
+}
+
+img.campaignMap {
+  width: -webkit-fill-available;
+  margin:  10px 13px 13px 13px;
+}
+
+/* div.small-6.columns.hubCharacter {
 }
 
 div.small-6.columns.hubInventory {
- margin-top: 10px;
-}
+} */
 
 
 div.small-12.columns.inventoryTextWrapper {
@@ -155,6 +163,16 @@ div.small-12.columns.inventoryTextWrapper {
  border: 2px solid transparent;
  border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
 
+}
+
+.hubQuestHeader {
+  margin-top: 10px;
+  font-size: 26px;
+}
+
+.hubQuestLog {
+  text-align: left;
+  margin: 10px 15px 15px 15px;
 }
 
 button.continueQuestButton {
@@ -185,11 +203,65 @@ button.continueQuestButton:hover {
  min-height: 300px;
  background-position: center;
  padding-top: 100px;
+ border: 2px solid transparent;
+ border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
 }
 
+.listOfBattleOptions {
+  max-width: 400px;
+  margin: 0 auto;
+  background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
+}
+
+.fightRun {
+  margin: 20px;
+  width: -webkit-fill-available;
+}
+
+button.battleButton {
+  background-color: #303030;
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
+  margin-bottom: 0px;
+  width: 168px;
+  max-width: 168px;
+}
+
+.leftBattleTile {
+  margin-right: 10px
+}
+
+.rightBattleTile {
+  margin-left: 10px
+}
+
+button.inventoryButton {
+  background-color: #303030;
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
+  width: -webkit-fill-available;
+  margin: 0px 20px 20px 20px;
+}
+
+button.battleButton:hover {
+  color: red;
+  background-color: #202020;
+}
+
+button.inventoryButton:hover {
+  color: red;
+  background-color: #202020;
+}
+
+.optionsText {
+  margin-top: 10px;
+}
 
 /* simple pop up */
 .simplePopUp {
- background-color: #333333;
- border: 1px solid black;
+  background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
 }

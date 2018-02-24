@@ -31,7 +31,8 @@ const HubInventory = props => {
       <div className="hubTop">
         <div className="small-6 columns hubWrapper">
           <div className="hubFieldTop">
-            Map of progress
+            <div className="hubMapText">Map of progress</div>
+            <img className="campaignMap" src={ require(`../../../../assets/images/maps/campaign-map`) }/>
           </div>
         </div>
         <div className="small-6 columns hubWrapper">
@@ -110,7 +111,11 @@ const HubInventory = props => {
       <div className="hubBottom">
         <div className="small-8 columns hubWrapper">
           <div className="hubFieldBottom">
-            Quest Log
+            <div className="hubQuestHeader">Quest Log</div>
+            <div className="hubQuestLog">
+              <li>Find Folbarg and investigate the disappearances in town</li>
+              <li>Prove that you are strong enough to handle the challenges of this adventure</li>
+            </div>
           </div>
         </div>
         <div className="small-4 columns hubWrapper">
