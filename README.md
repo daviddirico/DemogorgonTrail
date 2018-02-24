@@ -6,6 +6,10 @@ Inspired by the popular 90s game, The Oregon Trail, this application is a choice
 front-end is comprised entirely of ReactJS, which makes fetch calls to the API urls set up in Rails, of which
 the entire back-end is comprised.
 
+![Alt text](app/assets/images/screenshots/screenshot1.png?raw=true "screenshot1")
+![Alt text](app/assets/images/screenshots/screenshot2.png?raw=true "screenshot2")
+![Alt text](app/assets/images/screenshots/screenshot3.png?raw=true "screenshot3")
+![Alt text](app/assets/images/screenshots/screenshot4.png?raw=true "screenshot4")
 ---
 
 ## Features
