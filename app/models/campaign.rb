@@ -5,4 +5,6 @@ class Campaign < ApplicationRecord
 
   validates :completion, presence: true
   validates :difficulty, presence: true
+
+  serialize :town
 end

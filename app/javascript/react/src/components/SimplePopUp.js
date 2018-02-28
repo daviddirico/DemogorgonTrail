@@ -18,9 +18,9 @@ const SimplePopUp = props => {
     } else if (changes.includes("experience")) {
       initialResult = <div>You have flawlessly won the battle!</div>
     } else if (changes.includes("hp")) {
-      initialResult = <div>You managed to escape but took some damage in doing so!</div>
+      initialResult = <div>You managed to escape but took some damage in the process.</div>
     } else {
-    initialResult = <div>You managed to escape.</div>
+    initialResult = <div>You managed to escape unscathed.</div>
     }
   } else {
     initialResult = <div>An error has occurred!</div>
@@ -28,8 +28,10 @@ const SimplePopUp = props => {
 
   return(
     <div className="simplePopUp" onClick={props.simpleClick}>
-      {initialResult}
-      <button>OK</button>
+      <div className="simplePopUpContent">
+        {initialResult} <br/>
+        <button className="simpleButton">OK</button>
+      </div>
     </div>
   )
 }

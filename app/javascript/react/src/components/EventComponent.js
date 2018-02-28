@@ -34,7 +34,7 @@ const EventComponent = props => {
           <button className="battleButton leftBattleTile" onClick={props.handleFightClick}>Fight</button>
           <button className="battleButton rightBattleTile" onClick={props.handleRunClick}>Run</button>
         </div>
-        <button className="inventoryButton" onClick={props.handleInventoryClick}>Return to Inventory</button>
+        <button className="inventoryButton" onClick={props.handleInventoryClick}>Check Inventory</button>
       </div>
     </div>
   )

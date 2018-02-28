@@ -19,11 +19,6 @@ class HubScreen extends Component {
 
   handleButtonClick(event) {
     event.preventDefault()
-    if (this.state.paused === true) {
-      this.setState({ paused: false })
-    } else {
-      this.setState({ paused: true })
-    }
     if (this.state.campaign.completion === 0) {
       let formPayload = new FormData()
       formPayload.append('completion', 'initial')
@@ -36,6 +31,11 @@ class HubScreen extends Component {
       .then(body => {
         this.setState({ campaign: body.campaign })
       })
+    }
+    if (this.state.paused === true) {
+      this.setState({ paused: false })
+    } else {
+      this.setState({ paused: true })
     }
     this.fetchCampaign()
     this.fetchCharacter()

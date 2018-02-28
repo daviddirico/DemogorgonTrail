@@ -22,9 +22,9 @@ class Api::V1::EventsController < ApplicationController
 
     event_type = params["event_type"]
 
-    if event_type === "random_event"
+    if event_type === "trail"
       random_event = rand(0 .. 99)
-      if random_event <= 80
+      if random_event <= 94
         event.name = "enemy"
       else
         event.name = "loot"
@@ -66,13 +66,16 @@ class Api::V1::EventsController < ApplicationController
           enemies << npcs.where("level <= ?", level).sample
         end
         event.info = enemies
-
-        if event.save
-          render json: { event: event }
-        end
-      # else
-        # put stuff here for event.name === "loot"
+      elsif event.name === "loot"
+        puts "this is reserved for a loot event"
       end
+    elsif event.name == "town"
+      checkpoint = campaign.completion/10.round
+      event.info = Town.where(definition: checkpoint)
+    end
+
+    if event.save
+      render json: { event: event }
     end
   end
 
