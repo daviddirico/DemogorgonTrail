@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180202180536) do
+ActiveRecord::Schema.define(version: 20180228023639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20180202180536) do
     t.string "difficulty", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "town"
     t.index ["user_id"], name: "index_campaigns_on_user_id"
   end
 
@@ -73,6 +74,19 @@ ActiveRecord::Schema.define(version: 20180202180536) do
     t.index ["character_id"], name: "index_inventories_on_character_id"
   end
 
+  create_table "items", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "item_type", null: false
+    t.string "mod_type"
+    t.integer "mod_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "rare"
+    t.boolean "droppable"
+    t.boolean "battle_affecting"
+  end
+
   create_table "npcs", force: :cascade do |t|
     t.bigint "characters_id"
     t.bigint "events_id"
@@ -80,6 +94,29 @@ ActiveRecord::Schema.define(version: 20180202180536) do
     t.datetime "updated_at", null: false
     t.index ["characters_id"], name: "index_npcs_on_characters_id"
     t.index ["events_id"], name: "index_npcs_on_events_id"
+  end
+
+  create_table "obtainables", force: :cascade do |t|
+    t.bigint "inventories_id"
+    t.bigint "items_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inventories_id"], name: "index_obtainables_on_inventories_id"
+    t.index ["items_id"], name: "index_obtainables_on_items_id"
+  end
+
+  create_table "towns", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "leader"
+    t.integer "definition", null: false
+    t.text "narrative", null: false
+    t.text "objective", null: false
+    t.string "town_need", null: false
+    t.string "item_name"
+    t.integer "level_threshold"
+    t.string "enemy_requested"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

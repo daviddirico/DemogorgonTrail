@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import EventOptions from '../components/EventOptions';
 import EventComponent from '../components/EventComponent';
+import TownComponent from '../components/TownComponent';
 import SimplePopUp from '../components/SimplePopUp';
 
 
@@ -15,6 +16,8 @@ class EventContainer extends Component {
       popUp: false
     }
     this.handleCaveSubmit = this.handleCaveSubmit.bind(this)
+    this.handleTrailSubmit = this.handleTrailSubmit.bind(this)
+    this.handleTownSubmit = this.handleTownSubmit.bind(this)
     this.fetchEncounter = this.fetchEncounter.bind(this)
     this.runFromBattle = this.runFromBattle.bind(this)
     this.fightWithEnemies = this.fightWithEnemies.bind(this)
@@ -49,6 +52,20 @@ class EventContainer extends Component {
     event.preventDefault()
     let formPayload = new FormData()
     formPayload.append('event_type', 'enemy')
+    this.fetchEncounter(formPayload)
+  }
+
+  handleTrailSubmit(event) {
+    event.preventDefault()
+    let formPayload = new FormData()
+    formPayload.append('event_type', 'random_event')
+    this.fetchEncounter(formPayload)
+  }
+
+  handleTownSubmit(event) {
+    event.preventDefault()
+    let formPayload = new FormData()
+    formPayload.append('event_type', 'town')
     this.fetchEncounter(formPayload)
   }
 
@@ -102,7 +119,6 @@ class EventContainer extends Component {
     .then(response => response.json())
     .then(body => {
       this.setState({ currentEvent: body.event })
-
     })
   }
 
@@ -117,12 +133,16 @@ class EventContainer extends Component {
   }
 
   render() {
-
     let theCrossRoads
     if (this.state.popUp) {
       theCrossRoads = <SimplePopUp
                         simpleClick={this.simpleClick}
                         character={this.state.character}
+                      />
+    } else if (this.state.currentEvent.name === "town") {
+      theCrossRoads = <TownComponent
+                        handleClick={this.clearEvent}
+                        currentEvent={this.state.currentEvent}
                       />
     } else if (this.state.currentEvent) {
       theCrossRoads = <EventComponent
@@ -134,7 +154,9 @@ class EventContainer extends Component {
     } else {
       theCrossRoads = <EventOptions
                         handleInventoryClick={this.props.handleButtonClick}
-                        handleSubmit={this.handleCaveSubmit}
+                        handleCaveSubmit={this.handleCaveSubmit}
+                        handleTrailSubmit={this.handleTrailSubmit}
+                        handleTownSubmit={this.handleTownSubmit}
                         campaign={this.state.campaign}
                       />
     }

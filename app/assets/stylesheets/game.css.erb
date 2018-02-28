@@ -260,8 +260,33 @@ button.inventoryButton:hover {
 }
 
 /* simple pop up */
+
+div.simplePopUp {
+  margin-top: 150px;
+}
+
 .simplePopUp {
   background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
   border: 2px solid transparent;
   border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
+  max-width: 400px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.simplePopUpContent {
+  margin: 40px;
+}
+
+button.simpleButton {
+  background-color: #303030;
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
+  width: 100px;
+  margin: 0px 20px 20px 20px;
+}
+
+button.simpleButton:hover {
+  color: red;
+  background-color: #202020;
 }
