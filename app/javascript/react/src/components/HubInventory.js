@@ -1,15 +1,15 @@
 import React from 'react';
+import InventoryTile from "./InventoryTile"
 
 const HubInventory = props => {
 
   let character = props.character
+  let inventory = props.inventory
 
-  let itemsOwned
-  if (props.inventory === null) {
-    itemsOwned = <div>You do not own a single item to display!</div>
-  } else {
-    itemsOwned = <InventoryTile />
-  }
+  let itemsOwned =  <InventoryTile
+                    inventory={inventory}
+                    itemInteract={props.itemInteract}
+                  />
 
   let buttonText
   if (props.campaign.completion === 0) {

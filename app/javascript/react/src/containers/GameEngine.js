@@ -12,6 +12,7 @@ class GameEngine extends Component {
       campaignMade: false,
       characterMade: false,
       character: false,
+      inventory: false,
       heroDead: false
     }
     this.handleCampaignSubmit = this.handleCampaignSubmit.bind(this)
@@ -22,6 +23,18 @@ class GameEngine extends Component {
   }
 
   componentDidMount(){
+    // fetch('/api/v1/inventories', {
+    //   credentials: 'same-origin',
+    //   method: 'GET',
+    //   headers: { 'Content-Type':'application/json'}
+    // })
+    // .then(response => response.json())
+    // .then(body => {
+    //   if (body.inventory) {
+    //     this.setState({ inventory: body.inventory })
+    //   }
+    // })
+
     fetch('/api/v1/campaigns', {
       credentials: 'same-origin',
       method: 'GET',
@@ -42,7 +55,7 @@ class GameEngine extends Component {
     .then(response => response.json())
     .then(body => {
       if (body.character) {
-        this.setState({ character: body.character, characterMade: true, heroDead: false })
+        this.setState({ character: body.character, inventory: body.inventory, characterMade: true, heroDead: false })
       }
     })
   }
@@ -79,7 +92,7 @@ class GameEngine extends Component {
     .then(response => response.json())
     .then(body => {
       if (body.character) {
-        this.setState({ character: body.character, characterMade: true, heroDead: false })
+        this.setState({ character: body.character, inventory: body.inventory, characterMade: true, heroDead: false })
       }
     })
   }
@@ -93,18 +106,20 @@ class GameEngine extends Component {
       if (response.status === 200) {
         this.setState({ heroDead: true, campaignMade: false })
       } else {
-        console.log("something went wrong in your handleDeath function")
+        console.log("something went wrong in the handleDeath function")
       }
     })
   }
 
   render() {
+
     let pageRender
     if (this.state.campaignMade && this.state.characterMade && this.state.heroDead === false) {
       pageRender =  <HubScreen
                       handleDeath={this.handleDeath}
                       character={this.state.character}
                       campaign={this.state.campaign}
+                      inventory={this.state.inventory}
                     />
     } else if (this.state.campaignMade) {
       pageRender =  <CharacterForm
