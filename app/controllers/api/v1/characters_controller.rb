@@ -2,12 +2,15 @@ class Api::V1::CharactersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
+    items = Item.all
     characters = Character.where(user_id: session[:user_id], hero: true)
     current_character = characters.find_by(gameover: false)
+    inventory = current_character.inventory
+
     if current_character
-      render json: { character: current_character }
+      render json: { character: current_character, inventory: inventory }
     else
-      render json: { character: nil }
+      render json: { character: nil, inventory: nil }
     end
   end
 
@@ -47,7 +50,13 @@ class Api::V1::CharactersController < ApplicationController
       character.max_speed = 6
     end
 
+
     if character.save
+      inventory = Inventory.new
+      inventory.user_id = character.id
+      inventory.collection = []
+      inventory.save
+
       render json: { character: character }
     else
       render json: { character: nil }

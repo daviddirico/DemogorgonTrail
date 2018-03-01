@@ -10,6 +10,8 @@
   background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
   border: 2px solid transparent;
   border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
+  max-width: 300px;
+  margin: 20px auto;
 }
 
 
@@ -18,7 +20,7 @@
   max-width: 600px;
 }
 
-
+/* character creation */
 
 .characterFormBackDrop {
   background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
@@ -28,10 +30,7 @@
   padding: 20px;
   max-width: 400px;
   height: 500px;
-  /* border: 0px solid black; */
   border-radius: 6px;
-  /* box-shadow: 0px 0px 2px 0px black; */
-  overflow: hidden;
 }
 
 input.character-name-field {
@@ -82,12 +81,16 @@ button.characterButton {
 }
 
 .heroImage {
- object-fit: contain;
- border-radius: 3px;
+  height: -webkit-fill-available;
+  overflow: hidden;
+  position: relative;
 }
 
 .heroImage img {
- height: 460px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
 }
 
 .human {
@@ -181,16 +184,19 @@ button.continueQuestButton {
  width: -webkit-fill-available;
  max-width: 363.33px;
  font-size: x-large;
- background-color: #303030;
- border: 2px solid transparent;
- border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
 }
 
-button.continueQuestButton:hover {
- color: red;
- background-color: #202020;
+/* route options */
+
+button.routeOptionButton {
+  width: 224px;
+  margin: 20px;
 }
 
+.inventoryButtonWrapper {
+  width: 264px;
+  margin: 0 auto;
+}
 
 
 /* encounters */
@@ -221,9 +227,6 @@ button.continueQuestButton:hover {
 }
 
 button.battleButton {
-  background-color: #303030;
-  border: 2px solid transparent;
-  border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
   margin-bottom: 0px;
   width: 168px;
   max-width: 168px;
@@ -238,26 +241,14 @@ button.battleButton {
 }
 
 button.inventoryButton {
-  background-color: #303030;
-  border: 2px solid transparent;
-  border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
   width: -webkit-fill-available;
   margin: 0px 20px 20px 20px;
-}
-
-button.battleButton:hover {
-  color: red;
-  background-color: #202020;
-}
-
-button.inventoryButton:hover {
-  color: red;
-  background-color: #202020;
 }
 
 .optionsText {
   margin-top: 10px;
 }
+
 
 /* simple pop up */
 
@@ -279,14 +270,6 @@ div.simplePopUp {
 }
 
 button.simpleButton {
-  background-color: #303030;
-  border: 2px solid transparent;
-  border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
   width: 100px;
   margin: 0px 20px 20px 20px;
-}
-
-button.simpleButton:hover {
-  color: red;
-  background-color: #202020;
 }

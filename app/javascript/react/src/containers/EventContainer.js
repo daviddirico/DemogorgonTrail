@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import EventOptions from '../components/EventOptions';
 import EventComponent from '../components/EventComponent';
 import TownComponent from '../components/TownComponent';
+import LootComponent from '../components/LootComponent';
 import SimplePopUp from '../components/SimplePopUp';
 
 
@@ -12,8 +13,11 @@ class EventContainer extends Component {
     this.state = {
       currentEvent: false,
       character: false,
+      inventory: false,
       campaign: this.props.campaign,
-      popUp: false
+      popUp: false,
+      errorText: false,
+      confirmation: false
     }
     this.handleCaveSubmit = this.handleCaveSubmit.bind(this)
     this.handleTrailSubmit = this.handleTrailSubmit.bind(this)
@@ -22,8 +26,12 @@ class EventContainer extends Component {
     this.runFromBattle = this.runFromBattle.bind(this)
     this.fightWithEnemies = this.fightWithEnemies.bind(this)
     this.evaluateBattleChoice = this.evaluateBattleChoice.bind(this)
+    this.takeItem = this.takeItem.bind(this)
+    this.processItem = this.processItem.bind(this)
     this.clearEvent = this.clearEvent.bind(this)
     this.simpleClick = this.simpleClick.bind(this)
+    this.handleYesClick = this.handleYesClick.bind(this)
+    this.handleNoClick = this.handleNoClick.bind(this)
   }
 
   componentDidMount() {
@@ -44,7 +52,7 @@ class EventContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
-       this.setState({ character: body.character })
+       this.setState({ character: body.character, inventory: body.inventory })
     })
   }
 
@@ -58,7 +66,7 @@ class EventContainer extends Component {
   handleTrailSubmit(event) {
     event.preventDefault()
     let formPayload = new FormData()
-    formPayload.append('event_type', 'random_event')
+    formPayload.append('event_type', 'trail')
     this.fetchEncounter(formPayload)
   }
 
@@ -111,6 +119,34 @@ class EventContainer extends Component {
     })
   }
 
+  takeItem(event) {
+    event.preventDefault()
+    if (this.state.inventory.weapon && this.state.currentEvent.info[0].item_type === "weapon") {
+      this.setState({ errorText: "You already have a weapon.  Do you wish to replace it?", confirmation: true })
+    } else if (this.state.inventory.armor && this.state.currentEvent.info[0].item_type === "armor") {
+      this.setState({ errorText: "You are already wearing armor. Do you wish to replace it?", confirmation: true })
+    // } else if (this.state.inventory.collection >= 5 && this.state.currentEvent.info.droppable === true) {
+    //   this.setState({ errorText: "Your inventory is full. You must make room for this item if you wish to collect it." })
+    } else {
+      let formPayload = new FormData()
+      formPayload.append('attainment_type', 'find')
+      this.processItem(formPayload)
+    }
+  }
+
+  processItem(formPayload) {
+    fetch(`/api/v1/inventories/${this.state.inventory.id}`, {
+      method: 'PATCH',
+      body: formPayload,
+      credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ inventory: body.inventory })
+      return this.clearEvent()
+    })
+  }
+
   clearEvent() {
     fetch(`/api/v1/events/${this.state.currentEvent.id}`, {
       credentials: 'same-origin',
@@ -132,6 +168,19 @@ class EventContainer extends Component {
     }
   }
 
+  handleYesClick(event) {
+    event.preventDefault()
+    this.setState({ confirmation: false, errorText: false })
+    let formPayload = new FormData()
+    formPayload.append('attainment_type', 'find')
+    this.processItem(formPayload)
+  }
+
+  handleNoClick(event) {
+    event.preventDefault()
+    this.setState({ confirmation: false, errorText: false })
+  }
+
   render() {
     let theCrossRoads
     if (this.state.popUp) {
@@ -143,6 +192,17 @@ class EventContainer extends Component {
       theCrossRoads = <TownComponent
                         handleClick={this.clearEvent}
                         currentEvent={this.state.currentEvent}
+                      />
+    } else if (this.state.currentEvent.name === "loot") {
+      theCrossRoads = <LootComponent
+                        handleClick={this.clearEvent}
+                        handleTakeItemClick={this.takeItem}
+                        handleInventoryClick={this.props.handleButtonClick}
+                        currentEvent={this.state.currentEvent}
+                        errorText={this.state.errorText}
+                        confirmation={this.state.confirmation}
+                        handleYesClick={this.handleYesClick}
+                        handleNoClick={this.handleNoClick}
                       />
     } else if (this.state.currentEvent) {
       theCrossRoads = <EventComponent

@@ -165,9 +165,7 @@ class CharacterForm extends Component {
           </div>
         </div>
         <div className="small-12 medium-6 large-6 columns">
-          <div className="characterFormBackDrop">
-            {heroImage}
-          </div>
+          {heroImage}
         </div>
       </div>
     )

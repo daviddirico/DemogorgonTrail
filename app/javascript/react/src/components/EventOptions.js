@@ -4,7 +4,7 @@ const EventOptions = props => {
 
   let townSlot
   if (props.campaign.completion % 10 === 0 || props.campaign.completion === 1) {
-    townSlot = <button onClick={props.handleTownSubmit}>Search nearby town</button>
+    townSlot = <button className="routeOptionButton" onClick={props.handleTownSubmit}>Search nearby town</button>
   } else {
     townSlot = <div></div>
   }
@@ -12,10 +12,10 @@ const EventOptions = props => {
   return(
     <div>
       {townSlot}
-      <button onClick={props.handleTrailSubmit}>Continue along the trail</button>
-      <button onClick={props.handleCaveSubmit}>Attempt nearby dungeon</button>
-      <div>
-        <button onClick={props.handleInventoryClick}>Return to Inventory</button>
+      <button className="routeOptionButton" onClick={props.handleTrailSubmit}>Continue along the trail</button>
+      <button className="routeOptionButton" onClick={props.handleCaveSubmit}>Attempt nearby dungeon</button>
+      <div className="inventoryButtonWrapper">
+        <button className="inventoryButton" onClick={props.handleInventoryClick}>Check Inventory</button>
       </div>
     </div>
   )

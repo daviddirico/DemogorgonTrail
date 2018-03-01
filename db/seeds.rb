@@ -115,19 +115,19 @@
 #
 #   Item.create([
 #     {
-#       name: "Basic Sword", item_type: "weapon", rare: false, droppable: true, battle_affecting: true, mod_type: "str", mod_value: 1,
+#       name: "Basic Sword", item_type: "weapon", findable: false, rare: false, droppable: true, battle_affecting: true, mod_type: "str", mod_value: 1,
 #       description: "A basic sword. There is nothing special about this."
 #     },
 #     {
-#       name: "Basic Armor", item_type: "armor", rare: false, droppable: true, battle_affecting: true, mod_type: "def", mod_value: 1,
+#       name: "Basic Armor", item_type: "armor", findable: false, rare: false, droppable: true, battle_affecting: true, mod_type: "def", mod_value: 1,
 #       description: "A set of metal armor. This will help protect you in battle, but do not depend deeply on it."
 #     },
 #     {
-#       name: "Lost Notebook", item_type: "special", rare: false, droppable: false, battle_affecting: false,
+#       name: "Lost Notebook", item_type: "special", findable: false, rare: false, droppable: false, battle_affecting: false,
 #       description: "Someone is looking for this."
 #     },
 #     {
-#       name: "Health Potion", item_type: "consumable", rare: false, droppable: true, battle_affecting: true, mod_type: "hp", mod_value: 3,
+#       name: "Health Potion", item_type: "consumable", findable: true, rare: false, droppable: true, battle_affecting: true, mod_type: "hp", mod_value: 3,
 #       description: "This looks healthy to drink."
 #     }
 #   ])
