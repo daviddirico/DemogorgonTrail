@@ -9,12 +9,15 @@ class HubScreen extends Component {
     this.state = {
       campaign: this.props.campaign,
       character: this.props.character,
-      inventory: null,
+      inventory: this.props.inventory,
       paused: true
     }
     this.handleButtonClick = this.handleButtonClick.bind(this)
     this.fetchCharacter = this.fetchCharacter.bind(this)
     this.fetchCampaign = this.fetchCampaign.bind(this)
+    this.fetchInventory = this.fetchInventory.bind(this)
+    this.itemInteract = this.itemInteract.bind(this)
+    this.processItem = this.processItem.bind(this)
   }
 
   handleButtonClick(event) {
@@ -39,6 +42,7 @@ class HubScreen extends Component {
     }
     this.fetchCampaign()
     this.fetchCharacter()
+    this.fetchInventory()
   }
 
   fetchCharacter() {
@@ -65,12 +69,46 @@ class HubScreen extends Component {
     })
   }
 
+  fetchInventory() {
+    fetch('/api/v1/inventories', {
+      credentials: 'same-origin',
+      method: 'GET',
+      headers: { 'Content-Type':'application/json'}
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ inventory: body.inventory })
+    })
+  }
+
+  itemInteract(event) {
+    event.preventDefault()
+    let formPayload = new FormData()
+    formPayload.append('attainment_type', event.target.name)
+    formPayload.append('item_name', event.target.value)
+    this.processItem(formPayload)
+  }
+
+  processItem(formPayload) {
+    event.preventDefault()
+    fetch(`/api/v1/inventories/${this.state.inventory.id}`, {
+      credentials: 'same-origin',
+      body: formPayload,
+      method: 'PATCH'
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ inventory: body.inventory, character: body.character })
+    })
+  }
+
   render() {
 
     let gameplayScreen
     if (this.state.paused === true) {
       gameplayScreen =  <HubInventory
                           handleButtonClick={this.handleButtonClick}
+                          itemInteract={this.itemInteract}
                           campaign={this.state.campaign}
                           character={this.state.character}
                           inventory={this.state.inventory}

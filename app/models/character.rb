@@ -78,13 +78,20 @@ class Character < ApplicationRecord
   end
 
 
-  def experience_gain(character, enemies, beginning_experience)
+  def experience_gain(character, exp_giver, beginning_experience)
     current_experience = character.experience
 
     # This determines the total amount of exp you gain from your latest battle based on each enemy's exp value
     experience_gained = 0
-    enemies.each do |exp|
-      experience_gained += exp.experience
+    battle_changes = false
+
+    if exp_giver.is_a? Integer
+      experience_gained = exp_giver
+    else
+      battle_changes = true
+      exp_giver.each do |exp|
+        experience_gained += exp.experience
+      end
     end
 
     # Experience cap
@@ -95,9 +102,10 @@ class Character < ApplicationRecord
       end
     end
 
+    character.experience = current_experience
+
     # winning a battle will grant experience, this logic track info so that you can know what happened in the battle.
-    if beginning_experience != current_experience
-      character.experience = current_experience
+    if beginning_experience != current_experience && battle_changes == true
       character.recent_changes << "experience"
     end
   end

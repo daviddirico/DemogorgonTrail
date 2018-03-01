@@ -50,16 +50,17 @@ class Api::V1::CharactersController < ApplicationController
       character.max_speed = 6
     end
 
-
     if character.save
       inventory = Inventory.new
-      inventory.user_id = character.id
+      inventory.character_id = character.id
       inventory.collection = []
-      inventory.save
-
-      render json: { character: character }
+      if inventory.save
+        render json: { character: character, inventory: inventory }
+      else
+        render json: { character: character, inventory: nil }
+      end
     else
-      render json: { character: nil }
+      render json: { character: nil, inventory: nil }
     end
   end
 
