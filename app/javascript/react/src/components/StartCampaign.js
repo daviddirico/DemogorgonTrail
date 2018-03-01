@@ -3,12 +3,13 @@ import React from 'react'
 const StartCampaign = props => {
 
   return(
-    <div className="startCampaignWrapper">
+    <div>
       <div className="campaignStartImage">
         <img src={ require('../../../../assets/images/backgrounds/evil-trail') }/>
       </div>
-      <br/>
-      <button onClick={props.handleCampaignSubmit}>Start your Adventure</button>
+      <div className="startCampaignWrapper">
+        <button onClick={props.handleCampaignSubmit}>Start your Adventure</button>
+      </div>
     </div>
   )
 }

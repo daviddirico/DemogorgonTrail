@@ -19,8 +19,10 @@ const HeroImage = props => {
   }
 
   return(
-    <div className={imageClassName}>
-      {heroDisplay}
+    <div className="characterFormBackDrop">
+      <div className={imageClassName}>
+        {heroDisplay}
+      </div>
     </div>
   )
 }

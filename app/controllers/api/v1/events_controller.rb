@@ -4,6 +4,7 @@ class Api::V1::EventsController < ApplicationController
   def index
     user = User.find_by(id: session[:user_id])
     campaign = user.campaign
+    items = Item.all
     event = Event.find_by(campaign_id: campaign.id)
 
     if event
@@ -24,7 +25,7 @@ class Api::V1::EventsController < ApplicationController
 
     if event_type === "trail"
       random_event = rand(0 .. 99)
-      if random_event <= 94
+      if random_event <= 1
         event.name = "enemy"
       else
         event.name = "loot"
@@ -67,7 +68,11 @@ class Api::V1::EventsController < ApplicationController
         end
         event.info = enemies
       elsif event.name === "loot"
-        puts "this is reserved for a loot event"
+        items = Item.where(findable: true)
+
+        loot = []
+        loot << items.sample
+        event.info = loot
       end
     elsif event.name == "town"
       checkpoint = campaign.completion/10.round

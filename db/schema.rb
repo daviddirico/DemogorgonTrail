@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180228023639) do
+ActiveRecord::Schema.define(version: 20180228225725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,15 @@ ActiveRecord::Schema.define(version: 20180228023639) do
     t.index ["campaign_id"], name: "index_events_on_campaign_id"
   end
 
+  create_table "found_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "event_id"
+    t.bigint "item_id"
+    t.index ["event_id"], name: "index_found_items_on_event_id"
+    t.index ["item_id"], name: "index_found_items_on_item_id"
+  end
+
   create_table "inventories", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.string "slot_1"
@@ -71,6 +80,7 @@ ActiveRecord::Schema.define(version: 20180228023639) do
     t.string "armor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "collection"
     t.index ["character_id"], name: "index_inventories_on_character_id"
   end
 
@@ -85,24 +95,25 @@ ActiveRecord::Schema.define(version: 20180228023639) do
     t.boolean "rare"
     t.boolean "droppable"
     t.boolean "battle_affecting"
+    t.boolean "findable", default: false
   end
 
   create_table "npcs", force: :cascade do |t|
-    t.bigint "characters_id"
-    t.bigint "events_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["characters_id"], name: "index_npcs_on_characters_id"
-    t.index ["events_id"], name: "index_npcs_on_events_id"
+    t.bigint "event_id"
+    t.bigint "character_id"
+    t.index ["character_id"], name: "index_npcs_on_character_id"
+    t.index ["event_id"], name: "index_npcs_on_event_id"
   end
 
   create_table "obtainables", force: :cascade do |t|
-    t.bigint "inventories_id"
-    t.bigint "items_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["inventories_id"], name: "index_obtainables_on_inventories_id"
-    t.index ["items_id"], name: "index_obtainables_on_items_id"
+    t.bigint "inventory_id"
+    t.bigint "item_id"
+    t.index ["inventory_id"], name: "index_obtainables_on_inventory_id"
+    t.index ["item_id"], name: "index_obtainables_on_item_id"
   end
 
   create_table "towns", force: :cascade do |t|
