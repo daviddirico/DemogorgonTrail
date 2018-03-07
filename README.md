@@ -10,7 +10,7 @@ the entire back-end is comprised.
 ![Alt text](app/assets/images/screenshots/screenshot2.png?raw=true "screenshot2")
 ![Alt text](app/assets/images/screenshots/screenshot3.png?raw=true "screenshot3")
 ![Alt text](app/assets/images/screenshots/screenshot4.png?raw=true "screenshot4")
-![Alt text](app/assets/images/screenshots/screenshot4.png?raw=true "screenshot5")
+![Alt text](app/assets/images/screenshots/screenshot5.png?raw=true "screenshot5")
 ---
 
 ## Features
