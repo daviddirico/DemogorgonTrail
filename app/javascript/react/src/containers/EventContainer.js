@@ -125,8 +125,8 @@ class EventContainer extends Component {
       this.setState({ errorText: "You already have a weapon.  Do you wish to replace it?", confirmation: true })
     } else if (this.state.inventory.armor && this.state.currentEvent.info[0].item_type === "armor") {
       this.setState({ errorText: "You are already wearing armor. Do you wish to replace it?", confirmation: true })
-    // } else if (this.state.inventory.collection >= 5 && this.state.currentEvent.info.droppable === true) {
-    //   this.setState({ errorText: "Your inventory is full. You must make room for this item if you wish to collect it." })
+    } else if (this.state.inventory.collection.length >= 5 && this.state.currentEvent.info[0].droppable === true) {
+      this.setState({ errorText: "Your inventory is full. You must make room for this item if you wish to collect it." })
     } else {
       let formPayload = new FormData()
       formPayload.append('attainment_type', 'find')
@@ -154,7 +154,7 @@ class EventContainer extends Component {
     })
     .then(response => response.json())
     .then(body => {
-      this.setState({ currentEvent: body.event })
+      this.setState({ currentEvent: body.event, errorText: false, confirmation: false })
     })
   }
 

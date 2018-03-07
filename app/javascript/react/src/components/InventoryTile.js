@@ -30,8 +30,16 @@ const InventoryTile = props => {
     itemDisplay = inventory.collection.map((item, index) => {
       return  <div key={index}>
                 {item}
-                <button onClick={props.itemInteract} name="use" value={item}>Use</button>
-                <button onClick={props.itemInteract} name="drop" value={item}>Drop</button>
+                <button className="itemInteractButton" onClick={props.itemInteract} name="use" value={item}>
+                  <div className="itemInteractText">
+                    Use
+                  </div>
+                </button>
+                <button className="itemInteractButton" onClick={props.itemInteract} name="drop" value={item}>
+                  <div className="itemInteractText">
+                    Drop
+                  </div>
+                </button>
               </div>
     })
   } else {
@@ -40,11 +48,19 @@ const InventoryTile = props => {
 
   return(
     <div>
-      <div>Weapon - {weaponDisplay}</div>
-      <div>Armor - {armorDisplay}</div>
-      <div>Quest Item - {questDisplay}</div>
-      <div>Backpack:</div>
-      {itemDisplay}
+      <div className="small-12 columns inventoryTextWrapper">
+        <div className="inventoryText">
+          <div>Weapon - {weaponDisplay}</div>
+          <div>Armor - {armorDisplay}</div>
+          <div>Quest Item - {questDisplay}</div>
+        </div>
+      </div>
+      <div className="small-12 columns inventoryTextWrapper">
+        <div className="inventoryText">
+          <div className="backpackText">Backpack:</div>
+          {itemDisplay}
+        </div>
+      </div>
     </div>
   )
 }

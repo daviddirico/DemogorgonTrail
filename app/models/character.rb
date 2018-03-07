@@ -38,6 +38,7 @@ class Character < ApplicationRecord
       # fighting one enemy at a time
       enemies.each do |enemy|
         break if e_hp <= 0 || current_hp <=0
+        enemy_speed = enemy.current_speed
         enemy_hp = enemy.current_hitpoints
         # evaluating the damage output for you and the enemy
         if current_strength - enemy.current_defense > 0
@@ -56,16 +57,17 @@ class Character < ApplicationRecord
         while enemy_hp > 0
           break if e_hp <= 0 || current_hp <=0 || enemy_hp <= 0
 
-          if remaining_speed >= enemy.current_speed
-            remaining_speed -= enemy.current_speed
+          if remaining_speed >= enemy_speed
+            remaining_speed -= enemy_speed
             if enemy_damage > enemy_hp
               enemy_damage = enemy_hp
             end
             enemy_hp -= enemy_damage
             e_hp -= enemy_damage
           else
-            current_hp -= hero_damage
+            enemy_speed -= remaining_speed
             remaining_speed = current_speed
+            current_hp -= hero_damage
           end
         end
       end

@@ -5,9 +5,9 @@ class Api::V1::CharactersController < ApplicationController
     items = Item.all
     characters = Character.where(user_id: session[:user_id], hero: true)
     current_character = characters.find_by(gameover: false)
-    inventory = current_character.inventory
 
     if current_character
+      inventory = current_character.inventory
       render json: { character: current_character, inventory: inventory }
     else
       render json: { character: nil, inventory: nil }

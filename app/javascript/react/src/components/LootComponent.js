@@ -2,8 +2,8 @@ import React from 'react';
 
 const LootComponent = props => {
 
-  let errorText
-  let confirmation
+  let errorText;
+  let confirmation;
   if (props.errorText) {
     errorText = <div>{props.errorText}</div>
     if (props.confirmation) {
