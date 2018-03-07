@@ -25,7 +25,7 @@ class Api::V1::EventsController < ApplicationController
 
     if event_type === "trail"
       random_event = rand(0 .. 99)
-      if random_event <= 1
+      if random_event <= 80
         event.name = "enemy"
       else
         event.name = "loot"

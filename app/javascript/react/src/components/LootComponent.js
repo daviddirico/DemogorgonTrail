@@ -15,27 +15,35 @@ const LootComponent = props => {
   }
 
   let foundItems
-  if (props.currentEvent.info.length > 1) {
-    foundItems = props.currentEvent.info.map((item) => {
-      return item.name
-    })
-  } else {
+  let itemImage
+  // if (props.currentEvent.info.length > 1) {
+  //   foundItems = props.currentEvent.info.map((item) => {
+  //     return item.name
+  //   })
+  // } else {
     foundItems = props.currentEvent.info[0].name
-  }
+    itemImage = <img className="itemImage" src={ require(`../../../../assets/images/items/${props.currentEvent.info[0].name}`) }/>
+  // }
 
 
   return(
     <div>
       <div>You found: {foundItems}</div>
+      {itemImage}
       <div>
         {errorText}
         {confirmation}
       </div>
-      <div>
-        <button className="lootButton" onClick={props.handleTakeItemClick}>Take Loot</button>
-        <button className="lootButton" onClick={props.handleClick}>Leave Loot</button>
+      <div className="optionsText">
+        What do you wish to do? <br/>
       </div>
-      <button onClick={props.handleInventoryClick}>Check Inventory</button>
+      <div className="listOfBattleOptions">
+        <div className="fightRun">
+          <button className="battleButton leftBattleTile" onClick={props.handleTakeItemClick}>Take Loot</button>
+          <button className="battleButton rightBattleTile" onClick={props.handleClick}>Leave Loot</button>
+        </div>
+        <button className="inventoryButton" onClick={props.handleInventoryClick}>Check Inventory</button>
+      </div>
     </div>
   )
 }
