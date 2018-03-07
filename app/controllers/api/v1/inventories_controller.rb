@@ -62,8 +62,7 @@ class Api::V1::InventoriesController < ApplicationController
       inventory.collection.slice!(inventory.collection.index(item_name))
     end
 
-    if inventory.save
-      character.save
+    if inventory.save && character.save
       render json: { inventory: inventory, character: character }
     else
       render json: { inventory: {} }

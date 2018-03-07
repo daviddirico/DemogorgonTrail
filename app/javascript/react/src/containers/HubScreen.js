@@ -84,8 +84,8 @@ class HubScreen extends Component {
   itemInteract(event) {
     event.preventDefault()
     let formPayload = new FormData()
-    formPayload.append('attainment_type', event.target.name)
-    formPayload.append('item_name', event.target.value)
+    formPayload.append('attainment_type', event.currentTarget.name)
+    formPayload.append('item_name', event.currentTarget.value)
     this.processItem(formPayload)
   }
 

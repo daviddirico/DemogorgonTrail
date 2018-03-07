@@ -100,10 +100,8 @@ const HubInventory = props => {
                 <div className="inventoryText">
                   Inventory
                 </div>
-                <div className="inventoryText">
-                  {itemsOwned}
-                </div>
               </div>
+              {itemsOwned}
             </div>
           </div>
         </div>
