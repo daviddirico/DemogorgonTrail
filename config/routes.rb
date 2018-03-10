@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :characters
       resources :inventories
       resources :events
+      resources :items
     end
   end
 

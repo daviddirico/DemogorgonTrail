@@ -34,11 +34,14 @@ class Api::V1::InventoriesController < ApplicationController
       item = event.info[0]
 
       if item.item_type == "weapon"
-        inventory.weapon = item.name
+        inventory.weapon.pop
+        inventory.weapon << item
       elsif item.item_type == "armor"
-        inventory.armor = item.name
+        inventory.armor.pop
+        inventory.armor << item
       elsif item.item_type == "special"
-        ingentory.slot_1 = item.name
+        inventory.slot_1.pop
+        inventory.slot_1 << item
       else
         inventory.collection << item.name
       end
@@ -53,6 +56,27 @@ class Api::V1::InventoriesController < ApplicationController
         end
       elsif item.mod_type == "exp"
         character.experience_gain(character, item.mod_value, character.experience)
+      elsif item.mod_type == "str"
+        if item.permanent
+          character.max_strength += item.mod_value
+          character.current_strength += item.mod_value
+        else
+          character.current_strength += item.mod_value
+        end
+      elsif item.mod_type == "def"
+        if item.permanent
+          character.max_defense += item.mod_value
+          character.current_defense += item.mod_value
+        else
+          character.current_defense += item.mod_value
+        end
+      elsif item.mod_type == "spd"
+        if item.permanent
+          character.max_speed += item.mod_value
+          character.current_speed += item.mod_value
+        else
+          character.current_speed += item.mod_value
+        end
       end
 
       inventory.collection.slice!(inventory.collection.index(item_name))

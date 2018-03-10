@@ -4,4 +4,7 @@ class Inventory < ApplicationRecord
   has_many :items, :through => :obtainables
 
   serialize :collection
+  serialize :weapon
+  serialize :armor
+  serialize :slot_1
 end

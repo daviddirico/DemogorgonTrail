@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180228225725) do
+ActiveRecord::Schema.define(version: 20180309002025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,16 +71,12 @@ ActiveRecord::Schema.define(version: 20180228225725) do
 
   create_table "inventories", force: :cascade do |t|
     t.bigint "character_id", null: false
-    t.string "slot_1"
-    t.string "slot_2"
-    t.string "slot_3"
-    t.string "slot_4"
-    t.string "slot_5"
-    t.string "weapon"
-    t.string "armor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "collection"
+    t.text "weapon"
+    t.text "armor"
+    t.text "slot_1"
     t.index ["character_id"], name: "index_inventories_on_character_id"
   end
 
@@ -96,6 +92,7 @@ ActiveRecord::Schema.define(version: 20180228225725) do
     t.boolean "droppable"
     t.boolean "battle_affecting"
     t.boolean "findable", default: false
+    t.boolean "permanent"
   end
 
   create_table "npcs", force: :cascade do |t|

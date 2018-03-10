@@ -25,7 +25,7 @@ class Api::V1::EventsController < ApplicationController
 
     if event_type === "trail"
       random_event = rand(0 .. 99)
-      if random_event <= 80
+      if random_event <= 0
         event.name = "enemy"
       else
         event.name = "loot"
@@ -48,7 +48,6 @@ class Api::V1::EventsController < ApplicationController
         heroes = Character.where(user_id: user.id, hero: true)
         hero = heroes.find_by(gameover: false)
         npcs = Character.where(hero: false)
-
 
         evaluator = 0
         if intensity < 50

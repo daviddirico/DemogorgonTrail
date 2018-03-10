@@ -24,6 +24,13 @@ class Character < ApplicationRecord
     current_strength = character.current_strength
     current_defense = character.current_defense
     current_speed = character.current_speed
+    inventory = character.inventory
+    if inventory.weapon.length > 0
+      current_strength += inventory.weapon[0].mod_value
+    end
+    if inventory.armor.length > 0
+      current_defense += inventory.armor[0].mod_value
+    end
 
     # This determines the max health of the enemies of this fight without affecting the character records of these enemies.
     e_hp = 0
@@ -72,6 +79,10 @@ class Character < ApplicationRecord
         end
       end
     end
+
+    character.current_strength = character.max_strength
+    character.current_defense = character.max_defense
+    character.current_speed = character.max_speed
 
     if beginning_hp != current_hp
       character.current_hitpoints = current_hp
@@ -149,6 +160,10 @@ class Character < ApplicationRecord
         character.current_speed += mid_roll
       end
       experience_needed = (5 * (character.level + 1) ** 3)/4
+    end
+
+    if character.level === 20
+      experience_needed = 10000
     end
 
     if beginning_level != character.level

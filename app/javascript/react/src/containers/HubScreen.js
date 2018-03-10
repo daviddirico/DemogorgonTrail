@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import HubInventory from '../components/HubInventory'
 import EventContainer from './EventContainer'
+import ItemPopUp from "../components/ItemPopUp"
 
 class HubScreen extends Component {
   constructor(props) {
@@ -10,7 +11,9 @@ class HubScreen extends Component {
       campaign: this.props.campaign,
       character: this.props.character,
       inventory: this.props.inventory,
-      paused: true
+      paused: true,
+      selectedItem: false,
+      showPopUp: false
     }
     this.handleButtonClick = this.handleButtonClick.bind(this)
     this.fetchCharacter = this.fetchCharacter.bind(this)
@@ -18,6 +21,7 @@ class HubScreen extends Component {
     this.fetchInventory = this.fetchInventory.bind(this)
     this.itemInteract = this.itemInteract.bind(this)
     this.processItem = this.processItem.bind(this)
+    this.togglePopUp = this.togglePopUp.bind(this)
   }
 
   handleButtonClick(event) {
@@ -102,8 +106,23 @@ class HubScreen extends Component {
     })
   }
 
-  render() {
+  togglePopUp(event) {
+    event.preventDefault()
+    if (this.state.showPopUp === false) {
+      fetch(`/api/v1/items/${event.target.attributes.value.value}`, {
+        credentials: 'same-origin',
+        method: 'GET'
+      })
+      .then(response => response.json())
+      .then(body => {
+        this.setState({ selectedItem: body.item, showPopUp: true })
+      })
+    } else {
+      this.setState({ selectedItem: false, showPopUp: false })
+    }
+  }
 
+  render() {
     let gameplayScreen
     if (this.state.paused === true) {
       gameplayScreen =  <HubInventory
@@ -112,6 +131,7 @@ class HubScreen extends Component {
                           campaign={this.state.campaign}
                           character={this.state.character}
                           inventory={this.state.inventory}
+                          detailClick={this.togglePopUp}
                         />
     } else {
       gameplayScreen =  <EventContainer
@@ -121,9 +141,19 @@ class HubScreen extends Component {
                         />
     }
 
+    let shownPopUp
+    if (this.state.showPopUp) {
+      shownPopUp =  <ItemPopUp
+                      item={this.state.selectedItem}
+                      closePopUp={this.togglePopUp}
+                    />
+    }
+
+
     return(
       <div>
         {gameplayScreen}
+        {shownPopUp}
       </div>
     )
   }
