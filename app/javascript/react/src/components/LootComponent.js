@@ -13,22 +13,13 @@ const LootComponent = props => {
                       </div>
     }
   }
-
-  let foundItems
-  let itemImage
-  // if (props.currentEvent.info.length > 1) {
-  //   foundItems = props.currentEvent.info.map((item) => {
-  //     return item.name
-  //   })
-  // } else {
-    foundItems = props.currentEvent.info[0].name
-    itemImage = <img className="itemImage" src={ require(`../../../../assets/images/items/${props.currentEvent.info[0].name}`) }/>
-  // }
+  let foundItem = props.currentEvent.info[0].name
+  let itemImage = <img className="itemImage" src={ require(`../../../../assets/images/items/${props.currentEvent.info[0].name}`) }/>
 
 
   return(
     <div>
-      <div>You found: {foundItems}</div>
+      <div>You found: {foundItem}</div>
       {itemImage}
       <div>
         {errorText}

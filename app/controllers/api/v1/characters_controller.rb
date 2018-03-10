@@ -35,25 +35,28 @@ class Api::V1::CharactersController < ApplicationController
       character.current_speed = 6
       character.max_speed = 6
     elsif character.race === "elf"
-      character.current_strength = 6
-      character.max_strength = 6
-      character.current_defense = 6
-      character.max_defense = 6
-      character.current_speed = 6
-      character.max_speed = 6
+      character.current_strength = 5
+      character.max_strength = 5
+      character.current_defense = 5
+      character.max_defense = 5
+      character.current_speed = 8
+      character.max_speed = 8
     else
-      character.current_strength = 6
-      character.max_strength = 6
+      character.current_strength = 7
+      character.max_strength = 7
       character.current_defense = 6
       character.max_defense = 6
-      character.current_speed = 6
-      character.max_speed = 6
+      character.current_speed = 5
+      character.max_speed = 5
     end
 
     if character.save
       inventory = Inventory.new
       inventory.character_id = character.id
       inventory.collection = []
+      inventory.weapon = []
+      inventory.armor = []
+      inventory.slot_1 = []
       if inventory.save
         render json: { character: character, inventory: inventory }
       else

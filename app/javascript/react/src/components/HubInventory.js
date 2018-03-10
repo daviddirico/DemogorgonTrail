@@ -7,9 +7,10 @@ const HubInventory = props => {
   let inventory = props.inventory
 
   let itemsOwned =  <InventoryTile
-                    inventory={inventory}
-                    itemInteract={props.itemInteract}
-                  />
+                      inventory={inventory}
+                      itemInteract={props.itemInteract}
+                      detailClick={props.detailClick}
+                    />
 
   let buttonText
   if (props.campaign.completion === 0) {

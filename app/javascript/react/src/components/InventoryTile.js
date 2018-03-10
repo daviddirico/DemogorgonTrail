@@ -1,29 +1,30 @@
 import React from 'react';
+import PrimaryItem from "./PrimaryItem"
 
 const InventoryTile = props => {
 
   let inventory = props.inventory
-  let weaponDisplay
-  let armorDisplay
-  let questDisplay
+  let weapon
+  let armor
+  let quest
   let itemDisplay
 
-  if (inventory.weapon) {
-    weaponDisplay = inventory.weapon.name
+  if (inventory.weapon[0]) {
+    weapon = inventory.weapon[0]
   } else {
-    weaponDisplay = "None"
+    weapon = "None"
   }
 
-  if (inventory.armor) {
-    armorDisplay = inventory.armor.name
+  if (inventory.armor[0]) {
+    armor = inventory.armor[0]
   } else {
-    armorDisplay = "None"
+    armor = "None"
   }
 
-  if (inventory.slot_1) {
-    questDisplay = inventory.slot_1.name
+  if (inventory.slot_1[0]) {
+    quest = inventory.slot_1[0]
   } else {
-    questDisplay = "None"
+    quest = "None"
   }
 
   if (inventory.collection.length >= 1) {
@@ -46,13 +47,26 @@ const InventoryTile = props => {
     itemDisplay = <div>Empty</div>
   }
 
+  let itemList = []
+  itemList.push(weapon)
+  itemList.push(armor)
+  itemList.push(quest)
+  let primaryItems
+
+  primaryItems = itemList.map((item, index) => {
+    return  <PrimaryItem
+              key={index}
+              order={index}
+              item={item}
+              detailClick={props.detailClick}
+            />
+  })
+
   return(
     <div>
       <div className="small-12 columns inventoryTextWrapper">
         <div className="inventoryText">
-          <div>Weapon - {weaponDisplay}</div>
-          <div>Armor - {armorDisplay}</div>
-          <div>Quest Item - {questDisplay}</div>
+          {primaryItems}
         </div>
       </div>
       <div className="small-12 columns inventoryTextWrapper">
