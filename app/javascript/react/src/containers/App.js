@@ -17,9 +17,31 @@ class App extends Component {
       currentUser: {}
     }
     this.handleIconClick = this.handleIconClick.bind(this)
+    this.displayUser = this.displayUser.bind(this)
   }
 
   componentDidMount(){
+    fetch('/api/v1/users', {
+      credentials: 'same-origin',
+      method: 'GET',
+      headers: { 'Content-Type':'application/json'}
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+        error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ signedIn: body.signed_in, currentUser: body.current_user})
+    })
+  }
+
+  displayUser() {
     fetch('/api/v1/users', {
       credentials: 'same-origin',
       method: 'GET',
@@ -82,7 +104,7 @@ class App extends Component {
             </section>
           </nav>
           <Nav />
-          <Main />
+          <Main displayUser={this.displayUser} />
         </div>
       </div>
     )

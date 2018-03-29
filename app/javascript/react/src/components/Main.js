@@ -8,6 +8,7 @@ import SignInContainer from '../containers/SignInContainer'
 import HomeContainer from '../containers/HomeContainer'
 
 const Main = props => {
+
   return(
     <Switch>
       <Route exact path="/" component={HomeContainer} />
@@ -15,7 +16,7 @@ const Main = props => {
       <Route exact path="/highscores" component={HighScoresContainer} />
       <Route exact path="/profile" component={ProfileContainer} />
       <Route exact path="/sign_up" component={SignUpContainer} />
-      <Route exact path="/sign_in" component={SignInContainer} />
+      <Route exact path="/sign_in" render={() => <SignInContainer displayUser={props.displayUser} />} />
       <Route exact path="/sign_out" component={HomeContainer} />
     </Switch>
   )

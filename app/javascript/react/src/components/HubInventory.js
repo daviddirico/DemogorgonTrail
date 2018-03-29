@@ -38,70 +38,39 @@ const HubInventory = props => {
         </div>
         <div className="small-6 columns hubWrapper">
           <div className="hubFieldTop">
-            <div className="small-6 columns hubCharacter">
-              <div className="small-12 columns inventoryTextWrapper">
-                <div className="small-6 columns inventoryText">
-                  {character.name}
-                </div>
-                <div className="small-6 columns inventoryText">
-                  Level {character.level}
+            <div className="small-12 columns hubCharacter">
+              <div>
+                <div className="small-6 columns statText">
+                  {character.name} - {race} {classification}
                 </div>
               </div>
-              <div className="small-12 columns inventoryTextWrapper">
-                <div className="small-6 columns inventoryText">
-                  {race}
-                </div>
-                <div className=" small-6 columns inventoryText">
-                  {classification}
+              <div>
+                <div className="small-6 columns statText">
+                  Level {character.level} - Exp - {character.experience}/{character.next_exp}
                 </div>
               </div>
-              <div className="small-12 columns inventoryTextWrapper">
-                <div className="small-6 columns inventoryText">
-                  Hitpoints
-                </div>
-                <div className="small-6 columns inventoryText">
-                  {character.current_hitpoints}/{character.max_hitpoints}
+              <div>
+                <div className="small-3 columns statText">
+                  HP - {character.current_hitpoints}/{character.max_hitpoints}
                 </div>
               </div>
-              <div className="small-12 columns inventoryTextWrapper">
-                <div className="small-6 columns inventoryText">
-                  Strength
-                </div>
-                <div className="small-6 columns inventoryText">
-                  {character.current_strength}/{character.max_strength}
+              <div>
+                <div className="small-3 columns statText">
+                  Str - {character.current_strength}/{character.max_strength}
                 </div>
               </div>
-              <div className="small-12 columns inventoryTextWrapper">
-                <div className="small-6 columns inventoryText">
-                  Defense
-                </div>
-                <div className="small-6 columns inventoryText">
-                  {character.current_defense}/{character.max_defense}
+              <div>
+                <div className="small-3 columns statText">
+                  Def - {character.current_defense}/{character.max_defense}
                 </div>
               </div>
-              <div className="small-12 columns inventoryTextWrapper">
-                <div className="small-6 columns inventoryText">
-                  Speed
-                </div>
-                <div className="small-6 columns inventoryText">
-                  {character.current_speed}/{character.max_speed}
-                </div>
-              </div>
-              <div className="small-12 columns inventoryTextWrapper">
-                <div className="small-6 columns inventoryText">
-                  Exp/Next
-                </div>
-                <div className="small-6 columns inventoryText">
-                  {character.experience}/{character.next_exp}
+              <div>
+                <div className="small-3 columns statText">
+                  Spd - {character.current_speed}/{character.max_speed}
                 </div>
               </div>
             </div>
-            <div className="small-6 columns hubInventory">
-              <div className="small-12 columns inventoryTextWrapper">
-                <div className="inventoryText">
-                  Inventory
-                </div>
-              </div>
+            <div className="small-12 columns hubInventory">
               {itemsOwned}
             </div>
           </div>
