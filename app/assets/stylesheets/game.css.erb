@@ -111,8 +111,9 @@ div.columns.hubWrapper {
 }
 
 .hubFieldTop {
-  padding-top: 10px;
-  min-height: 350px;
+  padding: 10px;
+  margin-bottom: 10px;
+  min-height: 410px;
   background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
   border: 2px solid transparent;
   border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
@@ -124,17 +125,24 @@ div.columns.hubWrapper {
 
 img.campaignMap {
   width: -webkit-fill-available;
-  margin:  10px 13px 13px 13px;
 }
 
+
+div.small-12.columns.hubCharacter {
+    padding: 0px;
+}
+
+div.small-12.columns.hubInventory {
+    padding: 0px;
+}
 
 div.small-12.columns.inventoryTextWrapper {
  padding: 0px;
  margin-top: 8px;
 }
 
-.inventoryText {
- text-align: left;
+.statText {
+ text-align: middle;
  color: seashell;
  padding: 5px;
  border: 2px solid transparent;
@@ -142,8 +150,22 @@ div.small-12.columns.inventoryTextWrapper {
  background-image: url("<%= image_path("backgrounds/stone-background3.jpg") %>");
 }
 
+.inventoryText {
+ text-align: left;
+ color: seashell;
+ padding: 10px;
+ border: 2px solid transparent;
+ border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
+ background-image: url("<%= image_path("backgrounds/stone-background3.jpg") %>");
+}
+
+.collection {
+  height: 200px;
+}
+
 .hubFieldBottom {
- min-height: 180px;
+ height: 120px;
+ padding: 10px;
  background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
  border: 2px solid transparent;
  border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
@@ -151,18 +173,16 @@ div.small-12.columns.inventoryTextWrapper {
 }
 
 .hubQuestHeader {
-  margin-top: 10px;
   font-size: 26px;
 }
 
 .hubQuestLog {
+  margin: 0px 10px;
   text-align: left;
-  margin: 10px 15px 15px 15px;
 }
 
 button.continueQuestButton {
- margin: 20px 20px 0px 20px;
- height: 140px;
+ height: 100px;
  width: -webkit-fill-available;
  max-width: 363.33px;
  font-size: x-large;
@@ -302,5 +322,5 @@ button.simpleButton {
 /* loots */
 
 .itemImage {
-  max-height: 310px;
+  max-height: 210px;
 }

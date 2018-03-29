@@ -70,7 +70,7 @@ const InventoryTile = props => {
         </div>
       </div>
       <div className="small-12 columns inventoryTextWrapper">
-        <div className="inventoryText">
+        <div className="inventoryText collection">
           <div className="backpackText">Backpack:</div>
           {itemDisplay}
         </div>

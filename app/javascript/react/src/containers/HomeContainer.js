@@ -18,7 +18,7 @@ class HomeContainer extends Component {
       <section className="main-section">
         <div className="homeWrapper">
           <div className="introductoryText title">
-            Welcome to The Demogorgon Trail!
+            Welcome to The Demogorgon Trail
             <br/>
           </div>
 
