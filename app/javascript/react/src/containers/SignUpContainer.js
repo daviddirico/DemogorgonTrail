@@ -106,6 +106,7 @@ class SignUpContainer extends Component {
     .then(response => {
       if (response.status === 200) {
         this.clearForm()
+        this.props.displayUser()
       } else {
         this.setState({ errors: ["Sign up failed!"], success: "" })
       }

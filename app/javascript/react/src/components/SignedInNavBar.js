@@ -16,7 +16,7 @@ class SignedInNavBar extends Component {
 
 
   handleSubmit(event) {
-    event.preventDefault()
+    // event.preventDefault()
     this.endSession();
   }
 
@@ -30,6 +30,7 @@ class SignedInNavBar extends Component {
     .then(response => {
       if (response.status === 200) {
         console.log("success!")
+        this.props.displayUser()
       } else {
         console.log("failure!")
       }

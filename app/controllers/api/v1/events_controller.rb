@@ -4,6 +4,7 @@ class Api::V1::EventsController < ApplicationController
   def index
     user = User.find_by(id: session[:user_id])
     campaign = user.campaign
+    characters = Character.all
     items = Item.all
     event = Event.find_by(campaign_id: campaign.id)
 

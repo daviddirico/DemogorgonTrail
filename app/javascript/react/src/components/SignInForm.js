@@ -5,14 +5,12 @@ const SignInForm = props => {
   return(
     <div>
       <div className="formBackDrop">
-        <div>
+        <div className="signInMessage">
           {props.success}
           {props.loading}
+          {props.errors}
         </div>
         <form>
-          <ul>
-            {props.errors}
-          </ul>
 
           <label className="inputField">
             <input className="field" type='text' onChange={props.handleEmailChange} value={props.emailContent} placeholder={'Email Address'}/>

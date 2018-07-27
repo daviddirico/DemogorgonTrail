@@ -1,7 +1,7 @@
 .gameWrapper {
- max-width: 950px;
- position: relative;
- margin: 0 auto
+  /* max-width: 950px; */
+  position: relative;
+  margin: 0 auto
 }
 
 
@@ -22,6 +22,10 @@
 
 /* character creation */
 
+.characterFormHeader {
+  margin-bottom: 5px;
+}
+
 .characterFormBackDrop {
   background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
   border: 2px solid transparent;
@@ -34,30 +38,30 @@
 }
 
 input.character-name-field {
- margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .raceClassTitle {
- margin: 0px;
+  margin: 0px;
 }
 
 .raceClassList {
- display: table;
- border-spacing: 5px;
- margin: 0px 0px 40px 0px;
+  display: table;
+  border-spacing: 5px;
+  margin: 0px 0px 40px 0px;
 }
 
 .raceClassSelect {
- background-color: rgb(100, 30, 30);
- display: table-cell;
- padding-top: 18px;
- width: 120px;
- height: 60px;
- margin: 1px;
- margin-top: 40px;
- border: 0px solid black;
- border-radius: 3px;
- box-shadow: 0px 0px 2px 0px black
+  background-color: rgb(100, 30, 30);
+  display: table-cell;
+  padding-top: 18px;
+  width: 120px;
+  height: 60px;
+  margin: 1px;
+  margin-top: 40px;
+  border: 0px solid black;
+  border-radius: 3px;
+  box-shadow: 0px 0px 2px 0px black;
 }
 
 .raceClassSelect:hover {
@@ -65,17 +69,17 @@ input.character-name-field {
 }
 
 .raceClassSelect.selected {
- background-color: #199089;
+  background-color: #199089;
 }
 
 .raceClassSelect.selected:hover {
- background-color: #366D69;
+  background-color: #366D69;
 }
 
 button.characterButton {
- border-radius: 3px;
- height: 100px;
- margin: 1rem 0rem 1rem 0rem;
+  border-radius: 3px;
+  height: 100px;
+  margin: 1rem 0rem 1rem 0rem;
 }
 
 .heroImage {
@@ -92,28 +96,28 @@ button.characterButton {
 }
 
 .heroImageNotRendered {
- margin-top: 200px;
+  margin-top: 200px;
 }
 
 
 /* Hub section */
 .hubTop {
- min-height: 350px;
- margin-bottom: 10px;
+ /* min-height: 350px; */
+  margin-bottom: 10px;
 }
 
 .hubBottom {
- min-height: 180px;
+ /* min-height: 180px; */
 }
 
 div.columns.hubWrapper {
- padding: 0px 5px 0px 5px;
+  padding: 0px 5px 0px 5px;
 }
 
 .hubFieldTop {
   padding: 10px;
   margin-bottom: 10px;
-  min-height: 410px;
+  height: 390px;
   background-image: url("<%= image_path("backgrounds/stone-background4.jpg") %>");
   border: 2px solid transparent;
   border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
@@ -123,41 +127,82 @@ div.columns.hubWrapper {
   font-size: 26px;
 }
 
+.campaignMapContainer {
+  overflow: hidden;
+  height: 327px;
+  position: relative;
+}
+
 img.campaignMap {
-  width: -webkit-fill-available;
+  position: absolute;
+  left: 0%;
+  top: -9%;
 }
 
 
 div.small-12.columns.hubCharacter {
-    padding: 0px;
+  padding: 0px;
 }
 
 div.small-12.columns.hubInventory {
-    padding: 0px;
+  padding: 0px;
 }
 
 div.small-12.columns.inventoryTextWrapper {
- padding: 0px;
- margin-top: 8px;
+  padding: 0px;
+  margin-top: 8px;
 }
 
-.statText {
- text-align: middle;
- color: seashell;
- padding: 5px;
- border: 2px solid transparent;
- border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
- background-image: url("<%= image_path("backgrounds/stone-background3.jpg") %>");
+.characterName {
+  font-size: 26px;
+}
+
+.statsAndInventory {
+  display: flex;
+}
+
+.statsTitle {
+  font-size: 20px;
+}
+
+.statsContainer {
+  width: 50%;
+}
+
+.stats {
+  text-align: left;
+}
+
+.inventoryTitle {
+  font-size: 20px;
+}
+
+.inventoryContainer {
+  width: 50%;
+}
+
+.inventory {
+  text-align: left;
+}
+
+
+/* .statText {
+  text-align: middle;
+  color: seashell;
+  padding: 5px;
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
+  background-image: url("<%= image_path("backgrounds/stone-background3.jpg") %>");
 }
 
 .inventoryText {
- text-align: left;
- color: seashell;
- padding: 10px;
- border: 2px solid transparent;
- border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
- background-image: url("<%= image_path("backgrounds/stone-background3.jpg") %>");
-}
+  text-align: left;
+  color: seashell;
+  padding: 10px;
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background.jpg") %>") 20;
+  background-image: url("<%= image_path("backgrounds/stone-background3.jpg") %>");
+} */
 
 .collection {
   height: 200px;
@@ -182,14 +227,15 @@ div.small-12.columns.inventoryTextWrapper {
 }
 
 button.continueQuestButton {
- height: 100px;
- width: -webkit-fill-available;
- max-width: 363.33px;
- font-size: x-large;
+  height: 100px;
+  width: -webkit-fill-available;
+  max-width: 363.33px;
+  font-size: x-large;
 }
 
 .backpackText {
   text-decoration: underline;
+  margin-top: 20px;
 }
 
 button.itemInteractButton {
@@ -232,7 +278,31 @@ button.itemInteractButton {
 
 /* route options */
 
-button.routeOptionButton {
+.routeOptionContainer {
+  display: flex;
+}
+
+.eventImageContainer {
+  height: 172px;
+  overflow: hidden;
+  position: relative;
+}
+
+.eventImage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.routeOptionButton {
+  width: 33.33%;
+  /* display: flex; */
+}
+
+
+
+button.optionButton {
   width: 224px;
   margin: 20px;
 }
@@ -245,16 +315,16 @@ button.routeOptionButton {
 
 /* encounters */
 .enemyImage {
- max-height: 180px;
+  max-height: 180px;
 }
 
 .dungeonEvent {
- background-image: url("<%= image_path("backgrounds/dungeonBackground2.jpg") %>");
- min-height: 300px;
- background-position: center;
- padding-top: 100px;
- border: 2px solid transparent;
- border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
+  background-image: url("<%= image_path("backgrounds/dungeonBackground2.jpg") %>");
+  min-height: 300px;
+  background-position: center;
+  padding-top: 100px;
+  border: 2px solid transparent;
+  border-image: url("<%= image_path("backgrounds/stone-background2.jpg") %>") 20;
 }
 
 .listOfBattleOptions {
