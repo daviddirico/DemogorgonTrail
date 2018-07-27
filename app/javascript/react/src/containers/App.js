@@ -85,7 +85,10 @@ class App extends Component {
       if(this.state.currentUser.role === "admin"){
         user_signed_in = <AdminNavBar />
       } else {
-        user_signed_in = <SignedInNavBar currentUser={this.state.currentUser} />
+        user_signed_in = <SignedInNavBar
+                            currentUser={this.state.currentUser}
+                            displayUser={this.displayUser}
+                          />
       }
     }
 

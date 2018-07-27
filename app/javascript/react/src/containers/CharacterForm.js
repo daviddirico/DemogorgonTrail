@@ -102,14 +102,18 @@ class CharacterForm extends Component {
     }
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
     event.preventDefault()
-    let formPayload = new FormData()
-    formPayload.append('name', this.state.name)
-    formPayload.append('race', this.state.race)
-    formPayload.append('classification', this.state.classification)
-    this.props.handleCharacterSubmit(formPayload)
-    this.clearForm()
+    if(this.state.name !== "" && this.state.race !== "" && this.state.classification !== "") {
+      let formPayload = new FormData()
+      formPayload.append('name', this.state.name)
+      formPayload.append('race', this.state.race)
+      formPayload.append('classification', this.state.classification)
+      this.props.handleCharacterSubmit(formPayload)
+      this.clearForm()
+    } else {
+      console.log("Nice try! Please enter a name for your hero and select Race and Class.")
+    }
   }
 
   clearForm() {
@@ -138,7 +142,7 @@ class CharacterForm extends Component {
 
     return(
       <div>
-        <p>Create your character</p>
+        <div className="characterFormHeader">Create your character</div>
         <div className="small-12 medium-6 large-6 columns">
           <div className="characterFormBackDrop">
             <form>

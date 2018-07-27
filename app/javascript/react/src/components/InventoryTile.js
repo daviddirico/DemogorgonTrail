@@ -63,14 +63,14 @@ const InventoryTile = props => {
   })
 
   return(
-    <div>
-      <div className="small-12 columns inventoryTextWrapper">
-        <div className="inventoryText">
+    <div className="inventory">
+      <div>
+        <div>
           {primaryItems}
         </div>
       </div>
-      <div className="small-12 columns inventoryTextWrapper">
-        <div className="inventoryText collection">
+      <div>
+        <div>
           <div className="backpackText">Backpack:</div>
           {itemDisplay}
         </div>

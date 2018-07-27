@@ -112,7 +112,7 @@ Character.create([
     },
     {
       name: "Demon Edge", item_type: "weapon", findable: true, rare: true, droppable: false, battle_affecting: true, mod_type: "def", mod_value: 10,
-      description: "A set of metal armor. This sword is from the depths, and will serve you well against evil."
+      description: "This sword is from the depths and will serve you well against evil."
     },
     {
       name: "Steel Armor", item_type: "armor", findable: true, rare: true, droppable: false, battle_affecting: true, mod_type: "def", mod_value: 10,

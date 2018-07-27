@@ -30,48 +30,68 @@ const HubInventory = props => {
   return(
     <div>
       <div className="hubTop">
-        <div className="small-6 columns hubWrapper">
+        <div className="small-5 columns hubWrapper">
           <div className="hubFieldTop">
             <div className="hubMapText">Map of progress</div>
-            <img className="campaignMap" src={ require(`../../../../assets/images/maps/campaign-map`) }/>
+            <div className="campaignMapContainer">
+              <img className="campaignMap" src={ require(`../../../../assets/images/maps/campaign-map`) }/>
+            </div>
           </div>
         </div>
-        <div className="small-6 columns hubWrapper">
+        <div className="small-7 columns hubWrapper">
           <div className="hubFieldTop">
             <div className="small-12 columns hubCharacter">
-              <div>
-                <div className="small-6 columns statText">
-                  {character.name} - {race} {classification}
+              <div className="characterName">
+                <div>
+                  {character.name}
                 </div>
               </div>
-              <div>
-                <div className="small-6 columns statText">
-                  Level {character.level} - Exp - {character.experience}/{character.next_exp}
+              <div className="statsAndInventory">
+                <div className="statsContainer">
+                  <div className="statsTitle">Character Stats</div>
+                  <div className="stats">
+                    <div>
+                      <div>
+                        {race} {classification}
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        Level {character.level}
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        Exp - {character.experience}/{character.next_exp}
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        HP - {character.current_hitpoints}/{character.max_hitpoints}
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        Str - {character.current_strength}/{character.max_strength}
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        Def - {character.current_defense}/{character.max_defense}
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        Spd - {character.current_speed}/{character.max_speed}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="inventoryContainer">
+                  <div className="inventoryTitle">Inventory</div>
+                  {itemsOwned}
                 </div>
               </div>
-              <div>
-                <div className="small-3 columns statText">
-                  HP - {character.current_hitpoints}/{character.max_hitpoints}
-                </div>
-              </div>
-              <div>
-                <div className="small-3 columns statText">
-                  Str - {character.current_strength}/{character.max_strength}
-                </div>
-              </div>
-              <div>
-                <div className="small-3 columns statText">
-                  Def - {character.current_defense}/{character.max_defense}
-                </div>
-              </div>
-              <div>
-                <div className="small-3 columns statText">
-                  Spd - {character.current_speed}/{character.max_speed}
-                </div>
-              </div>
-            </div>
-            <div className="small-12 columns hubInventory">
-              {itemsOwned}
             </div>
           </div>
         </div>

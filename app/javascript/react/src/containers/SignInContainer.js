@@ -67,14 +67,14 @@ class SignInContainer extends Component {
     if(this.state.errors.length > 0){
       errors = this.state.errors.map( (error, index) => {
         return(
-          <p key={index} >{error}</p>
+          <div key={index} >{error}</div>
         )
       })
     }
 
     let success;
     if(this.state.success != '' && !this.props.loading ){
-      success = <h4>{this.state.success}</h4>
+      success = this.state.success
     }
 
 
