@@ -13,7 +13,15 @@ const Main = props => {
     <Switch>
       <Route exact path="/" component={HomeContainer} />
       { props.signedIn &&
-      <Route exact path="/game" render={() => <GameEngine signedIn={props.signedIn} currentUser={props.currentUser} />} />
+      <Route exact path="/game" render={() =>
+        <GameEngine
+          signedIn={props.signedIn}
+          currentUser={props.currentUser}
+          character={props.character}
+          inventory={props.inventory}
+          campaign={props.campaign}
+        />}
+      />
       }
       <Route exact path="/game" render={() => <SignInContainer displayUser={props.displayUser} />} />
       <Route exact path="/highscores" component={HighScoresContainer} />
