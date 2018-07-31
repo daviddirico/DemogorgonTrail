@@ -14,31 +14,29 @@ class App extends Component {
       icon: false,
       toggleClassName: "off-canvas-wrap docs-wrap main-nav",
       signedIn: false,
-      currentUser: {}
+      currentUser: {},
+      character: false,
+      campaign: false,
+      inventory: false
     }
     this.handleIconClick = this.handleIconClick.bind(this)
     this.displayUser = this.displayUser.bind(this)
   }
 
   componentDidMount(){
-    fetch('/api/v1/users', {
-      credentials: 'same-origin',
-      method: 'GET',
-      headers: { 'Content-Type':'application/json'}
-    })
-    .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`,
-        error = new Error(errorMessage);
-        throw(error);
-      }
-    })
-    .then(response => response.json())
-    .then(body => {
-      this.setState({ signedIn: body.signed_in, currentUser: body.current_user})
-    })
+    Promise.all([
+      fetch('/api/v1/characters', {credentials: 'same-origin', method: 'GET', headers: { 'Content-Type':'application/json'}}),
+      fetch('/api/v1/campaigns', {credentials: 'same-origin', method: 'GET', headers: { 'Content-Type':'application/json'}}),
+      fetch('/api/v1/users', {credentials: 'same-origin', method: 'GET', headers: { 'Content-Type':'application/json'}})
+    ])
+    .then(([res1, res2, res3]) => Promise.all([res1.json(), res2.json(), res3.json()]))
+    .then(([body1, body2, body3]) => this.setState({
+      character: body1.character,
+      inventory: body1.inventory,
+      campaign: body2.campaign,
+      signedIn: body3.signed_in,
+      currentUser: body3.current_user
+    }));
   }
 
   displayUser() {
@@ -107,7 +105,14 @@ class App extends Component {
             </section>
           </nav>
           <Nav />
-          <Main signedIn={this.state.signedIn} currentUser={this.state.currentUser} displayUser={this.displayUser} />
+          <Main
+            signedIn={this.state.signedIn}
+            currentUser={this.state.currentUser}
+            displayUser={this.displayUser}
+            character={this.state.character}
+            inventory={this.state.inventory}
+            campaign={this.state.campaign}
+          />
         </div>
       </div>
     )
