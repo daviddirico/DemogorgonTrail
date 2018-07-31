@@ -10,6 +10,7 @@ const HubInventory = props => {
                       inventory={inventory}
                       itemInteract={props.itemInteract}
                       detailClick={props.detailClick}
+                      consumableClick={props.consumableClick}
                     />
 
   let buttonText

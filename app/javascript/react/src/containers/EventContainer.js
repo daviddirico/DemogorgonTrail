@@ -121,9 +121,9 @@ class EventContainer extends Component {
 
   takeItem(event) {
     event.preventDefault()
-    if (this.state.inventory.weapon && this.state.currentEvent.info[0].item_type === "weapon") {
+    if (this.state.inventory.weapon.length > 0 && this.state.currentEvent.info[0].item_type === "weapon") {
       this.setState({ errorText: "You already have a weapon.  Do you wish to replace it?", confirmation: true })
-    } else if (this.state.inventory.armor && this.state.currentEvent.info[0].item_type === "armor") {
+    } else if (this.state.inventory.armor.length > 0 && this.state.currentEvent.info[0].item_type === "armor") {
       this.setState({ errorText: "You are already wearing armor. Do you wish to replace it?", confirmation: true })
     } else if (this.state.inventory.collection.length >= 5 && this.state.currentEvent.info[0].droppable === true) {
       this.setState({ errorText: "Your inventory is full. You must make room for this item if you wish to collect it." })
