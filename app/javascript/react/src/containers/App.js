@@ -107,7 +107,7 @@ class App extends Component {
             </section>
           </nav>
           <Nav />
-          <Main displayUser={this.displayUser} />
+          <Main signedIn={this.state.signedIn} currentUser={this.state.currentUser} displayUser={this.displayUser} />
         </div>
       </div>
     )

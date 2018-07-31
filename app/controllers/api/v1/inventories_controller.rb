@@ -55,6 +55,12 @@ class Api::V1::InventoriesController < ApplicationController
         else
           character.current_hitpoints += item.mod_value
         end
+
+        if character.current_hitpoints <= 0
+          character.gameover = true
+          character.recent_changes = ["gameover"]
+        end
+
       elsif item.mod_type == "exp"
         character.experience_gain(character, item.mod_value, character.experience)
       elsif item.mod_type == "str"

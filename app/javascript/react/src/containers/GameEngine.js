@@ -23,18 +23,6 @@ class GameEngine extends Component {
   }
 
   componentDidMount(){
-    // fetch('/api/v1/inventories', {
-    //   credentials: 'same-origin',
-    //   method: 'GET',
-    //   headers: { 'Content-Type':'application/json'}
-    // })
-    // .then(response => response.json())
-    // .then(body => {
-    //   if (body.inventory) {
-    //     this.setState({ inventory: body.inventory })
-    //   }
-    // })
-
     fetch('/api/v1/campaigns', {
       credentials: 'same-origin',
       method: 'GET',
@@ -133,9 +121,11 @@ class GameEngine extends Component {
 
 
     return(
-      <div>
-        {pageRender}
-      </div>
+      <section className="main-section">
+        <div className="gameWrapper">
+          {pageRender}
+        </div>
+      </section>
     )
   }
 }

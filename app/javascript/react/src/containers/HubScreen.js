@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import HubInventory from '../components/HubInventory'
 import EventContainer from './EventContainer'
 import ItemPopUp from "../components/ItemPopUp"
+import SimplePopUp from "../components/SimplePopUp"
 
 class HubScreen extends Component {
   constructor(props) {
@@ -13,7 +14,10 @@ class HubScreen extends Component {
       inventory: this.props.inventory,
       paused: true,
       selectedItem: false,
-      showPopUp: false
+      showPopUp: false,
+      statusPopUp: false,
+      items: false,
+      eventItem: false
     }
     this.handleButtonClick = this.handleButtonClick.bind(this)
     this.fetchCharacter = this.fetchCharacter.bind(this)
@@ -21,7 +25,10 @@ class HubScreen extends Component {
     this.fetchInventory = this.fetchInventory.bind(this)
     this.itemInteract = this.itemInteract.bind(this)
     this.processItem = this.processItem.bind(this)
+    this.checkHealth = this.checkHealth.bind(this)
+    this.preToggle = this.preToggle.bind(this)
     this.togglePopUp = this.togglePopUp.bind(this)
+    this.simpleClick = this.simpleClick.bind(this)
   }
 
   handleButtonClick(event) {
@@ -104,12 +111,54 @@ class HubScreen extends Component {
     .then(body => {
       this.setState({ inventory: body.inventory, character: body.character })
     })
+    .then(this.checkHealth)
+  }
+
+  checkHealth() {
+    if (this.state.character.gameover) {
+      this.setState({ statusPopUp: true })
+    }
+  }
+
+  simpleClick(event) {
+    event.preventDefault()
+    this.setState({
+      statusPopUp: false
+    })
+    if (this.state.character.gameover) {
+      this.props.handleDeath()
+    }
+  }
+
+  preToggle(event) {
+    event.preventDefault()
+    this.setState({ eventItem: event.target.attributes.value.value })
+    fetch("/api/v1/items", {
+      credentials: 'same-origin',
+      headers: { 'Content-Type':'application/json'},
+      method: 'GET',
+    })
+    .then(response => response.json())
+    .then(body => {
+      this.setState({ items: body.items })
+    })
+    .then(this.togglePopUp)
   }
 
   togglePopUp(event) {
-    event.preventDefault()
+    let itemEvent
+    if (this.state.items && this.state.showPopUp === false) {
+      this.state.items.forEach((item) => {
+        if (item.name === this.state.eventItem) {
+          itemEvent = item.id
+        }
+      })
+    } else if (this.state.showPopUp === false) {
+      event.preventDefault()
+      itemEvent = event.target.attributes.value.value
+    }
     if (this.state.showPopUp === false) {
-      fetch(`/api/v1/items/${event.target.attributes.value.value}`, {
+      fetch(`/api/v1/items/${itemEvent}`, {
         credentials: 'same-origin',
         method: 'GET'
       })
@@ -118,13 +167,19 @@ class HubScreen extends Component {
         this.setState({ selectedItem: body.item, showPopUp: true })
       })
     } else {
-      this.setState({ selectedItem: false, showPopUp: false })
+      this.setState({ selectedItem: false, showPopUp: false, items: false, eventItem: false })
     }
   }
 
   render() {
     let gameplayScreen
-    if (this.state.paused === true) {
+    if (this.state.statusPopUp === true) {
+      gameplayScreen =  <SimplePopUp
+                          fromHub="true"
+                          simpleClick={this.simpleClick}
+                          character={this.state.character}
+                        />
+    } else if (this.state.paused === true) {
       gameplayScreen =  <HubInventory
                           handleButtonClick={this.handleButtonClick}
                           itemInteract={this.itemInteract}
@@ -132,6 +187,7 @@ class HubScreen extends Component {
                           character={this.state.character}
                           inventory={this.state.inventory}
                           detailClick={this.togglePopUp}
+                          consumableClick={this.preToggle}
                         />
     } else {
       gameplayScreen =  <EventContainer

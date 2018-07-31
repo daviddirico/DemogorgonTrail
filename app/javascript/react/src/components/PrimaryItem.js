@@ -19,15 +19,18 @@ const PrimaryItem = props => {
 
   let initialText
   if (props.order === 0) {
-    initialText = "Weapon - "
+    initialText = "Weapon -"
   } else if (props.order === 1) {
-    initialText = "Armor - "
+    initialText = "Armor -"
   } else if (props.order === 2) {
-    initialText = "Quest Item - "
+    initialText = "Quest Item -"
   }
 
   return(
-    <div className="primaryItemList" onClick={clicker} value={itemValue}>{initialText}{followingText}</div>
+    <div>
+      <div className="precedingText">{initialText}&nbsp;</div>
+      <div className="backpackItem" onClick={clicker} value={itemValue}>{followingText}</div>
+    </div>
   )
 }
 

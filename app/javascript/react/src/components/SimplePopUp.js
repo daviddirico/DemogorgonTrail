@@ -7,7 +7,9 @@ const SimplePopUp = props => {
   if (props.character.recent_changes) {
     changes = props.character.recent_changes
 
-    if (changes.includes("gameover")) {
+    if (props.fromHub === "true") {
+      initialResult = <div>OH NO!!! You have died! Your adventure ends here...</div>
+    } else if (changes.includes("gameover")) {
       initialResult = <div>OH NO!!! You have been slain! Your adventure ends here...</div>
     } else if (changes.includes("hp") && changes.includes("experience") && changes.includes("level")) {
       initialResult = <div>You are victorious and have increased in power!  You have taken some damage from this battle.</div>

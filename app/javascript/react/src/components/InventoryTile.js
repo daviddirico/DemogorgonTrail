@@ -1,6 +1,7 @@
 import React from 'react';
 import PrimaryItem from "./PrimaryItem"
 
+
 const InventoryTile = props => {
 
   let inventory = props.inventory
@@ -30,21 +31,23 @@ const InventoryTile = props => {
   if (inventory.collection.length >= 1) {
     itemDisplay = inventory.collection.map((item, index) => {
       return  <div key={index}>
-                {item}
-                <button className="itemInteractButton" onClick={props.itemInteract} name="use" value={item}>
-                  <div className="itemInteractText">
-                    Use
-                  </div>
-                </button>
-                <button className="itemInteractButton" onClick={props.itemInteract} name="drop" value={item}>
-                  <div className="itemInteractText">
-                    Drop
-                  </div>
-                </button>
+                <div className="backpackItem" onClick={props.consumableClick} value={item}>{item}</div>
+                <div className="backpackItem rightLine">
+                  <button className="itemInteractButton" onClick={props.itemInteract} name="use" value={item}>
+                    <div className="itemInteractText">
+                      Use
+                    </div>
+                  </button>
+                  <button className="itemInteractButton" onClick={props.itemInteract} name="drop" value={item}>
+                    <div className="itemInteractText">
+                      Drop
+                    </div>
+                  </button>
+                </div>
               </div>
     })
   } else {
-    itemDisplay = <div>Empty</div>
+    itemDisplay = <div className="emptyText">Empty</div>
   }
 
   let itemList = []
